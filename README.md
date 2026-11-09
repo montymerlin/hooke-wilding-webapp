@@ -115,4 +115,10 @@ python3 tools/build_content_youtube_dates.py --write
 - **Images & PDFs**: `assets/`
 - **Utility scripts**: `tools/`
 
+## License
 
+Copyright © 2026 Monty Bryant. All rights reserved. No open-source licence has been granted yet (see [LICENSE](LICENSE)).
+
+If you'd like to use, fork, adapt or collaborate on this project, please get in touch by [opening an issue](https://github.com/montymerlin/hooke-wilding-webapp/issues) or through [my Linktree](https://linktr.ee/montybryant), and I'll review each request.
+
+Third-party material in this repository, such as Wikimedia Commons images and other people's artwork, writing or photographs, stays under its own licence or with its creator.
