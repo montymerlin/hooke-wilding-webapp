@@ -1,346 +1,321 @@
-/* global window, document */
-
-function el(id) {
-  const node = document.getElementById(id);
-  if (!node) throw new Error(`Missing element: #${id}`);
-  return node;
-}
-
-function escapeHtml(s) {
-  return String(s)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
-}
-
-function normalize(s) {
-  return String(s || "").toLowerCase().trim();
-}
-
-function escapeRegExp(s) {
-  return String(s).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-}
-
-function highlight(text, query) {
-  const q = String(query || "").trim();
-  if (!q) return escapeHtml(text);
-  const re = new RegExp(escapeRegExp(q), "ig");
-  const parts = String(text).split(re);
-  const matches = String(text).match(re) || [];
-  let out = "";
-  for (let i = 0; i < parts.length; i++) {
-    out += escapeHtml(parts[i]);
-    if (i < matches.length) out += `<mark>${escapeHtml(matches[i])}</mark>`;
-  }
-  return out;
-}
-
-function unique(arr) {
-  return Array.from(new Set(arr));
-}
-
-function main() {
+(() => {
+  const get = (id) => document.getElementById(id);
+  const text = (tag, value) => {
+    const element = document.createElement(tag);
+    element.textContent = value;
+    return element;
+  };
+  const placeholder = "./assets/field-guide/placeholder.svg";
   const data = window.__DORSET_GUIDE__;
-  if (!data || !Array.isArray(data.species)) {
-    document.body.innerHTML = "<div style='padding:24px;font-family:system-ui'>Missing Dorset guide data.</div>";
+  const empty = get("fgEmpty");
+  if (!data?.species?.length) {
+    get("fgTools").hidden = true;
+    get("fgBrowser").hidden = true;
+    get("fgEmptyTitle").textContent = "Species catalogue unavailable";
+    get("fgEmptyText").textContent = "Check that the guide’s data folder is alongside this page.";
+    get("fgReset").hidden = true;
+    empty.hidden = false;
     return;
   }
 
-  const $search = el("fgSearch");
-  const $groups = el("fgGroups");
-  const $habitats = el("fgHabitats");
-  const $seasons = el("fgSeasons");
-  const $grid = el("fgGrid");
-  const $meta = el("fgMeta");
-  const $clear = el("fgClear");
-  const $speciesModal = el("speciesModal");
-  const $speciesModalTitle = el("speciesModalTitle");
-  const $speciesModalMeta = el("speciesModalMeta");
-  const $speciesModalHeadTags = el("speciesModalHeadTags");
-  const $speciesModalImg = el("speciesModalImg");
-  const $speciesModalNote = el("speciesModalNote");
-  const $speciesModalCredit = el("speciesModalCredit");
-  const $speciesModalHabitats = el("speciesModalHabitats");
-  const $speciesModalWatchFor = el("speciesModalWatchFor");
-  const $speciesModalSeasons = el("speciesModalSeasons");
-  const $speciesModalConservation = el("speciesModalConservation");
-  const $speciesModalSources = el("speciesModalSources");
-  const $speciesModalClose = el("speciesModalClose");
-
-  const habitatsById = Object.fromEntries((data.habitats || []).map((h) => [h.id, h]));
-  const groups = data.groups || unique(data.species.map((s) => s.group)).sort((a, b) => a.localeCompare(b));
+  const habitats = new Map((data.habitats || []).map((item) => [item.id, item.name]));
   const seasons = data.seasons || ["Spring", "Summer", "Autumn", "Winter"];
+  const search = get("fgSearch");
+  const choices = get("fgChoices");
+  const clear = get("fgClear");
+  const filterToggle = get("fgFilterToggle");
+  const filters = { groups: new Set(), habitats: new Set(), seasons: new Set() };
+  const species = [...data.species].sort((a, b) => a.commonName.localeCompare(b.commonName, "en"));
+  const opening = species.find((item) => item.id === "emperor-dragonfly") || species[0];
+  // Start the strip with the featured plate, keeping the rest of the index alphabetical.
+  const index = [opening, ...species.filter((item) => item !== opening)];
+  let selected = opening;
+  let results = [];
+  let speciesButtons = [];
+  const habitatNames = (item) => (item.habitats || []).map((id) => habitats.get(id) || id);
 
-  const state = { q: "", groups: new Set(), habitats: new Set(), seasons: new Set() };
-
-  function updateClearVisibility() {
-    const hasActive =
-      !!String(state.q || "").trim() ||
-      state.groups.size > 0 ||
-      state.habitats.size > 0 ||
-      state.seasons.size > 0;
-    $clear.hidden = !hasActive;
-  }
-
-  function matches(s) {
-    const q = normalize(state.q);
-    const hay = normalize(
-      [
-        s.commonName,
-        s.scientificName,
-        s.group,
-        (s.habitats || []).join(" "),
-        (s.notes || ""),
-        (s.watchFor || []).join(" "),
-      ].join(" ")
-    );
-    const qOk = !q || hay.includes(q);
-    const gOk = state.groups.size === 0 || state.groups.has(s.group);
-    const hOk = state.habitats.size === 0 || (s.habitats || []).some((h) => state.habitats.has(h));
-    const seasonOk =
-      state.seasons.size === 0 ||
-      (s.seasonality &&
-        Object.keys(s.seasonality).some((k) => state.seasons.has(k) && String(s.seasonality[k] || "").trim() !== ""));
-    return qOk && gOk && hOk && seasonOk;
-  }
-
-  function renderFilters() {
-    $groups.innerHTML = groups
-      .map((g) => {
-        const active = state.groups.has(g);
-        return `<button class="chip ${active ? "is-active" : ""}" type="button" data-fg-group="${escapeHtml(g)}">${escapeHtml(
-          g
-        )}</button>`;
-      })
-      .join("");
-
-    $habitats.innerHTML = (data.habitats || [])
-      .map((h) => {
-        const active = state.habitats.has(h.id);
-        return `<button class="chip ${active ? "is-active" : ""}" type="button" data-fg-habitat="${escapeHtml(
-          h.id
-        )}">${escapeHtml(h.name)}</button>`;
-      })
-      .join("");
-
-    $seasons.innerHTML = seasons
-      .map((s) => {
-        const active = state.seasons.has(s);
-        return `<button class="chip ${active ? "is-active" : ""}" type="button" data-fg-season="${escapeHtml(s)}">${escapeHtml(
-          s
-        )}</button>`;
-      })
-      .join("");
-
-    updateClearVisibility();
-  }
-
-  function renderGrid() {
-    const filtered = data.species.filter(matches);
-    $meta.textContent = `${filtered.length} item${filtered.length === 1 ? "" : "s"}`;
-
-    if (filtered.length === 0) {
-      $grid.innerHTML = `<div class="panel" style="grid-column:1 / -1">
-        <div class="panel__title">No matches</div>
-        <div class="panel__meta">Try clearing filters or using a shorter search.</div>
-      </div>`;
-      return;
+  function addFilters(key, legend, entries) {
+    const fieldset = document.createElement("fieldset");
+    fieldset.append(text("legend", legend));
+    for (const [value, label] of entries) {
+      const wrapper = document.createElement("label");
+      const input = document.createElement("input");
+      input.type = "checkbox";
+      input.value = value;
+      input.addEventListener("change", () => {
+        if (input.checked) filters[key].add(value);
+        else filters[key].delete(value);
+        renderIndex();
+      });
+      wrapper.append(input, text("span", label));
+      fieldset.append(wrapper);
     }
-
-    $grid.innerHTML = filtered
-      .map((s) => {
-        const q = state.q;
-        const habitatNames = (s.habitats || []).map((h) => (habitatsById[h] ? habitatsById[h].name : h));
-        const note = s.notes || "";
-        const cover = (s.cover && s.cover.src) || "assets/field-guide/placeholder.svg";
-
-        return `<article class="fg-card is-clickable" role="button" tabindex="0" data-species-id="${escapeHtml(s.id)}" aria-label="Open details for ${escapeHtml(
-          s.commonName
-        )}">
-          <img class="fg-card__img" src="./${escapeHtml(cover)}" alt="" loading="lazy" onerror="this.src='./assets/field-guide/placeholder.svg'" />
-          <div class="fg-card__head">
-            <div class="fg-card__title">${highlight(s.commonName, q)}</div>
-            <div class="fg-card__meta">
-              <span class="mini">${escapeHtml(s.group)}</span>
-              ${s.scientificName ? `<span class="mini"><em>${highlight(s.scientificName, q)}</em></span>` : ""}
-            </div>
-          </div>
-          <div class="fg-card__body">
-            ${note ? `<div class="fg-card__note">${highlight(note, q)}</div>` : ""}
-            <div class="fg-card__row"><span class="fg-label">Habitats</span> <span>${habitatNames
-              .map((h) => highlight(h, q))
-              .join(", ")}</span></div>
-            ${s.watchFor && s.watchFor.length ? `<div class="fg-card__row"><span class="fg-label">Watch for</span> <span>${s.watchFor
-              .map((w) => highlight(w, q))
-              .join(", ")}</span></div>` : ""}
-          </div>
-        </article>`;
-      })
-      .join("");
+    get("fgFilterGroups").append(fieldset);
   }
 
-  function openSpeciesModalById(id) {
-    const s = data.species.find((x) => x.id === id);
-    if (!s) return;
-    const q = state.q;
-    const cover = (s.cover && s.cover.src) || "assets/field-guide/placeholder.svg";
-    const habitatNames = (s.habitats || []).map((h) => (habitatsById[h] ? habitatsById[h].name : h));
-    const habitatBadges = (s.habitats || [])
-      .map((h) => {
-        const hh = habitatsById[h];
-        if (!hh) return null;
-        return `<span class="mini">${highlight(hh.name, q)}</span>`;
-      })
-      .filter(Boolean)
-      .join("");
+  function matches(item, query) {
+    if (filters.groups.size && !filters.groups.has(item.group)) return false;
+    if (filters.habitats.size && !item.habitats?.some((id) => filters.habitats.has(id))) return false;
+    if (filters.seasons.size && ![...filters.seasons].some((season) => item.seasonality?.[season]?.trim())) return false;
+    if (!query) return true;
+    return [item.commonName, item.scientificName, item.group, ...habitatNames(item), item.notes, item.identification?.text,
+      ...(item.watchFor || []), ...Object.values(item.seasonality || {})].join(" ").toLowerCase().includes(query);
+  }
 
-    $speciesModalTitle.innerHTML = `${highlight(s.commonName, q)}${
-      s.scientificName ? ` <span class="muted" style="font-weight:400"><em>${highlight(s.scientificName, q)}</em></span>` : ""
-    }`;
-    $speciesModalImg.src = `./${cover}`;
-    $speciesModalImg.alt = `${s.commonName} cover photo`;
-    if (s.cover && (s.cover.sourceUrl || s.cover.license || s.cover.artist)) {
-      const artist = s.cover.artist ? `© ${escapeHtml(s.cover.artist)}` : "";
-      const lic = s.cover.license ? escapeHtml(s.cover.license) : "";
-      const licLink = s.cover.licenseUrl
-        ? `<a href="${escapeHtml(s.cover.licenseUrl)}" target="_blank" rel="noopener">license</a>`
-        : "";
-      const srcLink = s.cover.sourceUrl
-        ? `<a href="${escapeHtml(s.cover.sourceUrl)}" target="_blank" rel="noopener">source</a>`
-        : "";
-      const bits = [artist, lic].filter(Boolean).join(" · ");
-      const links = [srcLink, licLink].filter(Boolean).join(" · ");
-      $speciesModalCredit.innerHTML = `${bits}${bits && links ? " · " : ""}${links}`;
-      $speciesModalCredit.hidden = false;
+  function sourceLink(title, url) {
+    if (!url) return document.createTextNode(title);
+    const link = text("a", title);
+    link.href = url;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    return link;
+  }
+
+  function renderReferences(item) {
+    const references = get("fgReferences");
+    references.replaceChildren();
+    const conservation = item.conservation || {};
+    const verified = (value) => Boolean(value && !/^TBD\b/i.test(value));
+    const entries = [
+      ["UK/GB status", conservation.ukGbStatus],
+      ["Priority", conservation.priority],
+      ["Protection", (conservation.protected || []).filter(verified).join(", ")]
+    ].filter(([, value]) => verified(value));
+    if (entries.length) {
+      const facts = document.createElement("dl");
+      for (const [label, value] of entries) facts.append(text("dt", label), text("dd", value));
+      references.append(facts);
+      if (conservation.notes) references.append(text("p", conservation.notes));
     } else {
-      $speciesModalCredit.textContent = "";
-      $speciesModalCredit.hidden = true;
+      references.append(text("p", "UK conservation status awaits verification."));
     }
-    // Tags to the right of the title (header)
-    $speciesModalHeadTags.innerHTML = `<span class="mini">${escapeHtml(s.group)}</span>${habitatBadges ? habitatBadges : ""}`;
-    // Keep old container unused (hidden in HTML) for backward compatibility
-    $speciesModalMeta.innerHTML = "";
-    $speciesModalNote.innerHTML = s.notes ? highlight(s.notes, q) : "<span class='muted'>No notes yet.</span>";
-    $speciesModalHabitats.innerHTML = habitatNames.length ? habitatNames.map((h) => highlight(h, q)).join(", ") : "<span class='muted'>—</span>";
-    $speciesModalWatchFor.innerHTML =
-      s.watchFor && s.watchFor.length ? s.watchFor.map((w) => highlight(w, q)).join(", ") : "<span class='muted'>—</span>";
-
-    const seasonLines = seasons
-      .filter((k) => s.seasonality && String(s.seasonality[k] || "").trim() !== "")
-      .map(
-        (k) =>
-          `<div class="fg-season"><strong>${escapeHtml(k)}:</strong> ${highlight(s.seasonality[k], q)}</div>`
-      )
-      .join("");
-    $speciesModalSeasons.innerHTML = seasonLines || "<div class='muted'>—</div>";
-
-    // Conservation status (structured fields; may be TBD until verified)
-    const c = (s.conservation && typeof s.conservation === "object" ? s.conservation : null) || {};
-    const cLines = [
-      c.ukGbStatus ? `<div><strong>UK/GB status:</strong> ${escapeHtml(c.ukGbStatus)}</div>` : "",
-      c.priority ? `<div><strong>Priority species/habitat:</strong> ${escapeHtml(c.priority)}</div>` : "",
-      Array.isArray(c.protected) && c.protected.length
-        ? `<div><strong>Protected status:</strong> ${c.protected.map((x) => escapeHtml(x)).join(", ")}</div>`
-        : "",
-      c.notes ? `<div class="muted" style="margin-top:6px">${escapeHtml(c.notes)}</div>` : "",
-    ].filter(Boolean);
-    $speciesModalConservation.innerHTML = cLines.length ? cLines.join("") : "<span class='muted'>—</span>";
-
-    // Sources & further reading
-    const sources = Array.isArray(s.sources) ? s.sources : [];
-    if (sources.length) {
-      $speciesModalSources.innerHTML = `<ul class="fg-sources">
-        ${sources
-          .map((it) => {
-            const title = escapeHtml(it.title || "Source");
-            const url = escapeHtml(it.url || "");
-            const note = it.note ? ` <span class="muted">— ${escapeHtml(it.note)}</span>` : "";
-            const link = url ? `<a href="${url}" target="_blank" rel="noopener">${title}</a>` : title;
-            return `<li>${link}${note}</li>`;
-          })
-          .join("")}
-      </ul>`;
-    } else {
-      $speciesModalSources.innerHTML = "<span class='muted'>—</span>";
+    const links = document.createElement("ul");
+    for (const source of item.sources || []) {
+      const li = document.createElement("li");
+      li.append(sourceLink(source.title || "Species reference", source.url));
+      if (source.note) li.append(text("small", source.note));
+      links.append(li);
     }
-
-    if (!$speciesModal.open) $speciesModal.showModal();
+    references.append(links);
   }
 
-  // Initial render
-  renderFilters();
-  renderGrid();
+  const lens = get("fgLens");
+  const inspect = get("fgInspect");
+  const plate = get("fgPhoto");
+  const wholePhoto = [0, 0, 100, 100];
 
-  // Events
-  $search.addEventListener("input", (e) => {
-    state.q = e.target.value || "";
-    updateClearVisibility();
-    renderGrid();
+  function showDetail(view, button) {
+    const [left, top, width, height] = view.crop;
+    const x = plate.naturalWidth * left / 100;
+    const y = plate.naturalHeight * top / 100;
+    const w = plate.naturalWidth * width / 100;
+    const h = plate.naturalHeight * height / 100;
+    const rect = get("fgLensRect");
+    for (const [key, value] of Object.entries({ x, y, width: w, height: h })) {
+      rect.setAttribute(key, value);
+    }
+    get("fgLensStage").setAttribute("viewBox", [x, y, w, h].join(" "));
+    get("fgLensAlt").textContent = selected.commonName + " — " + view.label;
+    get("fgLensTitle").textContent = view.label;
+    get("fgLensNote").textContent = view.note;
+    Object.assign(get("fgLensBounds").style, {
+      left: left + "%", top: top + "%", width: width + "%", height: height + "%"
+    });
+    for (const option of get("fgLensChoices").children) {
+      option.setAttribute("aria-pressed", String(option === button));
+    }
+  }
+
+  inspect.addEventListener("click", () => {
+    if (!plate.naturalWidth || !selected.details?.length) return;
+    const image = get("fgLensImage");
+    image.setAttribute("href", plate.currentSrc);
+    image.setAttribute("width", plate.naturalWidth);
+    image.setAttribute("height", plate.naturalHeight);
+    get("fgLensMap").src = plate.currentSrc;
+    get("fgLensName").textContent = selected.commonName;
+    get("fgLensCredit").replaceChildren(...get("fgCredit").cloneNode(true).childNodes);
+    const views = [...selected.details, {
+      label: "Whole photograph", crop: wholePhoto, note: selected.cover.caption || selected.commonName
+    }];
+    const options = get("fgLensChoices");
+    options.replaceChildren();
+    for (const view of views) {
+      const button = text("button", view.label);
+      button.type = "button";
+      button.addEventListener("click", () => showDetail(view, button));
+      options.append(button);
+    }
+    showDetail(views[0], options.firstElementChild);
+    lens.showModal();
+    lens.scrollTop = 0;
+  });
+  get("fgCloseLens").addEventListener("click", () => lens.close());
+  lens.addEventListener("click", (event) => {
+    if (event.target !== lens) return;
+    const bounds = lens.getBoundingClientRect();
+    if (event.clientX < bounds.left || event.clientX > bounds.right ||
+        event.clientY < bounds.top || event.clientY > bounds.bottom) lens.close();
   });
 
-  document.addEventListener("click", (e) => {
-    const card = e.target.closest("[data-species-id]");
-    if (card) {
-      openSpeciesModalById(card.dataset.speciesId);
+  function renderPhoto(item) {
+    const photo = get("fgPhoto");
+    const label = get("fgPhotoLabel");
+    const credit = get("fgCredit");
+    const cover = item.cover || {};
+    label.textContent = cover.caption || item.commonName;
+    credit.replaceChildren();
+    const details = [];
+    if (cover.artist) details.push(document.createTextNode(cover.artist));
+    if (cover.license) details.push(sourceLink(cover.license, cover.licenseUrl));
+    if (cover.sourceUrl) details.push(sourceLink("Original photograph", cover.sourceUrl));
+    details.forEach((detail, i) => {
+      if (i) credit.append(" · ");
+      credit.append(detail);
+    });
+    photo.alt = cover.alt || item.commonName;
+    inspect.hidden = true;
+    photo.onload = () => {
+      inspect.hidden = !item.details?.length || !photo.naturalWidth;
+    };
+    function showPlaceholder() {
+      photo.onload = null;
+      inspect.hidden = true;
+      photo.onerror = null;
+      photo.alt = "";
+      label.textContent = "Photograph unavailable";
+      credit.replaceChildren();
+      photo.src = placeholder;
+    }
+    if (cover.src) {
+      photo.onerror = showPlaceholder;
+      photo.src = cover.src;
+      if (photo.complete && photo.naturalWidth) photo.onload();
+    } else showPlaceholder();
+  }
+
+  function revealChoice(button) {
+    const strip = choices.getBoundingClientRect();
+    const bounds = button.getBoundingClientRect();
+    if (bounds.left < strip.left) choices.scrollLeft += bounds.left - strip.left;
+    else if (bounds.right > strip.right) choices.scrollLeft += bounds.right - strip.right;
+  }
+
+  function renderPlate() {
+    get("fgName").textContent = selected.commonName;
+    get("fgLatin").textContent = selected.scientificName || "";
+    get("fgGroup").textContent = selected.group || "";
+    get("fgNotes").textContent = selected.notes || "";
+    const identification = get("fgIdentification");
+    identification.hidden = !selected.identification?.text;
+    if (!identification.hidden) {
+      identification.querySelector("dt").textContent = selected.identification.label || "Identification";
+      identification.querySelector("dd").textContent = selected.identification.text;
+    }
+    get("fgHabitat").textContent = habitatNames(selected).join(" · ") || "Not recorded";
+    get("fgTraits").textContent = (selected.watchFor || []).join(" · ") || "Not recorded";
+    renderPhoto(selected);
+    renderReferences(selected);
+    const list = get("fgSeasonNotes");
+    list.replaceChildren();
+    for (const season of seasons) {
+      const note = selected.seasonality?.[season];
+      if (!note || (filters.seasons.size && !filters.seasons.has(season))) continue;
+      const line = document.createElement("div");
+      line.append(text("dt", season), text("dd", note));
+      list.append(line);
+    }
+    get("fgSeasonTitle").parentElement.hidden = !list.children.length;
+    for (const button of speciesButtons) {
+      const active = button.dataset.species === selected.id;
+      button.setAttribute("aria-pressed", String(active));
+      if (active) revealChoice(button);
+    }
+    get("fgAnnounce").textContent = selected.commonName + " selected.";
+  }
+
+  function choose(item) {
+    if (selected === item) return;
+    selected = item;
+    renderPlate();
+  }
+
+  function makeChoice(item) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "guide-choice";
+    button.dataset.species = item.id;
+    const image = document.createElement("img");
+    image.alt = "";
+    image.onerror = () => {
+      image.onerror = null;
+      image.src = placeholder;
+    };
+    image.src = item.cover?.src || placeholder;
+    button.append(image, text("span", item.commonName));
+    button.addEventListener("click", () => choose(item));
+    return button;
+  }
+
+  function renderIndex() {
+    const query = search.value.trim().toLowerCase();
+    const filterCount = filters.groups.size + filters.habitats.size + filters.seasons.size;
+    clear.hidden = !query && !filterCount;
+    filterToggle.textContent = filterCount ? "Filters (" + filterCount + ")" : "Filters";
+    results = index.filter((item) => matches(item, query));
+    const count = results.length;
+    get("fgCount").textContent = count === index.length ? count + " species" : count + " of " + index.length + " species";
+    get("fgBrowser").hidden = !count;
+    get("fgRecord").hidden = !count;
+    empty.hidden = Boolean(count);
+    get("fgPrevious").disabled = count < 2;
+    get("fgNext").disabled = count < 2;
+    speciesButtons = results.map(makeChoice);
+    choices.replaceChildren(...speciesButtons);
+    if (!count) {
+      get("fgAnnounce").textContent = "";
       return;
     }
+    if (!results.includes(selected)) selected = results[0];
+    renderPlate();
+  }
 
-    const g = e.target.closest("[data-fg-group]");
-    if (g) {
-      const v = g.dataset.fgGroup;
-      if (state.groups.has(v)) state.groups.delete(v);
-      else state.groups.add(v);
-      renderFilters();
-      renderGrid();
-      return;
-    }
+  function step(delta) {
+    const position = (results.indexOf(selected) + delta + results.length) % results.length;
+    choose(results[position]);
+  }
 
-    const h = e.target.closest("[data-fg-habitat]");
-    if (h) {
-      const v = h.dataset.fgHabitat;
-      if (state.habitats.has(v)) state.habitats.delete(v);
-      else state.habitats.add(v);
-      renderFilters();
-      renderGrid();
-      return;
-    }
+  function reset() {
+    search.value = "";
+    for (const values of Object.values(filters)) values.clear();
+    for (const box of get("fgFilters").querySelectorAll("input")) box.checked = false;
+    renderIndex();
+    search.focus({ preventScroll: true });
+  }
 
-    const s = e.target.closest("[data-fg-season]");
-    if (s) {
-      const v = s.dataset.fgSeason;
-      if (state.seasons.has(v)) state.seasons.delete(v);
-      else state.seasons.add(v);
-      renderFilters();
-      renderGrid();
-    }
+  const groups = data.groups || [...new Set(species.map((item) => item.group))];
+  addFilters("groups", "Group", groups.map((name) => [name, name]));
+  addFilters("habitats", "Habitat", [...habitats]);
+  addFilters("seasons", "Seasonal notes", seasons.map((name) => [name, name]));
+  search.addEventListener("input", renderIndex);
+  filterToggle.addEventListener("click", () => {
+    const panel = get("fgFilters");
+    panel.hidden = !panel.hidden;
+    filterToggle.setAttribute("aria-expanded", String(!panel.hidden));
   });
-
-  document.addEventListener("keydown", (e) => {
-    if (e.key !== "Enter") return;
-    const card = e.target && e.target.closest && e.target.closest("[data-species-id]");
-    if (!card) return;
-    openSpeciesModalById(card.dataset.speciesId);
+  clear.addEventListener("click", reset);
+  get("fgReset").addEventListener("click", reset);
+  get("fgPrevious").addEventListener("click", () => step(-1));
+  get("fgNext").addEventListener("click", () => step(1));
+  choices.addEventListener("keydown", (event) => {
+    if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+    event.preventDefault();
+    const current = speciesButtons.indexOf(event.target);
+    if (current < 0) return;
+    const delta = event.key === "ArrowRight" ? 1 : -1;
+    const position = (current + delta + results.length) % results.length;
+    choose(results[position]);
+    speciesButtons[position].focus({ preventScroll: true });
   });
-
-  $speciesModalClose.addEventListener("click", () => $speciesModal.close());
-  $speciesModal.addEventListener("click", (e) => {
-    if (e.target === $speciesModal) $speciesModal.close();
-  });
-
-  $clear.addEventListener("click", () => {
-    state.q = "";
-    state.groups.clear();
-    state.habitats.clear();
-    state.seasons.clear();
-    $search.value = "";
-    updateClearVisibility();
-    renderFilters();
-    renderGrid();
-  });
-}
-
-main();
-
-
+  renderIndex();
+})();

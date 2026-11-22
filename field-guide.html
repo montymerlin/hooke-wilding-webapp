@@ -10,178 +10,130 @@
     />
     <link rel="icon" type="image/webp" href="./assets/sunflower.webp" />
     <link rel="apple-touch-icon" href="./assets/sunflower.webp" />
-    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./styles.css?v=atlas-20261121" />
+    <link rel="stylesheet" href="./field-guide.css?v=closer-1" />
+    <link rel="stylesheet" href="./wildlife.css?v=verge-2" />
+    <script defer src="./wildlife.js?v=verge-2"></script>
   </head>
   <body>
+    <a class="skip-link" href="#page-content">Skip to content</a>
     <header class="topbar">
       <div class="topbar__inner">
-        <img class="topbar__icon" src="./assets/sunflower.webp" alt="" aria-hidden="true" />
-        <div class="brand">
-          <div class="brand__text">
-            <div class="brand__kicker">Hooke Farm</div>
-            <div class="brand__title">Wilding Portal</div>
-          </div>
-        </div>
-        <button
-          class="btn btn--ghost topbar__menuBtn"
-          id="navToggle"
-          type="button"
-          aria-label="Open menu"
-          aria-controls="topbarNav"
-          aria-expanded="false"
-        >
-          Menu
-        </button>
-        <nav class="topbar__actions" id="topbarNav" aria-label="Site">
-          <a class="btn btn--ghost" href="./index.html">Back to map</a>
-          <a class="btn btn--ghost" href="./gallery.html">Gallery</a>
-          <a class="btn btn--ghost" href="./content.html">Watch &amp; Read</a>
-          <a class="btn btn--ghost" href="./about.html">About</a>
+        <a class="farm-brand" href="./index.html" aria-label="Hooke Farm Wilding home">
+          <img src="./assets/sunflower.webp" width="40" height="40" alt="" />
+          <span>Hooke Farm <i>Wilding</i></span>
+        </a>
+        <button class="btn topbar__menuBtn" id="navToggle" type="button" aria-label="Open menu" aria-controls="topbarNav" aria-expanded="false"><span class="menu-icon" aria-hidden="true"></span> Menu</button>
+        <nav class="topbar__actions" id="topbarNav" aria-label="Main navigation">
+          <a href="./index.html">Explore</a>
+          <a href="./content.html">Discover</a>
+          <a href="./field-guide.html" aria-current="page">Field guide</a>
+          <a href="./gallery.html">Gallery</a>
+          <a href="./about.html">About</a>
         </nav>
       </div>
     </header>
 
-    <main class="layout layout--sidebar">
-      <aside class="sidebar" aria-label="Field guide filters">
-        <div class="panel">
-          <div class="fg-title">Living Dorset Field Guide</div>
-          <div class="panel__meta fg-intro">
-            A browsable catalogue of habitats and species. Think of this as a “living catalogue” for Dorset — a place to
-            collect habitats first, then species as characters that depend on those places.
-          </div>
-
-          <div class="divider"></div>
-
-          <label class="field">
-            <span class="field__label">Search</span>
-            <input id="fgSearch" class="input" type="search" placeholder="e.g. heath, orchid, bat, dragonfly…" />
+    <main id="page-content" class="dorset-guide">
+      <div class="guide-mast">
+        <h1>Dorset field guide</h1>
+        <div class="guide-tools" id="fgTools">
+          <label class="guide-search">
+            <span class="guide-sr">Search species</span>
+            <input id="fgSearch" type="search" placeholder="Search species…" />
           </label>
-
-          <div class="divider"></div>
-
-          <div class="panel__subtitle">Group</div>
-          <div class="taglist" id="fgGroups" role="list"></div>
-
-          <div class="divider"></div>
-
-          <div class="panel__subtitle">Habitat</div>
-          <div class="taglist" id="fgHabitats" role="list"></div>
-
-          <div class="divider"></div>
-
-          <div class="panel__subtitle">Season</div>
-          <div class="taglist" id="fgSeasons" role="list"></div>
-
-          <div class="divider"></div>
-
-          <button class="btn btn--ghost btn--small btn--faint" id="fgClear" type="button" hidden>Clear filters</button>
-          <div class="panel__meta" id="fgMeta"></div>
+          <button class="guide-control" id="fgFilterToggle" type="button" aria-expanded="false" aria-controls="fgFilters">Filters</button>
         </div>
-      </aside>
-
-      <section class="content" aria-label="Catalogue">
-        <div class="fg-grid" id="fgGrid" aria-live="polite"></div>
-
-      </section>
+      </div>
+      <div class="guide-filters" id="fgFilters" hidden>
+        <div class="guide-filter-groups" id="fgFilterGroups"></div>
+      </div>
+      <div class="guide-index-head">
+        <h2>Species index</h2>
+        <div class="wild-perch" data-wildlife="ladybird"></div>
+        <span class="guide-count" id="fgCount" role="status"></span>
+        <button class="guide-text-action" id="fgClear" type="button" hidden>Clear filters</button>
+      </div>
+      <div class="guide-browser" id="fgBrowser">
+        <button class="guide-arrow" id="fgPrevious" type="button" aria-label="Previous species">←</button>
+        <div class="guide-choices" id="fgChoices" role="group" aria-label="Choose a species"></div>
+        <button class="guide-arrow" id="fgNext" type="button" aria-label="Next species">→</button>
+      </div>
+      <div class="guide-empty" id="fgEmpty" hidden>
+        <h2 id="fgEmptyTitle">No matching species</h2>
+        <p id="fgEmptyText">Try another search or clear the filters to see the full index.</p>
+        <button id="fgReset" type="button" class="guide-control">Show all species</button>
+      </div>
+      <article class="guide-record" id="fgRecord" aria-labelledby="fgName" hidden>
+        <figure class="guide-plate">
+          <div class="guide-photo-wrap">
+            <img id="fgPhoto" alt="" />
+            <button id="fgInspect" class="guide-inspect" type="button" aria-haspopup="dialog" hidden><span aria-hidden="true">⊕</span> Look closer</button>
+          </div>
+          <figcaption><span id="fgPhotoLabel"></span><span id="fgCredit"></span></figcaption>
+        </figure>
+        <div class="guide-heading">
+          <div id="fgGroup" class="guide-category"></div>
+          <h2 id="fgName"></h2>
+          <p class="guide-latin" id="fgLatin"></p>
+        </div>
+        <div class="guide-observations">
+          <p class="guide-notes" id="fgNotes"></p>
+          <dl class="guide-facts">
+            <div class="guide-markings" id="fgIdentification" hidden><dt></dt><dd></dd></div>
+            <div><dt>Habitat</dt><dd id="fgHabitat"></dd></div>
+            <div><dt>Watch for</dt><dd id="fgTraits"></dd></div>
+          </dl>
+          <section class="guide-season" aria-labelledby="fgSeasonTitle">
+            <h3 id="fgSeasonTitle">Seasonal notes</h3>
+            <dl id="fgSeasonNotes"></dl>
+          </section>
+          <details class="guide-sources">
+            <summary>Conservation &amp; sources</summary>
+            <div id="fgReferences"></div>
+          </details>
+        </div>
+      </article>
+      <dialog class="guide-lens" id="fgLens" aria-labelledby="fgLensName">
+        <header class="lens-header">
+          <div><span class="guide-category">Look closer</span><h2 id="fgLensName"></h2></div>
+          <button type="button" id="fgCloseLens" class="lens-close" autofocus aria-label="Close detail viewer">×</button>
+        </header>
+        <div class="lens-layout">
+          <div class="lens-stage">
+            <svg id="fgLensStage" role="img" aria-labelledby="fgLensAlt" preserveAspectRatio="xMidYMid meet">
+              <title id="fgLensAlt"></title>
+              <defs><clipPath id="fgLensClip"><rect id="fgLensRect" /></clipPath></defs>
+              <image id="fgLensImage" clip-path="url(#fgLensClip)" />
+            </svg>
+          </div>
+          <div class="lens-notebook">
+            <div id="fgLensChoices" role="group" aria-label="Photograph views"></div>
+            <div aria-live="polite" aria-atomic="true"><h3 id="fgLensTitle"></h3><p id="fgLensNote"></p></div>
+            <div class="lens-locator" aria-hidden="true"><img id="fgLensMap" alt="" /><span id="fgLensBounds"></span></div>
+          </div>
+        </div>
+        <p class="lens-credit" id="fgLensCredit"></p>
+      </dialog>
+      <span class="guide-sr" id="fgAnnounce" aria-live="polite"></span>
+      <noscript><p>Enable JavaScript to browse the offline species catalogue.</p></noscript>
     </main>
 
-    <footer class="site-footer" role="contentinfo">
-      <div class="site-footer__inner">
-        <div class="site-footer__brand">
-          <div class="site-footer__sigil" aria-hidden="true"></div>
-          <div class="site-footer__brandText">
-            <div class="site-footer__title">Hooke Farm Wilding Portal</div>
-            <div class="site-footer__tagline">Wander slowly. Notice more. Let the edges bloom.</div>
-          </div>
-        </div>
-
-        <nav class="site-footer__nav" aria-label="Site">
-          <a class="site-footer__link" href="./index.html">Explore map</a>
-          <a class="site-footer__link" href="./field-guide.html">Field guide</a>
-          <a class="site-footer__link" href="./gallery.html">Gallery</a>
-          <a class="site-footer__link" href="./content.html">Watch &amp; Read</a>
-          <a class="site-footer__link" href="./about.html">About</a>
-        </nav>
-
-        <div class="site-footer__meta">
-          <div class="site-footer__note">
-            Contact us:
-            <a class="site-footer__contact" href="mailto:julia@juliahailes.com">julia@juliahailes.com</a>
-          </div>
-          <div class="site-footer__note muted">Made for slow walks, bright wings, and the occasional nettle.</div>
-        </div>
+    <footer class="farm-footer" id="meadow-verge">
+      <div class="farm-footer__inner">
+        <a class="farm-brand" href="./index.html"><img src="./assets/sunflower.webp" width="34" height="34" alt="" /><span>Hooke Farm <i>Wilding</i></span></a>
+        <nav aria-label="Footer navigation"><a href="./index.html">Explore</a>
+          <a href="./content.html">Discover</a>
+          <a href="./field-guide.html" aria-current="page">Field guide</a>
+          <a href="./gallery.html">Gallery</a>
+          <a href="./about.html">About</a></nav>
+        <a class="farm-footer__contact" href="mailto:julia@juliahailes.com">Contact the farm <span aria-hidden="true">↗</span></a>
       </div>
     </footer>
 
-    <dialog class="modal" id="speciesModal">
-      <div class="modal__header">
-        <div class="fg-modal__header">
-          <div class="modal__title" id="speciesModalTitle"></div>
-          <div class="fg-modal__headtags" id="speciesModalHeadTags" aria-label="Species tags"></div>
-        </div>
-        <button class="btn btn--ghost" id="speciesModalClose" type="button">Close</button>
-      </div>
-      <div class="modal__body">
-        <div class="fg-modal__imgwrap">
-          <img class="fg-modal__img" id="speciesModalImg" alt="" />
-          <div class="caption muted fg-modal__credit" id="speciesModalCredit"></div>
-        </div>
-        <div class="fg-modal__meta" id="speciesModalMeta" hidden></div>
-        <div class="fg-modal__note" id="speciesModalNote"></div>
-
-        <div class="divider"></div>
-
-        <div class="fg-modal__grid">
-          <div class="fg-modal__card">
-            <div class="fg-modal__label">Habitats</div>
-            <div class="fg-modal__value" id="speciesModalHabitats"></div>
-          </div>
-          <div class="fg-modal__card">
-            <div class="fg-modal__label">Watch for</div>
-            <div class="fg-modal__value" id="speciesModalWatchFor"></div>
-          </div>
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="fg-modal__card">
-          <div class="fg-modal__label">Seasonal notes</div>
-          <div class="fg-modal__seasons" id="speciesModalSeasons"></div>
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="fg-modal__card">
-          <div class="fg-modal__label">Conservation status (UK/GB)</div>
-          <div class="fg-modal__value" id="speciesModalConservation"></div>
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="fg-modal__card">
-          <div class="fg-modal__label">Sources &amp; further reading</div>
-          <div class="fg-modal__value" id="speciesModalSources"></div>
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="fg-modal__card">
-          <div class="fg-modal__label">More details (placeholders)</div>
-          <div class="prose">
-            <p class="muted"><strong>ID tips:</strong> key features to look for, common confusion species.</p>
-            <p class="muted"><strong>Lookalikes:</strong> what it’s commonly mistaken for, and how to tell.</p>
-            <p class="muted"><strong>Where in Dorset:</strong> typical landscapes, reserves, and micro-habitats.</p>
-            <p class="muted"><strong>Conservation:</strong> UK protection/status, main pressures, what helps.</p>
-            <p class="muted"><strong>Responsible watching:</strong> how to observe without disturbing.</p>
-            <p class="muted"><strong>Recording:</strong> how/where to log sightings (local records centre / iRecord).</p>
-          </div>
-        </div>
-      </div>
-    </dialog>
-
-    <script src="./data/dorset-field-guide.js"></script>
-    <script src="./field-guide.js"></script>
-    <script src="./nav.js"></script>
+    <script src="./data/dorset-field-guide.js?v=closer-1"></script>
+    <script src="./field-guide.js?v=closer-1"></script>
+    <script src="./nav.js?v=atlas-20261121"></script>
   </body>
 </html>
 

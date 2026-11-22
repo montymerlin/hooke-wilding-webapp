@@ -57,6 +57,7 @@ window.__DORSET_GUIDE__ = {
     "Marine & Coastal",
   ],
   seasons: ["Spring", "Summer", "Autumn", "Winter"],
+  // Each detail frames part of its cover photograph as [left, top, width, height] in percent.
   species: [
     {
       id: "dartford-warbler",
@@ -70,6 +71,10 @@ window.__DORSET_GUIDE__ = {
         sourceTitle: "File:Fauvette pitchou Ichkeul064.jpg",
         sourceUrl: "https://commons.wikimedia.org/wiki/File%3AFauvette_pitchou_Ichkeul064.jpg",
       },
+      details: [
+        { label: "Eye and bill", crop: [43, 12, 21, 34],
+          note: "Find the reddish ring around the eye, then follow the fine bill to its tip. Both stand out against the grey feathers of the head." },
+      ],
       group: "Birds",
       habitats: ["lowland-heath"],
       seasonality: { Spring: "Singing males in gorse/heather", Summer: "Breeding on heathland", Autumn: "Often skulking; listen for calls", Winter: "Local movements; survives mild winters" },
@@ -101,6 +106,10 @@ window.__DORSET_GUIDE__ = {
         sourceUrl:
           "https://commons.wikimedia.org/wiki/File%3AEuropean_nightjar%2C_Caprimulgus_europaeus%2C_at_Mapungubwe_National_Park%2C_Limpopo%2C_South_Africa.jpg",
       },
+      details: [
+        { label: "Branch camouflage", crop: [23, 6, 57, 48],
+          note: "Look where the breast meets the branch. Fine bars and flecks break up the bird’s outline against the mottled bark." },
+      ],
       group: "Birds",
       habitats: ["lowland-heath", "woodland"],
       seasonality: { Spring: "Arrives; churring begins", Summer: "Best time—dusk ‘churr’", Autumn: "Departs south", Winter: "Absent (migratory)" },
@@ -131,6 +140,10 @@ window.__DORSET_GUIDE__ = {
         sourceUrl:
           "https://commons.wikimedia.org/wiki/File%3A%D0%AF%D1%89%D1%96%D1%80%D0%BA%D0%B0_%D0%BF%D1%80%D1%83%D0%B4%D0%BA%D0%B0_%D1%81%D0%BA%D1%80%D1%83%D1%82%D0%B8%D0%BB%D0%B0%D1%81%D1%8C.jpg",
       },
+      details: [
+        { label: "Flank markings", crop: [28, 20, 51, 41],
+          note: "Look along the flank from the head towards the tail. Pale spots sit inside darker patches, just below the line of the back." },
+      ],
       group: "Amphibians & Reptiles",
       habitats: ["lowland-heath", "coast"],
       seasonality: { Spring: "Basking as temperatures rise", Summer: "Most active; females lay eggs in warm sand", Autumn: "Last basking days", Winter: "Hibernates" },
@@ -160,6 +173,10 @@ window.__DORSET_GUIDE__ = {
         sourceUrl:
           "https://commons.wikimedia.org/wiki/File%3ASmooth_Snake_%28Coronella_austriaca%29_%2836381334186%29.jpg",
       },
+      details: [
+        { label: "Eye stripe", crop: [41, 44, 32, 32],
+          note: "Follow the dark stripe from the eye towards the neck. Above it, the scales catch the light along the top of the head." },
+      ],
       group: "Amphibians & Reptiles",
       habitats: ["lowland-heath"],
       seasonality: { Spring: "Basking and emerging", Summer: "Secretive—rarely seen", Autumn: "Occasional basking", Winter: "Hibernates" },
@@ -188,6 +205,10 @@ window.__DORSET_GUIDE__ = {
         sourceTitle: "File:Eastern pipistrelle (8002800529).jpg",
         sourceUrl: "https://commons.wikimedia.org/wiki/File%3AEastern_pipistrelle_%288002800529%29.jpg",
       },
+      details: [
+        { label: "Folded wing", crop: [32, 15, 27, 43],
+          note: "Trace the edge of the folded wing down the side of the resting bat. Its dark, smooth outline sits against the rough rock." },
+      ],
       group: "Mammals",
       habitats: ["woodland", "farmland", "wetlands"],
       seasonality: { Spring: "First evening flights", Summer: "Peak feeding over hedges/ponds", Autumn: "Swarming near roosts", Winter: "Mostly hibernating" },
@@ -217,6 +238,10 @@ window.__DORSET_GUIDE__ = {
         sourceUrl:
           "https://commons.wikimedia.org/wiki/File%3AGreater_horseshoe_bat_%28Rhinolophus_ferrumequinum%29_Hrdovicka.jpg",
       },
+      details: [
+        { label: "Folded ears and nose", crop: [20, 31, 53, 45],
+          note: "The two ears fold in towards the face. Just below them, the skin around the nostrils forms a small horseshoe shape." },
+      ],
       group: "Mammals",
       habitats: ["woodland", "farmland"],
       seasonality: { Spring: "Emerges from winter roosts", Summer: "Maternity roosts active", Autumn: "Transition to hibernation sites", Winter: "Hibernates in caves/mines" },
@@ -245,6 +270,10 @@ window.__DORSET_GUIDE__ = {
         sourceTitle: "File:Lysandra bellargus female underside ab. obsoleta.jpg",
         sourceUrl: "https://commons.wikimedia.org/wiki/File%3ALysandra_bellargus_female_underside_ab._obsoleta.jpg",
       },
+      details: [
+        { label: "Wing fringe", crop: [21, 2, 40, 66],
+          note: "Follow the pale fringe around the folded wing. Dark marks interrupt it at intervals, just beyond a row of orange crescents." },
+      ],
       group: "Insects",
       habitats: ["chalk-grassland"],
       seasonality: { Spring: "First broods on warm slopes", Summer: "Peak vivid blue males", Autumn: "Late broods in good years", Winter: "Overwinters as larva/egg" },
@@ -274,6 +303,10 @@ window.__DORSET_GUIDE__ = {
         sourceUrl:
           "https://commons.wikimedia.org/wiki/File%3AChalkhill_blue_butterflies_%28Polyommatus_coridon%29_mating_1.jpg",
       },
+      details: [
+        { label: "Two underwings", crop: [19, 8, 61, 75],
+          note: "Compare the two folded wings. The cooler grey wing and its warmer brown neighbour both carry dark dots ringed in pale scales." },
+      ],
       group: "Insects",
       habitats: ["chalk-grassland"],
       seasonality: { Spring: "Larval stage", Summer: "Big colonies in midsummer", Autumn: "Adults fade; larval stage resumes", Winter: "Overwinters as larva" },
@@ -302,6 +335,10 @@ window.__DORSET_GUIDE__ = {
         sourceTitle: "File:(MHNT) Ophrys apifera - Villeneuve-lès-Bouloc - Flower.jpg",
         sourceUrl: "https://commons.wikimedia.org/wiki/File%3A%28MHNT%29_Ophrys_apifera_-_Villeneuve-l%C3%A8s-Bouloc_-_Flower.jpg",
       },
+      details: [
+        { label: "Flower lip", crop: [25, 40, 36, 52],
+          note: "Below the upright pink sepal, the flower has a velvety dark lip. A golden outline loops across its centre." },
+      ],
       group: "Plants & Wildflowers",
       habitats: ["chalk-grassland", "farmland"],
       seasonality: { Spring: "Leaf rosettes", Summer: "Flowering spikes", Autumn: "Seeds disperse", Winter: "Dormant underground" },
@@ -331,6 +368,10 @@ window.__DORSET_GUIDE__ = {
         sourceUrl:
           "https://commons.wikimedia.org/wiki/File%3A%28MHNT%29_Anacamptis_pyramidalis_-_Immature_inflorescence.jpg",
       },
+      details: [
+        { label: "Flower spike", crop: [28, 3, 37, 71],
+          note: "The central spike is made up of dozens of small pink flowers. Follow them from the broad base towards the narrowing tip." },
+      ],
       group: "Plants & Wildflowers",
       habitats: ["chalk-grassland", "coast"],
       seasonality: { Spring: "Leaves emerge", Summer: "Bright pink flower spikes", Autumn: "Seed dispersal", Winter: "Dormant" },
@@ -359,6 +400,10 @@ window.__DORSET_GUIDE__ = {
         sourceTitle: "File:Silene flos-cuculi flower - Niitvälja.jpg",
         sourceUrl: "https://commons.wikimedia.org/wiki/File%3ASilene_flos-cuculi_flower_-_Niitv%C3%A4lja.jpg",
       },
+      details: [
+        { label: "Split petals", crop: [8, 14, 76, 52],
+          note: "Start at the centre of the open flower and follow a pink petal outwards. It divides into narrow strips, giving the flower its ragged outline." },
+      ],
       group: "Plants & Wildflowers",
       habitats: ["wetlands", "farmland"],
       seasonality: { Spring: "Fresh growth", Summer: "Flowering in damp meadows", Autumn: "Seed heads", Winter: "Dormant" },
@@ -381,16 +426,27 @@ window.__DORSET_GUIDE__ = {
       scientificName: "Anax imperator",
       cover: {
         src: "assets/field-guide/emperor-dragonfly.jpg",
+        caption: "Shed larval skin · side and upper views",
+        alt: "Two views of the emperor dragonfly’s golden-brown shed larval skin.",
         artist: "Didier Descouens",
         license: "CC BY-SA 4.0",
         licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0",
         sourceTitle: "File:Anax imperator Exuvie MHNT Parc de la Maourine.jpg",
         sourceUrl: "https://commons.wikimedia.org/wiki/File%3AAnax_imperator_Exuvie_MHNT_Parc_de_la_Maourine.jpg",
       },
+      details: [
+        { label: "Side view", crop: [2, 2, 95, 37],
+          note: "Follow the outline from the pointed tail on the left to the bent legs on the right. Even the joints keep their shape in this empty skin." },
+        { label: "Upper view", crop: [2, 40, 95, 59],
+          note: "Seen from above, the legs fan out on both sides. Trace the paired wing cases back from the head towards the long, segmented abdomen." },
+        { label: "Wing cases", crop: [46, 49, 43, 33],
+          note: "Look between the bases of the legs. The pointed wing cases overlap along the back. Follow their fine ridges towards the tail on the left." },
+      ],
       group: "Insects",
       habitats: ["wetlands"],
       seasonality: { Spring: "First emergences", Summer: "Strong fliers patrol ponds", Autumn: "Late season adults", Winter: "Larval stage in water" },
       notes: "Big, bold, and fast—often seen patrolling the same pond edge.",
+      identification: { label: "Adult markings", text: "Look for a green thorax and a dark stripe along the abdomen. The abdomen is blue in males and usually green in females." },
       watchFor: ["pond margins", "sunny still water"],
       conservation: {
         ukGbStatus: "TBD (verify in sources)",
@@ -416,6 +472,10 @@ window.__DORSET_GUIDE__ = {
         sourceUrl:
           "https://commons.wikimedia.org/wiki/File%3AEelgrass_%28Zostera_marina%29_-_Tor_Bay_Provincial_Park%2C_Nova_Scotia_2022-07-27.jpg",
       },
+      details: [
+        { label: "Ribbon blades", crop: [21, 33, 68, 34],
+          note: "Trace the two narrow blades across the pale ground. One arcs upwards while the darker blade bends back below it." },
+      ],
       group: "Marine & Coastal",
       habitats: ["coast"],
       seasonality: { Spring: "Growth begins", Summer: "Lush underwater meadows", Autumn: "Dieback in some beds", Winter: "Reduced growth" },
