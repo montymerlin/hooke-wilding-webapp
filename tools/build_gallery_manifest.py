@@ -106,8 +106,15 @@ def main() -> int:
         rel = rel_posix(p, repo_root)
         # The public gallery contains the originals. The entrance artwork and
         # small web copies serve the interface and would duplicate those images.
-        if rel.startswith(("assets/field-guide/", "assets/arrival/")) or rel in {
-            "assets/about/farm-summer.webp", "assets/about/farm-meadow.webp",
+        if rel.startswith(("assets/field-guide/", "assets/arrival/", "assets/wildlife/", "assets/discover/")):
+            continue
+        if rel.startswith("assets/about/") and p.suffix.lower() == ".webp":
+            continue
+        # These three crops are already visible on the original Standing Stones board.
+        if rel in {
+            "assets/features/standing-stones/01-stones-on-the-lorry.jpg",
+            "assets/features/standing-stones/02-lowering-a-stone.jpg",
+            "assets/features/standing-stones/03-newly-set-stones.jpg",
         }:
             continue
         imgs.append(rel)

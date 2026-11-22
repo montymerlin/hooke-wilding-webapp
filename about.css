@@ -21,15 +21,22 @@
 .account-cover h1 { font-size: clamp(4.2rem,9vw,8rem); letter-spacing: -.045em; line-height: .91; }
 .farm-account h2 { font-size: clamp(2.6rem,4.8vw,4.5rem); letter-spacing: -.035em; line-height: 1; }
 .farm-account h3 { font-size: clamp(1.9rem,3vw,2.9rem); line-height: 1.05; letter-spacing: -.025em; margin-top: 1.2rem; }
-.account-width > .account-intro {
-  max-width: 36ch; margin: clamp(2.2rem,5vw,4.8rem) auto;
-  font-size: clamp(1.8rem,3.35vw,3.1rem); line-height: 1.16; letter-spacing: -.013em; text-wrap: pretty;
+.account-introduction {
+  display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px,5vw,72px);
+  align-items: center; padding-block: clamp(2.2rem,5vw,4.8rem);
+}
+.account-introduction img { display: block; width: 100%; height: auto; border-radius: 4px; }
+.account-introduction figcaption { margin-top: .6rem; color: var(--muted); font-size: .8rem; }
+.account-introduction figcaption a { text-underline-offset: .16em; }
+.account-intro {
+  font-size: clamp(1.8rem,2.75vw,2.6rem); line-height: 1.16; letter-spacing: -.013em; text-wrap: pretty;
 }
 .account-width section {
   padding-block: clamp(2.5rem,5vw,4.7rem); border-top: 1px solid var(--border);
 }
 .account-width section p { font-size: clamp(1rem,1.25vw,1.12rem); line-height: 1.65; margin: .9em 0 0; max-width: 53ch; }
 .account-origin, .account-grass, .account-weekends { display: grid; grid-template-columns: minmax(0,.93fr) minmax(0,1.12fr); gap: clamp(2rem,6vw,6rem); align-items: center; }
+.account-origin { grid-template-columns: minmax(0,1.12fr) minmax(0,.93fr); }
 .account-quote { padding: 1.25rem clamp(1rem,2.5vw,2.5rem); border-left: 3px solid #a7b791; }
 .account-quote blockquote { font-size: clamp(2rem,3.25vw,3.3rem); line-height: 1.1; color: #415b42; }
 .account-quote a,.account-reading a { color: inherit; text-underline-offset: .2em; }
@@ -51,9 +58,8 @@
 .account-reading li { margin: .45rem 0; }
 @media (max-width: 720px) {
   .account-cover { min-height: clamp(320px,63vw,430px); }
-  .account-origin,.account-grass,.account-weekends,.account-pair { grid-template-columns: minmax(0,1fr); gap: 1.7rem; }
+  .account-introduction,.account-origin,.account-grass,.account-weekends,.account-pair { grid-template-columns: minmax(0,1fr); gap: 1.7rem; }
   .account-cover-copy { padding-block-end: 2rem; }
   .account-weekends img { max-height: 340px; object-position: center 38%; }
-  .account-origin .account-quote { grid-row: 2; }
   .account-pair article + article { margin-top: .5rem; }
 }

@@ -761,7 +761,7 @@ function main() {
     const q = normalize(state.q);
     const tags = state.tags;
     const effTags = getEffectiveTags(f);
-    const hay = normalize([getEffectiveTitle(f), f.text, effTags.join(" "), f.sourcePdf].join(" "));
+    const hay = normalize([getEffectiveTitle(f), getEffectiveStoryText(f), f.description, f.text, effTags.join(" "), f.sourcePdf].join(" "));
     const qOk = !q || hay.includes(q);
     const tagOk = tags.size === 0 || effTags.some((t) => tags.has(t));
     return qOk && tagOk;
@@ -915,11 +915,12 @@ function main() {
     // Some features use a dated photograph in the primary image slot.
     const primaryIsPhoto = detailByUrl.has(primaryUrl);
     const boardUrl = primaryIsPhoto ? "" : primaryUrl;
-    const photos = unique([titleImage, ...getEffectiveGallery(feature).map((item) => item.url), primaryIsPhoto && primaryUrl]
+    const captions = new Map(getEffectiveGallery(feature).map(item => [item.url, item.caption]));
+    const photos = unique([titleImage, ...captions.keys(), primaryIsPhoto && primaryUrl]
       .filter((url) => url && url !== boardUrl));
     const items = photos.map((url, idx) => {
       const detail = detailByUrl.get(url);
-      return { src: resolveImg(url), detail, caption: detail?.caption || `${title} · photograph ${idx + 1}` };
+      return { src: resolveImg(url), detail, caption: detail?.caption || captions.get(url) || `${title} · photograph ${idx + 1}` };
     });
     el("featureStudyActions").hidden = !items.some((item) => item.detail);
     const board = boardUrl ? { src: resolveImg(boardUrl), caption: `${title} · original field board`, isBoard: true } : null;
@@ -1252,6 +1253,15 @@ function main() {
     const fWithTags = { ...f, title: effTitle, tags: getEffectiveTags(f) };
     const storyOverride = getEffectiveStoryText(f);
     $modalNarrative.innerHTML = storyOverride ? toParagraphs(storyOverride, state.q) : generateNarrative(fWithTags);
+    const source = el("featureStorySource");
+    source.hidden = !f.storySource;
+    if (f.storySource) {
+      source.href = f.storySource.url;
+      source.textContent = f.storySource.title;
+    } else {
+      source.removeAttribute("href");
+      source.textContent = "";
+    }
     renderSeasonal(f);
     renderGallery(f);
     renderModalTags(f);

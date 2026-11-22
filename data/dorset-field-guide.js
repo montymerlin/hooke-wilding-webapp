@@ -60,6 +60,33 @@ window.__DORSET_GUIDE__ = {
   // Each detail frames part of its cover photograph as [left, top, width, height] in percent.
   species: [
     {
+      id: "european-mole",
+      commonName: "European mole",
+      scientificName: "Talpa europaea",
+      group: "Mammals",
+      habitats: ["farmland", "woodland"],
+      notes: "In February 2021 Julia described stopping beside a fresh molehill and seeing the earth move. She had once paid to have moles trapped at Hooke. By then she was looking out for signs of them.",
+      identification: { label: "Field sign", text: "Look for small heaps of loose earth in the grass. A mole pushes surplus soil to the surface as it digs for earthworms below." },
+      watchFor: ["Loose earth", "Several mounds across a lawn or pasture"],
+      seasonality: { Spring: "Watch for fresh mounds in pasture.", Summer: "Molehills can be hidden by taller grass.", Autumn: "Look for disturbed earth between fallen leaves.", Winter: "Moles remain active underground." },
+      cover: {
+        src: "assets/field-guide/dorset-molehills.webp",
+        caption: "Old and new molehills in Dorset, from Julia’s February 2021 account.",
+        alt: "A mound of loose brown soil in the foreground, with smaller mounds scattered across grass behind it.",
+        sourceUrl: "https://juliahailes.com/ive-learnt-to-love-moles-feb21/",
+      },
+      details: [
+        { label: "Loose soil", crop: [22, 48, 55, 50], note: "Look at the clods on the nearest mound. The grass ends at its edge, where earth from the tunnel has covered the turf." },
+        { label: "Across the grass", crop: [15, 17, 70, 29], note: "Follow the smaller heaps into the distance. Each marks a place where soil reached the surface." },
+      ],
+      conservation: { ukGbStatus: "Least Concern in Great Britain" },
+      sources: [
+        { title: "I’ve learnt to love moles", url: "https://juliahailes.com/ive-learnt-to-love-moles-feb21/", note: "Julia’s observations and photographs, February 2021." },
+        { title: "Dorset Wildlife Trust · Mole", url: "https://www.dorsetwildlifetrust.org.uk/wildlife-explorer/mole", note: "Field signs and year-round activity." },
+        { title: "Mammal Society · European mole", url: "https://mammal.org.uk/british-mammals/mole", note: "Burrowing behaviour and British Red List assessment." },
+      ],
+    },
+    {
       id: "dartford-warbler",
       commonName: "Dartford warbler",
       scientificName: "Sylvia undata",

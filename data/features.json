@@ -97,21 +97,25 @@
           "image": "assets/field-guide/placeholder.svg",
           "width": 0,
           "height": 0,
-          "textPreview": "A wonderfully odd feature with a name that makes you smile. It’s a small stop that hints at how the farm mixes usefulness, humour, and habitat."
+          "textPreview": "Two chicken houses stand on a mound at Hooke."
         }
       ],
-      "description": "A wonderfully odd feature with a name that makes you smile. It’s a small stop that hints at how the farm mixes usefulness, humour, and habitat.",
+      "description": "Two chicken houses stand on a mound at Hooke.",
       "seasonalNotes": {
         "Spring": "A good stop for noticing new growth and early insects—hover a moment and watch the edges come alive.",
         "Summer": "Expect constant small movement: flies, beetles, and bees working the sunny side of anything sheltering.",
         "Autumn": "Look for fallen feathers, seed heads, and foraging signs—edges become busy as food gets patchier.",
         "Winter": "A sheltered nook to pause in wind and rain; look for footprints and the quiet patterns of daily routes."
       },
-      "story": "Hen Henge sounds like something you’d stumble across in a myth, right after a mysterious fog and just before a life-changing cup of tea.\n\nIn reality, it’s a small reminder that wilding isn’t only serious science—it’s also joy, curiosity, and the occasional splendidly silly name.\n\nStand here for a moment. The best features don’t shout; they wink. And this one definitely winks.",
+      "story": "Hen Henge was already on the drawing board when the pond works began in July 2020. Julia liked the idea of raising the houses where the chickens would be easy to see and sheltered from predators. Her account includes the early sketch.",
       "text": "",
       "tags": [
         "Landmarks"
-      ]
+      ],
+      "storySource": {
+        "title": "Julia’s original Hen Henge sketch",
+        "url": "https://juliahailes.com/wilding-has-started-jul20/"
+      }
     },
     {
       "id": "ichthyosaurus",
@@ -179,22 +183,26 @@
           "image": "assets/field-guide/placeholder.svg",
           "width": 0,
           "height": 0,
-          "textPreview": "A nesting site built to support one of the farm’s most iconic hunters. Keep your eyes open at dusk for silent flight along field edges."
+          "textPreview": "A feather and an old egg gave the farm team their first clues about who had used this box."
         }
       ],
-      "description": "A nesting site built to support one of the farm’s most iconic hunters. Keep your eyes open at dusk for silent flight along field edges.",
+      "description": "A feather and an old egg gave the farm team their first clues about who had used this box.",
       "seasonalNotes": {
         "Spring": "Breeding season begins—keep a respectful distance. Dusk is best for a chance of a hunting pass along edges.",
         "Summer": "Long evenings: watch low, wavering flight over rough grass. Listen for calls near dark on still nights.",
         "Autumn": "Young owls disperse; hunting can be active as nights lengthen—scan fence lines and field margins at dusk.",
         "Winter": "Hard weather pushes hunting into daylight edges; look for pellets beneath roost spots and near posts."
       },
-      "story": "A Barn Owl Box is a promise with a hinge: if the habitat is right, the wild might accept the invitation.\n\nNothing about a barn owl is loud. You don’t get a grand entrance—just a hush, a pale shape, and suddenly the field is listening.\n\nSo this is a place to practice dusk-patience. Watch the edges. Let the evening arrive. And if you’re lucky, you’ll see the silent sentence of flight written across the air.",
+      "story": "The team took the first box down one spring, thinking it might sit better higher up the tree. Inside they found nesting material, droppings, a barn owl feather and an old egg. Julia photographed the feather and egg together for her January 2023 account.",
       "text": "",
       "tags": [
         "Birds",
         "Shelter"
-      ]
+      ],
+      "storySource": {
+        "title": "Julia’s photograph of the feather and egg",
+        "url": "https://juliahailes.com/wild-about-wilding-jan23/"
+      }
     },
     {
       "id": "monkey-puzzle",
@@ -291,21 +299,37 @@
           "image": "assets/field-guide/placeholder.svg",
           "width": 0,
           "height": 0,
-          "textPreview": "A calm patch of water with a sense of history. Watch for ripples, reeds, and the birds that patrol the margins."
+          "textPreview": "Springs feed the pools on the old mill pond site."
         }
       ],
-      "description": "A calm patch of water with a sense of history. Watch for ripples, reeds, and the birds that patrol the margins.",
+      "description": "Springs feed the pools on the old mill pond site.",
       "seasonalNotes": {
         "Spring": "Birdsong and nesting activity ramps up; look for new reed shoots and early insects skimming the surface.",
         "Summer": "Watch for dragonflies, swallows, and the shimmer of life on hot days; early mornings are often best.",
         "Autumn": "Migrants may pause; falling leaves and softer light make reflections beautiful—look for fish ripples.",
         "Winter": "Quiet and reflective—scan for winter birds and note how water levels and vegetation change."
       },
-      "story": "Old Mill Pond keeps its secrets in ripples.\n\nStand still and you’ll see the whole place rearrange itself: a shadow passes under the surface, reeds sway like they’re whispering, and birds patrol the edges with professional focus.\n\nIt’s a history-heavy kind of calm—water that remembers. Visit often and you’ll notice it never tells the same story twice.",
+      "story": "In July 2020 the team began digging out a pond that had nearly filled with silt. Several springs came to light. The new pools follow the water’s existing course. Julia published photographs of the same patch of ground before work began and as the banks were being opened up.",
       "text": "",
       "tags": [
         "Water",
         "Birds"
+      ],
+      "storySource": {
+        "title": "Wilding has started",
+        "url": "https://juliahailes.com/wilding-has-started-jul20/"
+      },
+      "gallery": [
+        {
+          "id": "mill-pond-april-2020",
+          "url": "assets/before/mill-pond-april-2020.webp",
+          "caption": "Old Mill Pond before excavation, April 2020"
+        },
+        {
+          "id": "excavation-july-2020",
+          "url": "assets/features/old-mill-pond/excavation-july-2020.webp",
+          "caption": "Excavation begins at Old Mill Pond, July 2020"
+        }
       ]
     },
     {
@@ -402,22 +426,26 @@
           "image": "assets/field-guide/placeholder.svg",
           "width": 0,
           "height": 0,
-          "textPreview": "A broad brush of colour and nectar when the season is right. The best place to linger for butterflies, bees, and the constant, quiet movement of grass."
+          "textPreview": "Mown paths cross the long grass. In autumn the team also cuts back patches of coarse growth to make room for next year’s flowers."
         }
       ],
-      "description": "A broad brush of colour and nectar when the season is right. The best place to linger for butterflies, bees, and the constant, quiet movement of grass.",
+      "description": "Mown paths cross the long grass. In autumn the team also cuts back patches of coarse growth to make room for next year’s flowers.",
       "seasonalNotes": {
         "Spring": "Early flowers begin to appear; watch for the first butterflies and listen for skylark-like energy overhead.",
         "Summer": "The headline season—nectar, butterflies, and bees. Visit on warm, still days for maximum activity.",
         "Autumn": "Seed heads and grasses take over—look for finches feeding and late blooms hanging on.",
         "Winter": "A season of structure: stems, frost, and tracks. Notice how ‘empty’ meadow still shelters life."
       },
-      "story": "Wildflower Meadow doesn’t do stillness. It does shimmer.\n\nOn a good summer day the air is full of wings: bees commuting, butterflies zig-zagging, and grasses nodding like they’re keeping time.\n\nCome back in autumn and it turns into a library of seed heads. Come back in winter and it becomes sculpture. The meadow is always working—just at different speeds.",
+      "story": "On the scything day Julia described in October 2023, knapweed and docks made for slow work and frequent blade sharpening. Working by hand, the scythers spotted several harvest mouse nests and left them intact.",
       "text": "",
       "tags": [
         "Plants",
         "Pollinators"
-      ]
+      ],
+      "storySource": {
+        "title": "Julia’s account of scything day",
+        "url": "https://juliahailes.com/why-do-scything-wilding-go-hand-in-hand-oct23/"
+      }
     },
     {
       "id": "insect-homes",
@@ -430,7 +458,7 @@
           "image": "assets/features/insect-homes/page-001.png",
           "width": 1600,
           "height": 1280,
-          "textPreview": "You may have noticed these piles of stone\naround the site - they're insect cairns. We\nuse them as markers for the butterfly\ntransept. They're made from waste stone\ndug up from our yard.\nINSECT APOCALYPSE\n Please read 'Silent Earth' -\nit's a revelation about the\nplight of insects and why\nwe need to be concerned\nabout them.\nLEARNING ABOUT INSECTS\nRemember that insects are a vital ingredient in the w\u2026"
+          "textPreview": "You may have noticed these piles of stone\naround the site - they're insect cairns. We\nuse them as markers for the butterfly\ntransept. They're made from waste stone\ndug up from our yard.\nINSECT APOCALYPSE\n Please read 'Silent Earth' -\nit's a revelation about the\nplight of insects and why\nwe need to be concerned\nabout them.\nLEARNING ABOUT INSECTS\nRemember that insects are a vital ingredient in the w…"
         }
       ],
       "text": "You may have noticed these piles of stone\naround the site - they're insect cairns. We\nuse them as markers for the butterfly\ntransept. They're made from waste stone\ndug up from our yard.\nINSECT APOCALYPSE\n Please read 'Silent Earth' -\nit's a revelation about the\nplight of insects and why\nwe need to be concerned\nabout them.\nLEARNING ABOUT INSECTS\nRemember that insects are a vital ingredient in the web\nof life. They are food for birds and fish, which are, of\ncourse, in decline too.\nThe brilliant thing about our wilding project is that\ninsects love it - and I love them.\nIn part, my interest was sparked by Dave Goulson, author\nof numerous books about insects. He explained that\nthere has been a devastating decline in insects over the\nlast 100 years.\nINSECT HOMES:\nI've become fascinated by insects and have seen lots\nof different types at Hooke Farm - many of which I\ndidn't know existed.",
@@ -440,11 +468,16 @@
         "Autumn": "Late nectar becomes precious—look for final foraging bursts and spiders hunting around the structure.",
         "Winter": "A shelter season—many insects overwinter in crevices; avoid disturbing and look instead for tracks and birds hunting."
       },
-      "story": "This is where the tiniest residents get the best housing.\n\nInsect Homes are both practical and poetic: a handful of materials arranged so that beetles, bees, and other busy workers can shelter, breed, and quietly keep the whole place running.\n\nIf you want to feel hopeful, watch the entrances for a minute. The traffic tells you the ecosystem is clocking in for work.",
+      "story": "The cairns were built with waste stone from the farmyard. Walking the same route gives the weekly butterfly count a point of comparison. In July 2025 Julia reported that one surveyor had counted nearly 300 butterflies on a single walk, including gatekeepers and green-veined whites.",
       "tags": [
         "Insects",
         "Shelter"
-      ]
+      ],
+      "description": "Look for the small stone cairns. They mark the route volunteers walk to count butterflies.",
+      "storySource": {
+        "title": "Julia’s July 2025 butterfly survey account",
+        "url": "https://juliahailes.com/have-you-noticed-an-insect-bonanza-in-2025-jul25/"
+      }
     },
     {
       "id": "rats",
@@ -457,10 +490,10 @@
           "image": "assets/features/rats/page-001.png",
           "width": 1600,
           "height": 1132,
-          "textPreview": "We think this is a rat hole!!\nWe\u2019re delighted to find that we have rat holes\naround our garden - and embrace them.  They play\na crucial role in our eco-system for example by:\n\u201cWhy do we want certain animals around us and not\nother animals? In new build homes, facilities are made in\nthe cavity to provide bats with a home. At the same time,\nrats are controlled with clamps, glue plates and poision.\u201d\n\u2026"
+          "textPreview": "We think this is a rat hole!!\nWe’re delighted to find that we have rat holes\naround our garden - and embrace them.  They play\na crucial role in our eco-system for example by:\n“Why do we want certain animals around us and not\nother animals? In new build homes, facilities are made in\nthe cavity to provide bats with a home. At the same time,\nrats are controlled with clamps, glue plates and poision.”\n…"
         }
       ],
-      "text": "We think this is a rat hole!!\nWe\u2019re delighted to find that we have rat holes\naround our garden - and embrace them.  They play\na crucial role in our eco-system for example by:\n\u201cWhy do we want certain animals around us and not\nother animals? In new build homes, facilities are made in\nthe cavity to provide bats with a home. At the same time,\nrats are controlled with clamps, glue plates and poision.\u201d\n Scavenging:  Rats help clean up by\nscavenging and consuming waste carrion\nwhich can reduce the spread of disease.\nSeed dispersal:  They can help with plant\npropagation by spreading seeds.\nBeing prey:  They serve as a food source for\nmany predators such as snakes, owls and\nother birds of prey, such as buzzards and red\nkites.",
+      "text": "We think this is a rat hole!!\nWe’re delighted to find that we have rat holes\naround our garden - and embrace them.  They play\na crucial role in our eco-system for example by:\n“Why do we want certain animals around us and not\nother animals? In new build homes, facilities are made in\nthe cavity to provide bats with a home. At the same time,\nrats are controlled with clamps, glue plates and poision.”\n Scavenging:  Rats help clean up by\nscavenging and consuming waste carrion\nwhich can reduce the spread of disease.\nSeed dispersal:  They can help with plant\npropagation by spreading seeds.\nBeing prey:  They serve as a food source for\nmany predators such as snakes, owls and\nother birds of prey, such as buzzards and red\nkites.",
       "seasonalNotes": {
         "Spring": "As food sources shift, watch for fresh signs near compost and edges—remember they’re part of the wider food web.",
         "Summer": "Activity is often at dawn/dusk—look for runs through vegetation and listen for rustling in cover.",
@@ -483,7 +516,7 @@
           "image": "assets/features/standing-stones/page-001.png",
           "width": 1600,
           "height": 1280,
-          "textPreview": "The standing stones were installed\nin September 2020. We chose them\nstraight from the quarry at\nMarnhull Stone near Sturminster\nNewton.\nThe stone is from the Corallian\ngroup of limestones which are\nabout 160 million years old and they\nwere deposited during the Jurassic\nperiod between 145 and 201 million\nyears ago, when the sea level was\nretreating!\nThe stones arrived on an\narticulated lorry\nAt lea\u2026"
+          "textPreview": "The standing stones were installed\nin September 2020. We chose them\nstraight from the quarry at\nMarnhull Stone near Sturminster\nNewton.\nThe stone is from the Corallian\ngroup of limestones which are\nabout 160 million years old and they\nwere deposited during the Jurassic\nperiod between 145 and 201 million\nyears ago, when the sea level was\nretreating!\nThe stones arrived on an\narticulated lorry\nAt lea…"
         }
       ],
       "text": "The standing stones were installed\nin September 2020. We chose them\nstraight from the quarry at\nMarnhull Stone near Sturminster\nNewton.\nThe stone is from the Corallian\ngroup of limestones which are\nabout 160 million years old and they\nwere deposited during the Jurassic\nperiod between 145 and 201 million\nyears ago, when the sea level was\nretreating!\nThe stones arrived on an\narticulated lorry\nAt least a third of each\nstone is underground\nThey were installed by our\nwonderful digger man,\nKevin Holt\nSTANDING STONES",
@@ -510,10 +543,10 @@
           "image": "assets/features/wild-bees-birds/page-001.png",
           "width": 1600,
           "height": 1132,
-          "textPreview": "Wild Bees & Birds\nThese bird boxes were built for swifts but we think\nthey are too low - and the swifts wouldn\u2019t have liked\nthe creeper either.  The first occupants were starlings,\nbut the bees usurped them - European honey bees\n(Apis mellifera).\nHowever, one rather brave or foolish starling returned\nthis year and made his or her nest in one of the holes\nbetween the bees.  It wasn\u2019t a great succes\u2026"
+          "textPreview": "Wild Bees & Birds\nThese bird boxes were built for swifts but we think\nthey are too low - and the swifts wouldn’t have liked\nthe creeper either.  The first occupants were starlings,\nbut the bees usurped them - European honey bees\n(Apis mellifera).\nHowever, one rather brave or foolish starling returned\nthis year and made his or her nest in one of the holes\nbetween the bees.  It wasn’t a great succes…"
         }
       ],
-      "text": "Wild Bees & Birds\nThese bird boxes were built for swifts but we think\nthey are too low - and the swifts wouldn\u2019t have liked\nthe creeper either.  The first occupants were starlings,\nbut the bees usurped them - European honey bees\n(Apis mellifera).\nHowever, one rather brave or foolish starling returned\nthis year and made his or her nest in one of the holes\nbetween the bees.  It wasn\u2019t a great success as the\nbird died - presumably killed by the bees.\nI love it when they form clusters like in the photo.  At\ntimes we could see honey seeping through the wood.  I\nthink that the swift boxes are a bit small for all the\nbees that want to live there, but they don\u2019t seem\ndeterred!",
+      "text": "Wild Bees & Birds\nThese bird boxes were built for swifts but we think\nthey are too low - and the swifts wouldn’t have liked\nthe creeper either.  The first occupants were starlings,\nbut the bees usurped them - European honey bees\n(Apis mellifera).\nHowever, one rather brave or foolish starling returned\nthis year and made his or her nest in one of the holes\nbetween the bees.  It wasn’t a great success as the\nbird died - presumably killed by the bees.\nI love it when they form clusters like in the photo.  At\ntimes we could see honey seeping through the wood.  I\nthink that the swift boxes are a bit small for all the\nbees that want to live there, but they don’t seem\ndeterred!",
       "seasonalNotes": {
         "Spring": "Nesting season begins and bee activity rises—watch entrances for comings and goings on warm days.",
         "Summer": "Peak buzzing: look for clustered bees and busy flight paths; early morning and late afternoon are often best.",
@@ -537,21 +570,26 @@
           "image": "assets/features/our-sweet-track/page-001.png",
           "width": 1600,
           "height": 1132,
-          "textPreview": "Our Sweet Track\nA \u2018Sweet Track\u2019 is a Neolithic timber walkway\nand was originally part of a network of tracks\nbuilt to provide a dry path across marshy\nground. The trees were cut using stone and\nflint axes making planks from oak, ash and\nlime, whereas the poles were made with hazel\n& alder.  The track found by Ray Sweet was\npreserved in the peat bog and it was thought\nto date back to around 3800 BC\u2026"
+          "textPreview": "Our Sweet Track\nA ‘Sweet Track’ is a Neolithic timber walkway\nand was originally part of a network of tracks\nbuilt to provide a dry path across marshy\nground. The trees were cut using stone and\nflint axes making planks from oak, ash and\nlime, whereas the poles were made with hazel\n& alder.  The track found by Ray Sweet was\npreserved in the peat bog and it was thought\nto date back to around 3800 BC…"
         }
       ],
-      "text": "Our Sweet Track\nA \u2018Sweet Track\u2019 is a Neolithic timber walkway\nand was originally part of a network of tracks\nbuilt to provide a dry path across marshy\nground. The trees were cut using stone and\nflint axes making planks from oak, ash and\nlime, whereas the poles were made with hazel\n& alder.  The track found by Ray Sweet was\npreserved in the peat bog and it was thought\nto date back to around 3800 BC!\nOur Sweet track is made from\nsweet chestnut stakes and oak\nplanks.\nThe idea for its installation came\nfrom Andrew George, from Wessex\nWilding.  It was constructed by a\nsmall team headed by Joe Wood -\nin the early stages helped by\nJasper Rayner and later by Bertie\nClark. They\u2019ve all been involved in\na number of projects at Hooke\nJasper & Joe\nJoe & Bertie\nAndrew George",
+      "text": "Our Sweet Track\nA ‘Sweet Track’ is a Neolithic timber walkway\nand was originally part of a network of tracks\nbuilt to provide a dry path across marshy\nground. The trees were cut using stone and\nflint axes making planks from oak, ash and\nlime, whereas the poles were made with hazel\n& alder.  The track found by Ray Sweet was\npreserved in the peat bog and it was thought\nto date back to around 3800 BC!\nOur Sweet track is made from\nsweet chestnut stakes and oak\nplanks.\nThe idea for its installation came\nfrom Andrew George, from Wessex\nWilding.  It was constructed by a\nsmall team headed by Joe Wood -\nin the early stages helped by\nJasper Rayner and later by Bertie\nClark. They’ve all been involved in\na number of projects at Hooke\nJasper & Joe\nJoe & Bertie\nAndrew George",
       "seasonalNotes": {
         "Spring": "A great time for a slower walk—fresh growth and damp ground highlight why raised paths matter.",
         "Summer": "Use it as a calm route through busy habitat; early morning walks can be full of birdsong and insects.",
         "Autumn": "Falling leaves and softer light make it atmospheric—watch for fungi on nearby wood after rain.",
         "Winter": "Best for reading the land: tracks, stems, and silhouettes. Take care on slippery boards after frost."
       },
-      "story": "The Sweet Track is an idea that keeps getting reinvented: “How do we cross wet ground without fighting it?”\n\nNeolithic people built their answer out of timber. Hooke Farm built theirs out of sweet chestnut and oak. Different centuries, same problem-solving.\n\nWalk it and imagine the original track under your feet—then look up and notice how wilding turns a path into a place.",
+      "story": "Andrew George proposed the walkway and Joe Wood led its construction, with Jasper Rayner helping early on and Bertie Clark later. It became the starting point for guided walks at the 2023 Wilding Weekend. Julia’s photograph shows visitors setting off along the track.",
       "tags": [
         "History",
         "Paths"
-      ]
+      ],
+      "description": "Oak planks on sweet chestnut stakes carry this path across the water meadow.",
+      "storySource": {
+        "title": "See the 2023 tour on the Sweet Track",
+        "url": "https://juliahailes.com/our-wilding-weekend-was-wonderful-jun23/"
+      }
     },
     {
       "id": "the-bat-egg",
@@ -564,10 +602,10 @@
           "image": "assets/features/the-bat-egg/page-001.png",
           "width": 1600,
           "height": 1132,
-          "textPreview": "We were very proud of our beautiful\nbat egg. Built from waste stone to\nhouse a few different bat species\nwith a specal cave inside.\nBut I think the bats knew more than\nwe did - they visited but never\nsettled. And then the egg collapsed,\nfirst on one side and then the other,\nin the past year.\nWe are not planning to rebuild it but\nlet it become a glorious ruin covered\nin wild flowers.\nStone carver, \u2026"
+          "textPreview": "We were very proud of our beautiful\nbat egg. Built from waste stone to\nhouse a few different bat species\nwith a specal cave inside.\nBut I think the bats knew more than\nwe did - they visited but never\nsettled. And then the egg collapsed,\nfirst on one side and then the other,\nin the past year.\nWe are not planning to rebuild it but\nlet it become a glorious ruin covered\nin wild flowers.\nStone carver, …"
         }
       ],
-      "text": "We were very proud of our beautiful\nbat egg. Built from waste stone to\nhouse a few different bat species\nwith a specal cave inside.\nBut I think the bats knew more than\nwe did - they visited but never\nsettled. And then the egg collapsed,\nfirst on one side and then the other,\nin the past year.\nWe are not planning to rebuild it but\nlet it become a glorious ruin covered\nin wild flowers.\nStone carver, Tom Clark,built the bat\negg, finishing in December 2021.\nwww.tomclarkstonecarver.co.uk\nBe Careful - it\u2019s not\nsafe. Please don\u2019t\ngo close to it!!!\nThe Bat Egg\nhas collapsed!\nPipistrelle bats weigh between 3.5\nand 8.5 grams, but can eat up to\n3,000 insects in a single night!\nThey may be living in the crevices\nof the bat egg.",
+      "text": "We were very proud of our beautiful\nbat egg. Built from waste stone to\nhouse a few different bat species\nwith a specal cave inside.\nBut I think the bats knew more than\nwe did - they visited but never\nsettled. And then the egg collapsed,\nfirst on one side and then the other,\nin the past year.\nWe are not planning to rebuild it but\nlet it become a glorious ruin covered\nin wild flowers.\nStone carver, Tom Clark,built the bat\negg, finishing in December 2021.\nwww.tomclarkstonecarver.co.uk\nBe Careful - it’s not\nsafe. Please don’t\ngo close to it!!!\nThe Bat Egg\nhas collapsed!\nPipistrelle bats weigh between 3.5\nand 8.5 grams, but can eat up to\n3,000 insects in a single night!\nThey may be living in the crevices\nof the bat egg.",
       "seasonalNotes": {
         "Spring": "As evenings warm, bats return to feeding routes—dusk is the moment to watch above hedges and open rides.",
         "Summer": "Peak bat season—try a still, warm night for the best chance of activity. Listen for insects too.",
@@ -591,7 +629,7 @@
           "image": "assets/features/hibernaculum/page-001.png",
           "width": 1600,
           "height": 1132,
-          "textPreview": "It's an underground home that\namphibians and reptiles use\nthroughout winter to protect\nthemselves from the cold.\nThere are lots of frogs, toads and\nnewts in or near our ponds. They\nlove the boggy ground and sunny\nspots.  By creating a hibernaculum\nwe have provided a safe space for\nthem to hibernate over winter.\nHOW WE CREATED THE HIBERNACULUM\nWe lifted an area of turf about 1\nby 2 metres and dug o\u2026"
+          "textPreview": "It's an underground home that\namphibians and reptiles use\nthroughout winter to protect\nthemselves from the cold.\nThere are lots of frogs, toads and\nnewts in or near our ponds. They\nlove the boggy ground and sunny\nspots.  By creating a hibernaculum\nwe have provided a safe space for\nthem to hibernate over winter.\nHOW WE CREATED THE HIBERNACULUM\nWe lifted an area of turf about 1\nby 2 metres and dug o…"
         }
       ],
       "text": "It's an underground home that\namphibians and reptiles use\nthroughout winter to protect\nthemselves from the cold.\nThere are lots of frogs, toads and\nnewts in or near our ponds. They\nlove the boggy ground and sunny\nspots.  By creating a hibernaculum\nwe have provided a safe space for\nthem to hibernate over winter.\nHOW WE CREATED THE HIBERNACULUM\nWe lifted an area of turf about 1\nby 2 metres and dug out the soil\nat a depth of 50cm\nWe used old tiles to create entrance\ntunnels into the centre\nWe then filled the hole with rocks &\nlogs to create crawl spaces\nWe covered this with loose soil and the\noriginal turf was laid on top\nWe made sure the entrance tunnels were\naccessible\nAs the logs decompose\nthey release heat\nwarming  the\nhibernaculum and\nmaking it an ideal\nhibernation habitat for\namphibians & reptiles\nWHAT IS A HIBERNACULUM?\nOUR HIBERNACULUM\nIt was inspired and built by\nOscar McCarthy, in May\n2022. He has been working\nhere helping with land\nmanagement since 2021.",
@@ -618,7 +656,7 @@
           "image": "assets/features/mount-scotland/page-001.png",
           "width": 1600,
           "height": 1280,
-          "textPreview": "MOUNT SCOTLAND\nMy husband, Jamie Macdonald, is proud of his\nScottish heritage so we decided to dedicate this\nmound to him.  It includes 3 Scot's Pine trees and 2\ndriftwood stags.  The stags were bought in\nBridport market and made from driftwood which\noriginated in Indonesia - sadly, as a result of the\nhorrendous deforestation  However the wood\nwas drifting for some time before being made into\nscul\u2026"
+          "textPreview": "MOUNT SCOTLAND\nMy husband, Jamie Macdonald, is proud of his\nScottish heritage so we decided to dedicate this\nmound to him.  It includes 3 Scot's Pine trees and 2\ndriftwood stags.  The stags were bought in\nBridport market and made from driftwood which\noriginated in Indonesia - sadly, as a result of the\nhorrendous deforestation  However the wood\nwas drifting for some time before being made into\nscul…"
         }
       ],
       "text": "MOUNT SCOTLAND\nMy husband, Jamie Macdonald, is proud of his\nScottish heritage so we decided to dedicate this\nmound to him.  It includes 3 Scot's Pine trees and 2\ndriftwood stags.  The stags were bought in\nBridport market and made from driftwood which\noriginated in Indonesia - sadly, as a result of the\nhorrendous deforestation  However the wood\nwas drifting for some time before being made into\nsculptures, which makes them very resilient to\nthe weather.  The antlers were provided by Jamie",

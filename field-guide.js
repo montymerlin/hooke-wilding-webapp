@@ -29,7 +29,8 @@
   const opening = species.find((item) => item.id === "emperor-dragonfly") || species[0];
   // Start the strip with the featured plate, keeping the rest of the index alphabetical.
   const index = [opening, ...species.filter((item) => item !== opening)];
-  let selected = opening;
+  const requestedSpecies = new URLSearchParams(location.search).get("species");
+  let selected = species.find(item => item.id === requestedSpecies) || opening;
   let results = [];
   let speciesButtons = [];
   const habitatNames = (item) => (item.habitats || []).map((id) => habitats.get(id) || id);
