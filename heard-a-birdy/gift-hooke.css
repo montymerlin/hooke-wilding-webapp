@@ -258,3 +258,30 @@ body:has(.gift-wrap:not([hidden])) .reveal-portraits { visibility: hidden; }
 .survey-ranks .chosen-species { font-weight: 700; }
 .chosen-species .rank-track i { background: var(--ink); }
 #survey-history { margin-top: 14px; }
+
+.visitor-notes {
+  width: min(100%, 1180px);
+  margin: 32px auto 0;
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  border: 1px solid var(--line);
+  background: #fffef7;
+}
+.visitor-example, .visitor-key { padding: clamp(20px, 2.8vw, 38px); }
+.visitor-example { background: #e9ecdc; }
+.visitor-notes h3 { font-size: clamp(29px, 3vw, 42px); line-height: 1.1; }
+.visitor-notes h4 { font: 32px/1.1 Instrument, Georgia, serif; margin: 0 0 8px; }
+.visitor-notes p, .visitor-key dd, .visitor-key a { font-size: 14px; }
+.visitor-portrait { display: flex; align-items: flex-start; gap: 26px; margin: 18px 0 10px; }
+.visitor-portrait img:first-child { width: 140px; height: 112px; object-fit: contain; }
+.visitor-portrait img:last-child { width: 48px; height: auto; }
+.visitor-key dl { margin: 12px 0 16px; }
+.visitor-key dl > div { position: relative; padding: 10px 0 10px 66px; border-bottom: 1px solid var(--line); }
+.visitor-key dt { font: 24px/1.2 Instrument, Georgia, serif; }
+.visitor-key dt img { position: absolute; left: 0; top: 15px; width: 50px; height: 36px; object-fit: contain; mix-blend-mode: multiply; }
+.visitor-key dd { margin: 4px 0 0; color: var(--muted); }
+@media (max-width: 700px) {
+  .visitor-notes { grid-template-columns: 1fr; }
+  .visitor-key dl > div { padding-left: 52px; }
+  .visitor-key dt img { width: 40px; }
+}
