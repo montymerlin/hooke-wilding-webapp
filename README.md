@@ -8,15 +8,20 @@ An **offline, interactive guide** to Hooke Farm’s wilding features — built f
   - Click map pins or cards to open a feature.
   - Search + tag filtering.
   - “Tour” mode steps through pinned features.
-  - Feature details include the original board image, extracted text, seasonal notes, and an optional photo gallery.
+  - Opening or reloading Explore directly plays a full-window meadow entrance. Internal navigation, feature links and reduced motion open straight on the map. “Replay meadow entrance” and `?entrance=replay` also work with reduced motion, showing a still meadow that visitors can dismiss.
+  - Feature readers support enlargement, the original board and transcript, seasonal notes and photos. Link directly to a feature with `?feature=the-bat-egg`. Browser Back returns to Explore.
+  - The Bat Egg, Standing Stones, Our Sweet Track and Public Bridleway have “Look closer” photo studies with dated comparisons. Each feature’s captions, date sources and pairings live in its own study file under `data/`. The first three Standing Stones photos come from the original farm board.
 - **Living Dorset Field Guide**: `field-guide.html` + `field-guide.js`
   - Browse a curated starter dataset of habitats/species.
   - Filter by group/habitat/season and search.
-  - Species modal includes photo attribution and sources.
-- **Watch & Read (videos + blogs)**: `content.html` + `content.js`
+  - The selected species shares a spread with its photograph, identification notes, seasonality, credits and sources. “Look closer” opens annotated views of that photograph. Each detail in the species dataset specifies a label, note and crop as percentages of the original image.
+- **Discover (videos + blogs)**: `content.html` + `content.js`
   - Curated library with search, filters, and sorting.
   - YouTube videos play in a modal; blog links open in a new tab.
-- **About page**: `about.html`
+- **Farm gallery**: `gallery.html` + `gallery.js`, with before-wilding photographs, artwork, search and a keyboard-operated viewer.
+- **About the farm**: `about.html` and `about.css` tell the history of the wilding project using Julia Hailes’s published accounts, the original field boards and farm photographs.
+
+The five public pages share a continuous flowering meadow footer photographed at Hooke. The planting rises once as it comes into view, with a comma butterfly and bumblebee in front. Visitors come from Hooke Farm photographs in `assets/hookewildingmisc/`, `assets/features/wildflower-meadow/` and `assets/features/toad-pond/`. The cutout details are served locally from `assets/wildlife/` and `assets/arrival/`. Tapping a visitor or activating it with the keyboard reveals its name. Reduced motion keeps the animals still.
 
 ## Run locally
 
@@ -25,8 +30,8 @@ This is a **static site** (no build step). You can open `index.html` directly, b
 ### Option A: Python (recommended)
 
 ```bash
-cd "/Users/montybryant/Documents/Work/Knowledge Resources/vibecoding/Hooke Almighty/hooke-wilding-webapp"
-python3 -m http.server 8000
+# Run in the repository root.
+python3 -m http.server 8000 --bind 127.0.0.1
 ```
 
 Then open `http://localhost:8000/index.html`.
@@ -94,7 +99,7 @@ If your environment has SSL certificate issues, the script supports an insecure 
 HOOKE_INSECURE_SSL=1 python3 tools/fetch_commons_covers.py
 ```
 
-### Populate YouTube publish dates for Watch & Read (optional)
+### Populate YouTube publish dates for Discover (optional)
 
 YouTube publish dates are not available via oEmbed and can’t be reliably scraped in-browser (CORS), so they’re best added at build/curation time.
 
@@ -108,9 +113,9 @@ python3 tools/build_content_youtube_dates.py --write
 
 ## Repo layout (high-level)
 
-- **Pages**: `index.html`, `field-guide.html`, `content.html`, `about.html`
+- **Pages**: `index.html`, `field-guide.html`, `content.html`, `gallery.html`, `about.html`
 - **Logic**: `app.js`, `field-guide.js`
-- **Styles**: `styles.css`
+- **Styles**: `styles.css` (shared), `arrival.css`, `feature-view.css`, `field-guide.css`
 - **Data**: `data/`
 - **Images & PDFs**: `assets/`
 - **Utility scripts**: `tools/`
@@ -120,5 +125,7 @@ python3 tools/build_content_youtube_dates.py --write
 Copyright © 2026 Monty Bryant. All rights reserved. No open-source licence has been granted yet (see [LICENSE](LICENSE)).
 
 If you'd like to use, fork, adapt or collaborate on this project, please get in touch by [opening an issue](https://github.com/montymerlin/hooke-wilding-webapp/issues) or through [my Linktree](https://linktr.ee/montybryant), and I'll review each request.
+
+The locally hosted Instrument Serif and DM Sans fonts carry their SIL Open Font License notices in `assets/type/`.
 
 Third-party material in this repository, such as Wikimedia Commons images and other people's artwork, writing or photographs, stays under its own licence or with its creator.
