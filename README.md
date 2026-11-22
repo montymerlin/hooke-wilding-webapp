@@ -2,6 +2,20 @@
 
 An **offline, interactive guide** to Hooke Farm’s wilding features — built from the WW24 info boards — plus a “Living Dorset Field Guide” you can extend over time.
 
+## Live site and deployment
+
+The public site is **[hooke.farm](https://hooke.farm/)**. `www.hooke.farm` permanently redirects to that address (HTTP 308). The original [Vercel address](https://hooke-farm.vercel.app/) also remains available.
+
+- **Source:** [montymerlin/hooke-wilding-webapp](https://github.com/montymerlin/hooke-wilding-webapp), production branch `main`.
+- **Hosting:** Vercel project `hooke-farm`, in the Merlin team (`merlin-c518`). [Project dashboard](https://vercel.com/merlin-c518/hooke-farm) · [Domain settings](https://vercel.com/merlin-c518/hooke-farm/settings/domains).
+- **Deployment:** Vercel imports the GitHub repository. Pushing to `main` automatically deploys production; a local commit alone does not publish. Other branches can be used for preview deployments before merging to `main`.
+- **Build settings:** application preset **Other**, root directory `./`, no build or install command and no output-directory override. This is a static site; no runtime secrets are required.
+- **Domain:** registered through Vercel on 22 November 2026, with auto-renew enabled at purchase. Vercel manages DNS and HTTPS certificates. Manage registration and renewal in the Merlin team's Domains area.
+
+After a push, check that the dashboard's Production Deployment is Ready and its Source commit matches the intended GitHub commit, then check the affected page at `https://hooke.farm/`. The GitHub Pages address is a legacy deployment, not the canonical public address. Use exact filename casing for assets: Vercel paths are case-sensitive even when the local filesystem is not.
+
+Domain HTTPS, the `www` redirect and automatic deployment from `main` were verified on 22 November 2026. Editing content through the site's local Admin mode still does not publish to GitHub or Vercel; see below.
+
 ## What’s in here
 
 - **Explore map + feature boards**: `index.html` + `app.js`
