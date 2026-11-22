@@ -100,11 +100,54 @@
     };
     pins.addEventListener('hooke:tour-stop', centerZoom);
 
+    const plate = document.getElementById('farm-map');
+    const dialog = document.getElementById('atlasDialog');
+    const fullscreen = document.getElementById('atlasFullscreen');
+    let inlineView;
+    function setZoom(enlarged) {
+      viewport.classList.toggle('is-enlarged', enlarged);
+      zoom.setAttribute('aria-pressed', String(enlarged));
+      zoom.textContent = enlarged ? 'Fit map' : 'Zoom in';
+    }
+
+    function updateMapSize() {
+      const expanded = dialog.open || document.fullscreenElement === plate;
+      if (expanded === plate.classList.contains('is-expanded')) return;
+      if (expanded) {
+        inlineView = { zoom: viewport.classList.contains('is-enlarged'), x: viewport.scrollLeft, y: viewport.scrollTop };
+        if (window.matchMedia('(orientation: portrait)').matches) setZoom(true);
+      }
+      plate.classList.toggle('is-expanded', expanded);
+      fullscreen.setAttribute('aria-pressed', String(expanded));
+      fullscreen.textContent = expanded ? 'Exit full screen' : 'Full screen';
+      if (expanded) requestAnimationFrame(centerZoom);
+      else if (inlineView) {
+        setZoom(inlineView.zoom);
+        viewport.scrollTo(inlineView.x, inlineView.y);
+      }
+    }
+    document.addEventListener('fullscreenchange', updateMapSize);
+    dialog.addEventListener('close', () => {
+      dialog.after(plate);
+      updateMapSize();
+      fullscreen.focus({ preventScroll: true });
+    });
+    fullscreen.addEventListener('click', async () => {
+      if (dialog.open) { dialog.close(); return; }
+      if (document.fullscreenElement === plate) { await document.exitFullscreen(); return; }
+      if (document.fullscreenEnabled) {
+        try { await plate.requestFullscreen(); return; }
+        catch { /* Embedded previews may only allow an in-page full-screen view. */ }
+      }
+      dialog.append(plate);
+      dialog.showModal();
+      updateMapSize();
+      fullscreen.focus({ preventScroll: true });
+    });
+
     zoom.addEventListener('click', () => {
       const enlarge = zoom.getAttribute('aria-pressed') !== 'true';
-      viewport.classList.toggle('is-enlarged', enlarge);
-      zoom.setAttribute('aria-pressed', String(enlarge));
-      zoom.textContent = enlarge ? 'Fit map' : 'Zoom in';
+      setZoom(enlarge);
       if (enlarge) centerZoom();
     });
   });

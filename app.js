@@ -363,7 +363,11 @@ function main() {
   const $search = el("search");
   const $tagList = el("tagList");
   const $resultMeta = el("resultMeta");
-  const $quickChips = el("quickChips");
+  const $tagToggle = el("tagToggle");
+  $tagToggle.addEventListener("click", () => {
+    $tagList.hidden = !$tagList.hidden;
+    $tagToggle.setAttribute("aria-expanded", String(!$tagList.hidden));
+  });
   const $btnTour = el("btnTour");
   const $clearFilters = document.getElementById("clearFilters");
 
@@ -797,14 +801,12 @@ function main() {
       return `<button class="chip" type="button" aria-pressed="${active}" data-tag="${escapeHtml(tag)}">${escapeHtml(tag)}</button>`;
     });
     $tagList.innerHTML = buttons.join("");
-    $quickChips.innerHTML = buttons.slice(0, 6).join("");
-
-    // Clear button should only appear once a tag filter is active.
-    if ($clearFilters) $clearFilters.hidden = state.tags.size === 0;
   }
 
   function renderGrid() {
     const filtered = features.filter((f) => !isDeleted(f)).filter((f) => !isHidden(f)).filter(matches);
+    $clearFilters.hidden = !state.tags.size && !state.q;
+    $tagToggle.textContent = state.tags.size ? `Filters (${state.tags.size})` : "Filters";
     $resultMeta.textContent = `${filtered.length} feature${filtered.length === 1 ? "" : "s"} showing`;
 
     if (filtered.length === 0) {
@@ -1863,18 +1865,13 @@ function main() {
     renderGrid();
   });
 
-  // Tag toggle (sidebar + hero chips share data-tag)
+  // Toggle a tag without moving keyboard focus.
   function onTagClick(tag) {
     if (!tag) return;
     const active = !state.tags.has(tag);
     if (active) state.tags.add(tag);
     else state.tags.delete(tag);
-    // Keep focus on the chosen control in both copies of the filter list.
-    [$tagList, $quickChips].forEach((group) => {
-      const button = group.querySelector(`[data-tag="${CSS.escape(tag)}"]`);
-      button?.setAttribute("aria-pressed", String(active));
-    });
-    $clearFilters.hidden = state.tags.size === 0;
+    $tagList.querySelector(`[data-tag="${CSS.escape(tag)}"]`)?.setAttribute("aria-pressed", String(active));
     renderGrid();
   }
 

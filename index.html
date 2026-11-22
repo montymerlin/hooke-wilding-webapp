@@ -12,8 +12,8 @@
     <link rel="apple-touch-icon" href="./assets/sunflower.webp" />
     <link rel="stylesheet" href="./styles.css?v=atlas-20261121" />
     <link rel="stylesheet" href="./feature-view.css?v=photo-study" />
-    <link rel="stylesheet" href="./arrival.css?v=meadow-3" />
-    <script src="./arrival.js?v=meadow-2"></script>
+    <link rel="stylesheet" href="./arrival.css?v=atlas-controls" />
+    <script src="./arrival.js?v=atlas-controls"></script>
     <link rel="stylesheet" href="./wildlife.css?v=verge-2" />
     <script defer src="./wildlife.js?v=verge-2"></script>
   </head>
@@ -58,6 +58,7 @@
           <div class="atlas-study" aria-hidden="true"></div>
           <button class="atlas-replay" id="arrivalReplay" type="button" hidden><span aria-hidden="true">↻</span> Replay meadow entrance</button>
         </div>
+        <dialog class="atlas-map-dialog" id="atlasDialog" aria-label="Full-screen farm map"></dialog>
         <div class="atlas-plate" id="farm-map">
           <div class="atlas-mat">
             <div class="atlas-viewport" id="atlasViewport">
@@ -87,6 +88,7 @@
           <div class="atlas-caption">
             <div class="atlas-map-name"><span class="atlas-map-symbol" aria-hidden="true"></span> Farm map</div>
             <div class="atlas-tools" role="group" aria-label="Map controls">
+              <button type="button" id="atlasFullscreen" aria-pressed="false">Full screen</button>
               <button type="button" id="atlasZoom" aria-pressed="false">Zoom in</button>
               <button type="button" id="btnTour">Tour</button>
               <button type="button" id="togglePins">Hide pins</button>
@@ -109,27 +111,21 @@
         </div>
       </section>
       <header class="atlas-index-head" id="features">
-        <h2>Wilding features</h2>
-        <button class="atlas-link" id="btnRandom" type="button">Surprise me <span aria-hidden="true">↗</span></button>
-      </header>
-      <aside class="sidebar" aria-label="Feature filters">
-        <div class="panel">
-          <label class="field">
-            <span class="field__label">Find a feature</span>
-            <input id="search" class="input" type="search" placeholder="Search features…" />
-          </label>
-          <div class="atlas-filters">
-            <details class="atlas-filter-details">
-              <summary>Filter by tag</summary>
-              <div class="taglist" id="tagList" role="group" aria-label="Tags"></div>
-            </details>
-            <div class="hero__chips" id="quickChips" aria-label="Quick filters"></div>
-            <button class="btn btn--small btn--ghost" id="clearFilters" type="button" hidden>Clear filters</button>
+        <div class="atlas-index-bar">
+          <h2>Wilding features</h2>
+          <div class="atlas-index-tools">
+            <label class="atlas-search"><span class="sr-only">Find a feature</span><input id="search" class="input" type="search" placeholder="Search features…" /></label>
+            <button class="btn" id="tagToggle" type="button" aria-expanded="false" aria-controls="tagList">Filters</button>
+            <button class="atlas-link" id="btnRandom" type="button">Surprise me <span aria-hidden="true">↗</span></button>
           </div>
-          <div class="panel__meta" id="resultMeta" aria-live="polite"></div>
+        </div>
+        <div class="taglist" id="tagList" role="group" aria-label="Filter features by tag" hidden></div>
+        <div class="atlas-index-status">
+          <span id="resultMeta" aria-live="polite"></span>
+          <button class="btn btn--small btn--ghost" id="clearFilters" type="button" hidden>Clear filters</button>
           <button class="atlas-admin" id="btnAdmin" type="button">Admin</button>
         </div>
-      </aside>
+      </header>
       <section class="content" aria-label="Features">
         <div class="grid" id="grid" aria-live="polite"></div>
       </section>
@@ -521,7 +517,7 @@
     <script src="./data/standing-stones-study.js?v=stones-study"></script>
     <script src="./data/our-sweet-track-study.js?v=paths-study"></script>
     <script src="./data/public-bridleway-study.js?v=paths-study"></script>
-    <script src="./app.js?v=farm-accounts"></script>
+    <script src="./app.js?v=atlas-controls"></script>
     <script src="./nav.js?v=atlas-20261121"></script>
   </body>
 </html>

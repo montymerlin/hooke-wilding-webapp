@@ -6,7 +6,8 @@ An **offline, interactive guide** to Hooke Farm’s wilding features — built f
 
 - **Explore map + feature boards**: `index.html` + `app.js`
   - Click map pins or cards to open a feature.
-  - Search + tag filtering.
+  - Search and tag filters sit in the Wilding features header above the full-width card grid.
+  - The farm map opens full screen with pins, zoom and tour controls. Portrait screens open on a pannable view, with Fit map available to show the whole painting.
   - “Tour” mode steps through pinned features.
   - Opening or reloading Explore directly plays a full-window meadow entrance. Internal navigation, feature links and reduced motion open straight on the map. “Replay meadow entrance” and `?entrance=replay` also work with reduced motion, showing a still meadow that visitors can dismiss.
   - Feature readers support enlargement, the original board and transcript, seasonal notes and photos. Link directly to a feature with `?feature=the-bat-egg`. Browser Back returns to Explore.
