@@ -506,7 +506,7 @@ function main() {
       (pinO && typeof pinO.yPct === "number" ? pinO.yPct : null) ?? (base && typeof base.yPct === "number" ? base.yPct : null);
 
     if (typeof xPct !== "number" || typeof yPct !== "number") return null;
-    return { featureId: feature.id, label, xPct, yPct };
+    return { featureId: feature.id, label, xPct, yPct, mapNumber: features.indexOf(feature) + 1 };
   }
 
   function renderMapPins() {
@@ -521,7 +521,7 @@ function main() {
         const top = `${p.yPct}%`;
         const visitedClass = visited.has(p.featureId) ? " is-visited" : "";
         return `
-          <button class="pin${visitedClass}" type="button" data-feature-id="${escapeHtml(p.featureId)}" style="left:${left};top:${top}">
+          <button class="pin${visitedClass}" type="button" data-feature-id="${escapeHtml(p.featureId)}" data-map-number="${p.mapNumber}" style="left:${left};top:${top}">
             <div class="pin__bubble">
               <span class="pin__dot" aria-hidden="true"></span>
               <span class="pin__label">${escapeHtml(p.label)}</span>
@@ -625,9 +625,10 @@ function main() {
         return `<option value="${escapeHtml(f.id)}">${escapeHtml(title)}${escapeHtml(suffix)}</option>`;
       })
       .join("");
+    const selectedId = $adminFeatureSelect.value || state.activeFeatureId;
     $adminFeatureSelect.innerHTML = list;
-    if (state.activeFeatureId && features.some((f) => f.id === state.activeFeatureId)) {
-      $adminFeatureSelect.value = state.activeFeatureId;
+    if ([...$adminFeatureSelect.options].some((option) => option.value === selectedId)) {
+      $adminFeatureSelect.value = selectedId;
     }
   }
 
@@ -791,19 +792,12 @@ function main() {
 
   function renderTagButtons() {
     const tags = allEffectiveTags();
-    $tagList.innerHTML = tags
-      .map((t) => {
-        const active = state.tags.has(t);
-        return `<button class="chip ${active ? "is-active" : ""}" type="button" data-tag="${escapeHtml(t)}">${escapeHtml(
-          t
-        )}</button>`;
-      })
-      .join("");
-
-    $quickChips.innerHTML = tags
-      .slice(0, Math.min(6, tags.length))
-      .map((t) => `<button class="chip" type="button" data-tag="${escapeHtml(t)}">${escapeHtml(t)}</button>`)
-      .join("");
+    const buttons = tags.map((tag) => {
+      const active = state.tags.has(tag);
+      return `<button class="chip" type="button" aria-pressed="${active}" data-tag="${escapeHtml(tag)}">${escapeHtml(tag)}</button>`;
+    });
+    $tagList.innerHTML = buttons.join("");
+    $quickChips.innerHTML = buttons.slice(0, 6).join("");
 
     // Clear button should only appear once a tag filter is active.
     if ($clearFilters) $clearFilters.hidden = state.tags.size === 0;
@@ -828,10 +822,12 @@ function main() {
         const title = getEffectiveTitle(f);
         const overrideImg = getEffectiveImage(f);
         const cardImg = overrideImg || f.thumb;
+        const pin = getEffectivePin(f);
+        const mapNumber = pin ? ` data-map-number="${pin.mapNumber}"` : "";
         const titleHtml = highlightPlain(title, state.q);
         const previewHtml = highlightPlain(preview || "Open to read more…", state.q);
         return `
-          <article class="card" role="button" tabindex="0" data-id="${escapeHtml(f.id)}" aria-label="Open ${escapeHtml(
+          <article class="card" role="button" tabindex="0" data-id="${escapeHtml(f.id)}"${mapNumber} aria-label="Open ${escapeHtml(
           title
         )}">
             <img class="card__img" src="${cardImg.startsWith("data:") ? cardImg : `./${escapeHtml(cardImg)}`}" alt="" loading="lazy" />
@@ -866,92 +862,225 @@ function main() {
         : guessSeasonalNotes(feature);
 
     const seasons = ["Spring", "Summer", "Autumn", "Winter"];
-    const emojis = { Spring: "🌱", Summer: "☀️", Autumn: "🍂", Winter: "❄️" };
-    $modalSeasonal.innerHTML = seasons
-      .map((s) => {
-        const txt = seasonalNotes[s] || "";
-        const title = `${emojis[s] || ""} ${s}`.trim();
-        return `<div class="season-card"><div class="season-card__title">${escapeHtml(title)}</div><div class="season-card__text">${escapeHtml(
-          txt
-        )}</div></div>`;
-      })
-      .join("");
+    $modalSeasonal.innerHTML = seasons.map((season) =>
+      `<div><dt>${season}</dt><dd>${escapeHtml(seasonalNotes[season])}</dd></div>`
+    ).join("");
   }
 
-  // --- Modal photo gallery (lightbox) ---
-  const galleryState = { items: [], idx: 0, title: "" };
+  const $study = el("photoStudy");
+  const galleryState = { items: [], idx: 0, board: null, study: null };
+  const $stage = el("galleryStage");
+  const $zoom = el("featureZoom");
+  const $zoomImage = el("featureZoomImage");
+  const $viewport = el("featureZoomViewport");
+  const $zoomScale = el("featureZoomScale");
 
   function isTypingInField() {
-    const a = document.activeElement;
-    if (!a) return false;
-    const tag = String(a.tagName || "").toLowerCase();
-    if (tag === "input" || tag === "textarea" || tag === "select") return true;
-    if (a.isContentEditable) return true;
-    return false;
+    return document.activeElement?.matches("input, textarea, select, [contenteditable=true]");
   }
 
   function setGalleryIndex(nextIdx) {
-    const items = galleryState.items;
-    if (!items || items.length === 0) {
-      $galleryCounter.textContent = "—";
-      $galleryPrev.disabled = true;
-      $galleryNext.disabled = true;
-      $galleryPrev.hidden = true;
-      $galleryNext.hidden = true;
+    const { items } = galleryState;
+    if (!items.length) return;
+    const idx = ((nextIdx % items.length) + items.length) % items.length;
+    galleryState.idx = idx;
+    const item = items[idx];
+    $modalBoardImg.src = item.src;
+    $modalBoardImg.alt = item.caption;
+    $stage.toggleAttribute("data-board", item.isBoard === true);
+    el("galleryCaption").textContent = item.caption;
+    $galleryCounter.textContent = `${idx + 1} / ${items.length}`;
+    $galleryPrev.hidden = $galleryNext.hidden = $modalGallery.hidden = items.length < 2;
+    for (const button of $modalGallery.children) {
+      button.setAttribute("aria-pressed", String(Number(button.dataset.idx) === idx));
+    }
+    // Move only the filmstrip. Scrolling the document would lose the reader’s place.
+    const thumb = $modalGallery.children[idx];
+    if (thumb && $modal.open) {
+      const stripBounds = $modalGallery.getBoundingClientRect();
+      const bounds = thumb.getBoundingClientRect();
+      if (bounds.left < stripBounds.left) $modalGallery.scrollLeft += bounds.left - stripBounds.left - 3;
+      if (bounds.right > stripBounds.right) $modalGallery.scrollLeft += bounds.right - stripBounds.right + 3;
+    }
+  }
+
+  function renderGallery(feature) {
+    const title = getEffectiveTitle(feature);
+    const primaryUrl = feature.isCustom ? "" : feature.pages?.[0]?.image || feature.thumb;
+    const titleImage = getEffectiveImage(feature);
+    galleryState.study = window.__FEATURE_STUDIES__?.[feature.id];
+    const detailByUrl = new Map(galleryState.study?.photos.map((photo) => [
+      `assets/features/${feature.id}/${photo.file}`, photo
+    ]));
+    // Some features use a dated photograph in the primary image slot.
+    const primaryIsPhoto = detailByUrl.has(primaryUrl);
+    const boardUrl = primaryIsPhoto ? "" : primaryUrl;
+    const photos = unique([titleImage, ...getEffectiveGallery(feature).map((item) => item.url), primaryIsPhoto && primaryUrl]
+      .filter((url) => url && url !== boardUrl));
+    const items = photos.map((url, idx) => {
+      const detail = detailByUrl.get(url);
+      return { src: resolveImg(url), detail, caption: detail?.caption || `${title} · photograph ${idx + 1}` };
+    });
+    el("featureStudyActions").hidden = !items.some((item) => item.detail);
+    const board = boardUrl ? { src: resolveImg(boardUrl), caption: `${title} · original field board`, isBoard: true } : null;
+    if (board) items.push(board);
+    galleryState.items = items;
+    galleryState.board = board;
+    $stage.closest("figure").hidden = !items.length;
+    $modalGallery.innerHTML = items.map((item, idx) =>
+      `<button type="button" data-idx="${idx}" aria-label="${escapeHtml(item.caption)}">
+        <img src="${escapeHtml(item.src)}" alt="" loading="lazy" />
+      </button>`
+    ).join("");
+    $modalGallery.scrollLeft = 0;
+    el("featureSource").hidden = !board && !feature.text;
+    el("featureBoard").hidden = !board;
+    if (board) el("featureBoardThumb").src = board.src;
+    const transcript = el("featureTranscript");
+    transcript.open = false;
+    transcript.hidden = !feature.text?.trim();
+    el("featureBoardText").innerHTML = feature.text ? toParagraphs(feature.text, state.q) : "";
+    setGalleryIndex(0);
+  }
+
+  function setMagnified(on, origin) {
+    const width = $viewport.clientWidth;
+    const height = $viewport.clientHeight;
+    const imageWidth = $zoomImage.naturalWidth;
+    const imageHeight = $zoomImage.naturalHeight;
+    if (!on) {
+      $viewport.classList.remove("is-magnified");
+      $zoomScale.setAttribute("aria-pressed", "false");
+      $zoomScale.textContent = "Zoom in ＋";
+      $viewport.scrollTo(0, 0);
       return;
     }
-
-    const len = items.length;
-    const idx = ((nextIdx % len) + len) % len;
-    galleryState.idx = idx;
-
-    const src = items[idx].src;
-    $modalBoardImg.src = src;
-    $modalBoardImg.alt = galleryState.title ? `${galleryState.title} photo ${idx + 1} of ${len}` : `Photo ${idx + 1} of ${len}`;
-
-    // Thumbnails
-    Array.from($modalGallery.querySelectorAll(".thumb[data-idx]")).forEach((t) => {
-      t.classList.toggle("is-active", Number(t.dataset.idx) === idx);
-    });
-    const activeThumb = $modalGallery.querySelector(`.thumb[data-idx="${idx}"]`);
-    if (activeThumb && typeof activeThumb.scrollIntoView === "function") {
-      activeThumb.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
-    }
-
-    // Counter + nav
-    $galleryCounter.textContent = `${idx + 1} / ${len}`;
-    const multi = len > 1;
-    $galleryPrev.disabled = !multi;
-    $galleryNext.disabled = !multi;
-    $galleryPrev.hidden = !multi;
-    $galleryNext.hidden = !multi;
+    if (!(imageWidth && imageHeight)) return;
+    // Start at the selected point, including the letterbox margins in the fit view.
+    const fit = Math.min(width / imageWidth, height / imageHeight);
+    const fitWidth = imageWidth * fit;
+    const fitHeight = imageHeight * fit;
+    const point = origin || { x: width / 2, y: height / 2 };
+    const x = Math.max(0, Math.min(1, (point.x - (width - fitWidth) / 2) / fitWidth));
+    const y = Math.max(0, Math.min(1, (point.y - (height - fitHeight) / 2) / fitHeight));
+    const zoomWidth = Math.max(imageWidth, fitWidth * 2);
+    $viewport.style.setProperty("--zoom-width", `${zoomWidth}px`);
+    $viewport.classList.add("is-magnified");
+    $zoomScale.setAttribute("aria-pressed", "true");
+    $zoomScale.textContent = "Fit image";
+    $viewport.scrollLeft = x * zoomWidth - point.x;
+    $viewport.scrollTop = y * zoomWidth * imageHeight / imageWidth - point.y;
   }
 
-  function renderGallery(feature, activeUrl) {
-    const baseImg = (feature.pages && feature.pages[0] && feature.pages[0].image) || feature.thumb || "";
-    const gallery = getEffectiveGallery(feature);
-    const rawItems = [{ id: "board", url: baseImg }, ...gallery].filter((it) => it && it.url);
-    const items = rawItems.map((it) => ({ id: it.id || "", src: resolveImg(it.url) }));
-    const active = activeUrl || resolveImg(baseImg);
-    const activeIdx = Math.max(0, items.findIndex((it) => it.src === active));
-
-    galleryState.items = items;
-    galleryState.idx = activeIdx;
-    galleryState.title = getEffectiveTitle(feature);
-
-    $modalGallery.innerHTML = items
-      .map((it, idx) => {
-        const isActive = idx === activeIdx;
-        return `<button class="thumb ${isActive ? "is-active" : ""}" type="button" data-idx="${escapeHtml(String(idx))}" data-src="${escapeHtml(
-          it.src
-        )}" aria-label="Open photo ${escapeHtml(String(idx + 1))}">
-          <img src="${it.src}" alt="" loading="lazy" />
-        </button>`;
-      })
-      .join("");
-
-    setGalleryIndex(activeIdx);
+  function openZoom(item) {
+    if (!item) return;
+    el("featureZoomCaption").textContent = item.caption;
+    $zoomImage.alt = item.caption;
+    $zoomImage.src = item.src;
+    $zoom.showModal();
+    setMagnified(false);
   }
+  $stage.addEventListener("click", () => openZoom(galleryState.items[galleryState.idx]));
+  el("featureBoard").addEventListener("click", () => openZoom(galleryState.board));
+  el("featureZoomClose").addEventListener("click", () => $zoom.close());
+  $zoomScale.addEventListener("click", () => setMagnified(!$viewport.classList.contains("is-magnified")));
+  $zoomImage.addEventListener("click", (event) => {
+    const bounds = $viewport.getBoundingClientRect();
+    setMagnified(!$viewport.classList.contains("is-magnified"), { x: event.clientX - bounds.left, y: event.clientY - bounds.top });
+  });
+
+  let studyItems = [];
+  let studyIndex = 0;
+  let pairs = [];
+
+  function selectStudyPhoto(index) {
+    studyIndex = (index + studyItems.length) % studyItems.length;
+    const item = studyItems[studyIndex];
+    const { title, date, note, dateSource } = item.detail;
+    el("studyImage").src = item.src;
+    el("studyImage").alt = item.caption;
+    el("studyTitle").textContent = title;
+    el("studyNote").textContent = note;
+    el("studyDate").textContent = date;
+    el("studyDateSource").textContent = dateSource || "";
+    el("studyCount").textContent = `${studyIndex + 1} / ${studyItems.length}`;
+    const strip = el("studyStrip");
+    Array.from(strip.children).forEach((button, i) => button.setAttribute("aria-pressed", String(i === studyIndex)));
+    const thumb = strip.children[studyIndex];
+    strip.scrollLeft = thumb.offsetLeft - strip.clientWidth / 2 + thumb.clientWidth / 2;
+    setGalleryIndex(galleryState.items.indexOf(item));
+  }
+
+  function renderPair() {
+    const pair = pairs[el("studyPairSelect").selectedIndex];
+    if (!pair) return;
+    el("studyPairImages").innerHTML = pair.items.map((item, i) =>
+      `<figure>
+        <figcaption><span class="study-date">${escapeHtml(item.detail.date)}</span>
+          <h3>${escapeHtml(item.detail.title)}</h3></figcaption>
+        <button class="study-image" type="button" data-pair-index="${i}" aria-label="Enlarge: ${escapeHtml(item.detail.title)}">
+          <img src="${escapeHtml(item.src)}" alt="${escapeHtml(item.caption)}" />
+          <span class="study-expand" aria-hidden="true">Enlarge ↗</span>
+        </button>
+        ${item.detail.dateSource ? `<small>${escapeHtml(item.detail.dateSource)}</small>` : ""}
+      </figure>`
+    ).join("");
+    el("studyPairNote").textContent = pair.note;
+  }
+
+  function setStudyMode(compare) {
+    el("studyCompareMode").setAttribute("aria-pressed", String(compare));
+    el("studyBrowseMode").setAttribute("aria-pressed", String(!compare));
+    el("studyPairs").hidden = !compare;
+    el("studyBrowse").hidden = compare;
+    if (compare) renderPair();
+    else selectStudyPhoto(studyIndex);
+  }
+
+  function openStudy(compare) {
+    const study = galleryState.study;
+    if (!study) return;
+    const available = new Map(galleryState.items.filter((item) => item.detail).map((item) => [item.detail.file, item]));
+    studyItems = study.photos.map((photo) => available.get(photo.file)).filter(Boolean);
+    if (!studyItems.length) return;
+    pairs = study.comparisons.map((pair) => ({ ...pair, items: pair.files.map((file) => available.get(file)) }))
+      .filter((pair) => pair.items.every(Boolean));
+    el("studyCompareMode").disabled = !pairs.length;
+    el("studyPairSelect").replaceChildren(...pairs.map((pair) => new Option(pair.title)));
+    el("studyName").textContent = $modalTitle.textContent;
+    el("studyStrip").innerHTML = studyItems.map((item, i) =>
+      `<button type="button" data-study-index="${i}" aria-label="${escapeHtml(item.detail.date + ' · ' + item.detail.title)}">
+        <img src="${escapeHtml(item.src)}" alt="" loading="lazy" /></button>`
+    ).join("");
+    studyIndex = Math.max(0, studyItems.indexOf(galleryState.items[galleryState.idx]));
+    $study.showModal();
+    setStudyMode(compare && pairs.length > 0);
+    $study.scrollTop = 0;
+  }
+
+  el("studyOpen").addEventListener("click", () => openStudy(false));
+  el("studyCompare").addEventListener("click", () => openStudy(true));
+  el("studyClose").addEventListener("click", () => $study.close());
+  el("studyBrowseMode").addEventListener("click", () => setStudyMode(false));
+  el("studyCompareMode").addEventListener("click", () => setStudyMode(true));
+  el("studyPrev").addEventListener("click", () => selectStudyPhoto(studyIndex - 1));
+  el("studyNext").addEventListener("click", () => selectStudyPhoto(studyIndex + 1));
+  el("studyStrip").addEventListener("click", (event) => {
+    const button = event.target.closest("[data-study-index]");
+    if (button) selectStudyPhoto(Number(button.dataset.studyIndex));
+  });
+  el("studyMagnify").addEventListener("click", () => openZoom(studyItems[studyIndex]));
+  el("studyPairSelect").addEventListener("change", renderPair);
+  el("studyPairImages").addEventListener("click", (event) => {
+    const button = event.target.closest("[data-pair-index]");
+    if (button) openZoom(pairs[el("studyPairSelect").selectedIndex].items[Number(button.dataset.pairIndex)]);
+  });
+  $study.addEventListener("keydown", (event) => {
+    if (el("studyBrowse").hidden || !["ArrowLeft", "ArrowRight"].includes(event.key)) return;
+    event.preventDefault();
+    selectStudyPhoto(studyIndex + (event.key === "ArrowRight" ? 1 : -1));
+    if (el("studyStrip").contains(document.activeElement)) el("studyStrip").children[studyIndex].focus({ preventScroll: true });
+  });
 
   function updateTourUI() {
     $tourPanel.hidden = !tour.active;
@@ -1048,6 +1177,7 @@ function main() {
     }
 
     updateTourUI();
+    $mapPins.dispatchEvent(new Event("hooke:tour-stop"));
   }
 
   function renderModalTags(feature) {
@@ -1062,32 +1192,68 @@ function main() {
       .join("");
   }
 
-  function openFeature(featureId) {
-    const f = features.find((x) => x.id === featureId);
-    if (!f) return;
-    state.activeFeatureId = featureId;
+  const baseTitle = document.title;
+  let readingOrigin = null;
 
+  function featureFromUrl() {
+    const url = new URL(location.href);
+    return url.searchParams.get("feature") || new URLSearchParams(url.hash.slice(1)).get("feature");
+  }
+
+  function recordFeatureUrl(featureId, replace) {
+    const url = new URL(location.href);
+    if (featureFromUrl() === featureId) return;
+    if (featureId) url.searchParams.set("feature", featureId);
+    else url.searchParams.delete("feature");
+    if (url.hash.startsWith("#feature=")) url.hash = "";
+    const method = replace ? "replaceState" : "pushState";
+    const entry = { ...history.state, hookeFeatureOpened: featureId && (!replace || history.state?.hookeFeatureOpened) };
+    try {
+      history[method](entry, "", url);
+    } catch {
+      // Some browsers restrict query-string history updates for a file opened directly from disk.
+      const fileUrl = new URL(location.href);
+      fileUrl.hash = featureId ? `feature=${encodeURIComponent(featureId)}` : "";
+      history[method](entry, "", fileUrl);
+    }
+  }
+
+  function openFeature(featureId, { fromUrl = false } = {}) {
+    const f = features.find((x) => x.id === featureId);
+    if (!f || isDeleted(f) || (isHidden(f) && !isAdmin)) return;
+    if ($zoom.open) $zoom.close();
+    if ($study.open) $study.close();
+    if (!$modal.open) {
+      const trigger = document.activeElement;
+      const referrer = document.referrer && new URL(document.referrer);
+      const fromFarmPage = fromUrl && !history.state?.hookeFeatureOpened && referrer &&
+        referrer.origin === location.origin && referrer.pathname !== location.pathname && history.length > 1;
+      readingOrigin = { x: window.scrollX, y: window.scrollY, trigger, pinId: trigger?.dataset.featureId, fromFarmPage };
+      el("featureBackLabel").textContent = fromFarmPage ? "Go back" : $adminDialog.open ? "Back to editor" : "Back to explore";
+    }
+    if (!fromUrl) recordFeatureUrl(featureId, $modal.open);
+    state.activeFeatureId = featureId;
     const effTitle = getEffectiveTitle(f);
     $modalTitle.textContent = effTitle;
-    const overrideImg = getEffectiveImage(f);
-    const boardImg = overrideImg || (f.pages && f.pages[0] && f.pages[0].image) || f.thumb;
-    $modalBoardImg.src = resolveImg(boardImg);
-    $modalBoardImg.alt = `${effTitle} image`;
+    document.title = `${effTitle} · Hooke Farm Wilding`;
 
-    // Short description (shown separately from the Story)
-    const desc =
-      (typeof f.description === "string" ? f.description.trim() : "") ||
-      (f.pages && f.pages[0] && typeof f.pages[0].textPreview === "string" ? f.pages[0].textPreview.trim() : "") ||
-      "";
-    $modalDesc.innerHTML = desc ? toParagraphs(desc, state.q) : "<p class=\"muted\">—</p>";
-
-    // Narrative (creative) + Original extracted text (details)
+    const lead = f.id === "the-bat-egg"
+      ? "Stone carver Tom Clark built this roost from waste stone in 2021. Bats visited the cave inside, but never settled. The farm is letting wildflowers grow over the fallen stonework."
+      : f.description?.trim() || "";
+    const preview = f.pages?.[0]?.textPreview || "";
+    $modalDesc.innerHTML = lead ? toParagraphs(lead, state.q) : "";
+    // Use the board's first complete sentence when the archive has no separate description.
+    if (!lead && preview) {
+      const sentence = preview.replace(/\s+/g, " ").trim().match(/^.*?[.!?](?:\s|$)/)?.[0];
+      if (sentence) $modalDesc.innerHTML = toParagraphs(sentence, state.q);
+    }
+    $modalDesc.hidden = !$modalDesc.innerHTML;
+    el("batEggAccess").hidden = f.id !== "the-bat-egg";
     const fWithTags = { ...f, title: effTitle, tags: getEffectiveTags(f) };
     const storyOverride = getEffectiveStoryText(f);
     $modalNarrative.innerHTML = storyOverride ? toParagraphs(storyOverride, state.q) : generateNarrative(fWithTags);
     renderSeasonal(f);
-    renderGallery(f, resolveImg(boardImg));
-
+    renderGallery(f);
     renderModalTags(f);
     $tagInput.value = "";
     // Visited state (pins)
@@ -1104,6 +1270,7 @@ function main() {
       updateTourUI();
     }
     if (!$modal.open) $modal.showModal();
+    $modal.scrollTop = 0;
     setModalOpenState(true);
     updateModalPrevNextButtons();
   }
@@ -1689,9 +1856,15 @@ function main() {
   // Tag toggle (sidebar + hero chips share data-tag)
   function onTagClick(tag) {
     if (!tag) return;
-    if (state.tags.has(tag)) state.tags.delete(tag);
-    else state.tags.add(tag);
-    renderTagButtons();
+    const active = !state.tags.has(tag);
+    if (active) state.tags.add(tag);
+    else state.tags.delete(tag);
+    // Keep focus on the chosen control in both copies of the filter list.
+    [$tagList, $quickChips].forEach((group) => {
+      const button = group.querySelector(`[data-tag="${CSS.escape(tag)}"]`);
+      button?.setAttribute("aria-pressed", String(active));
+    });
+    $clearFilters.hidden = state.tags.size === 0;
     renderGrid();
   }
 
@@ -1722,19 +1895,69 @@ function main() {
   });
 
   document.addEventListener("keydown", (e) => {
-    if (e.key !== "Enter") return;
-    const card =
-      document.activeElement && document.activeElement.closest && document.activeElement.closest(".card[data-id]");
-    if (card) openFeature(card.dataset.id);
+    if (e.repeat || (e.key !== "Enter" && e.key !== " ")) return;
+    const card = e.target.closest(".card[data-id]");
+    if (!card) return;
+    e.preventDefault();
+    openFeature(card.dataset.id);
   });
 
-  // Modal close
-  $modalClose.addEventListener("click", () => closeDialog($modal));
-  $modal.addEventListener("click", (e) => {
-    if (e.target === $modal) closeDialog($modal);
+  function restoreExplore() {
+    if ($zoom.open) $zoom.close();
+    if ($study.open) $study.close();
+    if ($modal.open) $modal.close();
+    state.activeFeatureId = null;
+    document.title = baseTitle;
+    setModalOpenState(false);
+    if (!readingOrigin) return;
+    const { x, y, trigger, pinId } = readingOrigin;
+    readingOrigin = null;
+    // Visiting a pin redraws it. Restore focus to its replacement when necessary.
+    const target = trigger?.isConnected ? trigger : [...$mapPins.children].find((pin) => pin.dataset.featureId === pinId);
+    target?.focus({ preventScroll: true });
+    window.scrollTo({ left: x, top: y, behavior: "instant" });
+  }
+
+  function closeFeature() {
+    if (readingOrigin?.fromFarmPage || history.state?.hookeFeatureOpened) {
+      history.back();
+      return;
+    }
+    if (featureFromUrl()) recordFeatureUrl(null, true);
+    restoreExplore();
+  }
+
+  function followFeatureUrl() {
+    const id = featureFromUrl();
+    if (id) {
+      if (!$modal.open || state.activeFeatureId !== id) openFeature(id, { fromUrl: true });
+    } else if ($modal.open) restoreExplore();
+  }
+  window.addEventListener("popstate", followFeatureUrl);
+  window.addEventListener("hashchange", followFeatureUrl);
+
+  // Keep same-page links shareable and retain the current map, list, filters and scroll position.
+  document.addEventListener("click", (event) => {
+    if (event.defaultPrevented || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+    const anchor = event.target.closest("a[href]");
+    if (!anchor || anchor.target || anchor.hasAttribute("download")) return;
+    const url = new URL(anchor.href);
+    const id = url.searchParams.get("feature");
+    const currentPath = location.pathname.replace(/index\.html$/, "");
+    if (!id || url.origin !== location.origin || url.pathname.replace(/index\.html$/, "") !== currentPath) return;
+    event.preventDefault();
+    openFeature(id);
+  });
+  $modalClose.addEventListener("click", closeFeature);
+  $modal.addEventListener("cancel", (event) => {
+    event.preventDefault();
+    closeFeature();
   });
   $modal.addEventListener("close", () => {
-    setModalOpenState(false);
+    if (!$modal.open && readingOrigin) {
+      if (featureFromUrl()) recordFeatureUrl(null, true);
+      restoreExplore();
+    }
   });
 
   // Prev/Next feature navigation (modal header)
@@ -1786,7 +2009,7 @@ function main() {
 
   // Gallery click: swap main image (thumbnails)
   $modalGallery.addEventListener("click", (e) => {
-    const btn = e.target.closest(".thumb[data-idx]");
+    const btn = e.target.closest("button[data-idx]");
     if (!btn) return;
     const idx = Number(btn.dataset.idx);
     if (!Number.isFinite(idx)) return;
@@ -1805,7 +2028,7 @@ function main() {
   // Keyboard navigation (left/right) while modal is open.
   document.addEventListener("keydown", (e) => {
     if (!$modal.open) return;
-    if (isTypingInField()) return;
+    if ($study.open || $zoom.open || isTypingInField()) return;
     if (!galleryState.items || galleryState.items.length < 2) return;
     if (e.key === "ArrowLeft") {
       e.preventDefault();
@@ -1841,8 +2064,8 @@ function main() {
 
   // Random feature
   $btnRandom.addEventListener("click", () => {
-    const filtered = features.filter(matches);
-    const pick = filtered[Math.floor(Math.random() * filtered.length)] || features[0];
+    const filtered = features.filter((f) => !isHidden(f) && !isDeleted(f) && matches(f));
+    const pick = filtered[Math.floor(Math.random() * filtered.length)];
     if (pick) openFeature(pick.id);
   });
 
@@ -1852,10 +2075,12 @@ function main() {
       state.q = "";
       state.tags.clear();
       $search.value = "";
+      $search.focus({ preventScroll: true });
       renderTagButtons();
       renderGrid();
     });
   }
+  followFeatureUrl();
 }
 
 main();

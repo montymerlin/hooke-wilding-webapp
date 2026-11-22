@@ -5,6 +5,14 @@
     return (root || document).querySelector(sel);
   }
 
+  const mobileFilters = window.matchMedia("(max-width: 840px)");
+  const filters = document.querySelector(".filter-drawer");
+  if (filters) {
+    const fitFilters = () => { filters.open = !mobileFilters.matches; };
+    fitFilters();
+    mobileFilters.addEventListener("change", fitFilters);
+  }
+
   const toggle = qs("#navToggle");
   const nav = qs("#topbarNav");
   const topbar = qs(".topbar");
@@ -15,6 +23,7 @@
   function setOpen(next) {
     const on = !!next;
     document.body.classList.toggle(OPEN_CLASS, on);
+    toggle.classList.toggle("is-active", on);
     toggle.setAttribute("aria-expanded", on ? "true" : "false");
     toggle.setAttribute("aria-label", on ? "Close menu" : "Open menu");
   }
@@ -35,7 +44,10 @@
   // Close on Esc.
   document.addEventListener("keydown", (e) => {
     if (!isOpen()) return;
-    if (e.key === "Escape") setOpen(false);
+    if (e.key === "Escape") {
+      setOpen(false);
+      toggle.focus();
+    }
   });
 
   // Close after selecting a link.

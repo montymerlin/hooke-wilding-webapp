@@ -10,80 +10,88 @@
     />
     <link rel="icon" type="image/webp" href="./assets/sunflower.webp" />
     <link rel="apple-touch-icon" href="./assets/sunflower.webp" />
-    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./styles.css?v=atlas-20261121" />
+    <link rel="stylesheet" href="./feature-view.css?v=photo-study" />
+    <link rel="stylesheet" href="./arrival.css?v=meadow-3" />
+    <script src="./arrival.js?v=meadow-2"></script>
+    <link rel="stylesheet" href="./wildlife.css?v=verge-2" />
+    <script defer src="./wildlife.js?v=verge-2"></script>
   </head>
   <body class="page-map">
+    <div class="atlas-arrival" id="meadowEntrance">
+      <div class="arrival-landscape" aria-hidden="true"></div>
+      <div class="arrival-sign" aria-hidden="true"><span>West Dorset</span>Hooke <i>Farm</i></div>
+      <div class="arrival-bank arrival-bank--far" aria-hidden="true"></div>
+      <div class="arrival-bank arrival-bank--left" aria-hidden="true"></div>
+      <div class="arrival-bank arrival-bank--right" aria-hidden="true"></div>
+      <div class="arrival-butterfly" aria-hidden="true"></div>
+      <button class="atlas-skip" id="arrivalSkip" type="button">Enter the portal <span aria-hidden="true">→</span></button>
+    </div>
+    <a class="skip-link" href="#page-content">Skip to content</a>
     <header class="topbar">
       <div class="topbar__inner">
-        <img class="topbar__icon" src="./assets/sunflower.webp" alt="" aria-hidden="true" />
-        <div class="brand">
-          <div class="brand__text">
-            <div class="brand__kicker">Hooke Farm</div>
-            <div class="brand__title">Wilding Portal</div>
-          </div>
-        </div>
-        <button
-          class="btn btn--ghost topbar__menuBtn"
-          id="navToggle"
-          type="button"
-          aria-label="Open menu"
-          aria-controls="topbarNav"
-          aria-expanded="false"
-        >
-          Menu
-        </button>
-        <nav class="topbar__actions" id="topbarNav" aria-label="Site">
-          <a class="btn btn--ghost" href="./field-guide.html">Living Dorset Field Guide</a>
-          <a class="btn btn--ghost" href="./gallery.html">Gallery</a>
-          <a class="btn btn--ghost" href="./content.html">Watch &amp; Read</a>
-          <a class="btn" id="btnAbout" href="./about.html">About</a>
+        <a class="farm-brand" href="./index.html" aria-label="Hooke Farm Wilding home">
+          <img src="./assets/sunflower.webp" width="40" height="40" alt="" />
+          <span>Hooke Farm <i>Wilding</i></span>
+        </a>
+        <button class="btn topbar__menuBtn" id="navToggle" type="button" aria-label="Open menu" aria-controls="topbarNav" aria-expanded="false"><span class="menu-icon" aria-hidden="true"></span> Menu</button>
+        <nav class="topbar__actions" id="topbarNav" aria-label="Main navigation">
+          <a href="./index.html" aria-current="page">Explore</a>
+          <a href="./content.html">Discover</a>
+          <a href="./field-guide.html">Field guide</a>
+          <a href="./gallery.html">Gallery</a>
+          <a href="./about.html">About</a>
         </nav>
       </div>
     </header>
 
-    <main class="layout">
-      <section class="hero" aria-label="Map">
-        <div class="hero__frame">
-          <img
-            class="hero__img"
-            src="./assets/hooke-farm-watercolour.png"
-            alt="Hooke Farm watercolor map"
-            loading="eager"
-          />
-          <div class="tour-layer" id="tourLayer" aria-hidden="true">
-            <svg class="tour-layer__svg" id="tourSvg" viewBox="0 0 100 100" preserveAspectRatio="none">
-              <path id="tourPath" d="" />
-            </svg>
+    <main class="layout explore-layout" id="page-content">
+      <section class="hero farm-atlas" aria-labelledby="explore-title">
+        <div class="atlas-intro">
+          <div class="atlas-locale"><span class="atlas-cross" aria-hidden="true"></span> West Dorset, England <div class="wild-perch" data-wildlife="comma"></div></div>
+          <h1 id="explore-title">Explore <br><em>Hooke Farm</em></h1>
+          <p>Walk the wildflower meadows, ponds and hedgerows of Hooke Farm. Choose a pin on the painted map to see what lives there.</p>
+          <div class="atlas-links">
+            <a class="atlas-cta" href="#features">Browse features <span aria-hidden="true">↓</span></a>
+            <a class="atlas-link" href="./field-guide.html">Field guide <span aria-hidden="true">↗</span></a>
           </div>
-          <div class="map-pins" id="mapPins" aria-label="Map pins"></div>
-          <div class="map-hud admin-only" id="mapHud" aria-live="polite" hidden>
-            <div class="map-hud__title">Map coordinates</div>
-            <div class="map-hud__row">
-              <span class="map-hud__label">x</span>
-              <code class="map-hud__value" id="hudX">—</code>
-              <span class="map-hud__label">y</span>
-              <code class="map-hud__value" id="hudY">—</code>
+          <div class="atlas-study" aria-hidden="true"></div>
+          <button class="atlas-replay" id="arrivalReplay" type="button" hidden><span aria-hidden="true">↻</span> Replay meadow entrance</button>
+        </div>
+        <div class="atlas-plate" id="farm-map">
+          <div class="atlas-mat">
+            <div class="atlas-viewport" id="atlasViewport">
+              <div class="hero__frame atlas-map" id="atlasMap">
+                <img class="hero__img" src="./assets/arrival/farm-watercolour.webp" width="1900" height="1400"
+                  alt="Watercolour of Hooke Farm, with meadows to the north, ponds to the east and farm buildings in the centre."
+                  fetchpriority="high" />
+                <div class="tour-layer" id="tourLayer" aria-hidden="true">
+                  <svg class="tour-layer__svg" id="tourSvg" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <path id="tourPath" d="" />
+                  </svg>
+                </div>
+                <div class="map-pins" id="mapPins" role="group" aria-label="Farm features"></div>
+                <div class="map-hud admin-only" id="mapHud" aria-live="polite" hidden>
+                  <div class="map-hud__title">Map coordinates</div>
+                  <div class="map-hud__row">
+                    <span class="map-hud__label">x</span>
+                    <code class="map-hud__value" id="hudX">—</code>
+                    <span class="map-hud__label">y</span>
+                    <code class="map-hud__value" id="hudY">—</code>
+                  </div>
+                  <div class="map-hud__hint" id="hudStatus">Click the map to copy x/y%.</div>
+                </div>
+              </div>
             </div>
-            <div class="map-hud__hint" id="hudStatus">Click the map to copy x/y%.</div>
           </div>
-          <div class="hero__overlay">
-            <div class="hero__headline">Explore the wilding features</div>
-            <div class="hero__subhead">
-              Tap a card below to see the original info-board artwork and the extracted text.
+          <div class="atlas-caption">
+            <div class="atlas-map-name"><span class="atlas-map-symbol" aria-hidden="true"></span> Farm map</div>
+            <div class="atlas-tools" role="group" aria-label="Map controls">
+              <button type="button" id="atlasZoom" aria-pressed="false">Zoom in</button>
+              <button type="button" id="btnTour">Tour</button>
+              <button type="button" id="togglePins">Hide pins</button>
             </div>
-            <div class="hero__chips" id="quickChips" aria-label="Quick filters"></div>
           </div>
-
-          <div class="map-top-actions" aria-label="Map actions">
-            <button class="btn btn--small btn--ghost" id="btnTour" type="button">Tour</button>
-            <button class="btn btn--small btn--ghost" id="btnRandom" type="button">Surprise me</button>
-          </div>
-
-          <div class="map-bottom-actions" aria-label="Map settings">
-            <button class="btn btn--small btn--ghost" id="togglePins" type="button">Hide pins</button>
-            <button class="btn btn--small btn--ghost" id="btnAdmin" type="button">Admin</button>
-          </div>
-
           <aside class="tour-panel" id="tourPanel" aria-label="Tour" hidden>
             <div class="tour-panel__header">
               <div class="tour-panel__kicker">Map mini-tour</div>
@@ -93,139 +101,173 @@
             <div class="tour-panel__meta" id="tourPanelMeta"></div>
             <div class="tour-panel__text" id="tourPanelText"></div>
             <div class="tour-panel__actions">
-              <button class="btn btn--small btn--ghost" id="tourPanelPrev" type="button">Prev</button>
+              <button class="btn btn--small btn--ghost" id="tourPanelPrev" type="button">Previous</button>
               <button class="btn btn--small btn--ghost" id="tourPanelNext" type="button">Next</button>
               <button class="btn btn--small" id="tourPanelOpen" type="button">Open details</button>
             </div>
-            <div class="caption muted">Tip: the dotted line animates to the next pin.</div>
           </aside>
         </div>
       </section>
-
-      <aside class="sidebar" aria-label="Filters">
+      <header class="atlas-index-head" id="features">
+        <h2>Wilding features</h2>
+        <button class="atlas-link" id="btnRandom" type="button">Surprise me <span aria-hidden="true">↗</span></button>
+      </header>
+      <aside class="sidebar" aria-label="Feature filters">
         <div class="panel">
-          <div class="panel__title">Find a feature</div>
           <label class="field">
-            <span class="field__label">Search</span>
-            <input id="search" class="input" type="search" placeholder="e.g. bees, stones, hibernaculum…" />
+            <span class="field__label">Find a feature</span>
+            <input id="search" class="input" type="search" placeholder="Search features…" />
           </label>
-
-          <div class="map-tags">
-            <div class="divider"></div>
-
-            <div class="panel__row">
-              <div class="panel__subtitle">Tags</div>
-              <button class="btn btn--small btn--ghost btn--faint" id="clearFilters" type="button" hidden>Clear</button>
-            </div>
-            <div class="taglist" id="tagList" role="list"></div>
-
-            <div class="divider"></div>
+          <div class="atlas-filters">
+            <details class="atlas-filter-details">
+              <summary>Filter by tag</summary>
+              <div class="taglist" id="tagList" role="group" aria-label="Tags"></div>
+            </details>
+            <div class="hero__chips" id="quickChips" aria-label="Quick filters"></div>
+            <button class="btn btn--small btn--ghost" id="clearFilters" type="button" hidden>Clear filters</button>
           </div>
-
-          <div class="panel__meta" id="resultMeta"></div>
+          <div class="panel__meta" id="resultMeta" aria-live="polite"></div>
+          <button class="atlas-admin" id="btnAdmin" type="button">Admin</button>
         </div>
       </aside>
-
       <section class="content" aria-label="Features">
         <div class="grid" id="grid" aria-live="polite"></div>
       </section>
     </main>
 
-    <footer class="site-footer" role="contentinfo">
-      <div class="site-footer__inner">
-        <div class="site-footer__brand">
-          <div class="site-footer__sigil" aria-hidden="true"></div>
-          <div class="site-footer__brandText">
-            <div class="site-footer__title">Hooke Farm Wilding Portal</div>
-            <div class="site-footer__tagline">Wander slowly. Notice more. Let the edges bloom.</div>
-          </div>
-        </div>
-
-        <nav class="site-footer__nav" aria-label="Site">
-          <a class="site-footer__link" href="./index.html">Explore map</a>
-          <a class="site-footer__link" href="./field-guide.html">Field guide</a>
-          <a class="site-footer__link" href="./gallery.html">Gallery</a>
-          <a class="site-footer__link" href="./content.html">Watch &amp; Read</a>
-          <a class="site-footer__link" href="./about.html">About</a>
-        </nav>
-
-        <div class="site-footer__meta">
-          <div class="site-footer__note">
-            Contact us:
-            <a class="site-footer__contact" href="mailto:julia@juliahailes.com">julia@juliahailes.com</a>
-          </div>
-          <div class="site-footer__note muted">Made for slow walks, bright wings, and the occasional nettle.</div>
-        </div>
+    <footer class="farm-footer" id="meadow-verge">
+      <div class="farm-footer__inner">
+        <a class="farm-brand" href="./index.html"><img src="./assets/sunflower.webp" width="34" height="34" alt="" /><span>Hooke Farm <i>Wilding</i></span></a>
+        <nav aria-label="Footer navigation"><a href="./index.html" aria-current="page">Explore</a>
+          <a href="./content.html">Discover</a>
+          <a href="./field-guide.html">Field guide</a>
+          <a href="./gallery.html">Gallery</a>
+          <a href="./about.html">About</a></nav>
+        <a class="farm-footer__contact" href="mailto:julia@juliahailes.com">Contact the farm <span aria-hidden="true">↗</span></a>
       </div>
     </footer>
 
-    <dialog class="modal" id="modal">
-      <div class="modal__header">
-        <div class="modal__title" id="modalTitle"></div>
-        <div class="modal__headerActions">
-          <button class="btn btn--ghost btn--small" id="modalPrevFeature" type="button">Prev</button>
-          <button class="btn btn--ghost btn--small" id="modalNextFeature" type="button">Next</button>
-          <button class="btn btn--ghost" id="modalClose" type="button">Close</button>
-        </div>
-      </div>
-      <div class="modal__body">
-        <div class="modal__media" aria-label="Feature photos">
-          <div class="lightbox" aria-label="Photo viewer">
-            <div class="lightbox__stage" id="galleryStage">
-              <img class="modal__mediaImg lightbox__img" id="modalBoardImg" alt="" loading="lazy" />
-              <button class="lightbox__nav lightbox__nav--prev" id="galleryPrev" type="button" aria-label="Previous photo">
-                ‹
-              </button>
-              <button class="lightbox__nav lightbox__nav--next" id="galleryNext" type="button" aria-label="Next photo">
-                ›
-              </button>
-            </div>
+    <dialog class="feature-sheet" id="modal" aria-labelledby="modalTitle">
+      <div class="feature-sheet__wrap">
+        <nav class="feature-sheet__bar" aria-label="Feature navigation">
+          <button class="feature-sheet__back" id="modalClose" type="button">
+            <span aria-hidden="true">←</span> <span id="featureBackLabel">Back to explore</span>
+          </button>
+          <div class="feature-sheet__pager">
+            <button id="modalPrevFeature" type="button" aria-label="Previous feature">← Previous</button>
+            <button id="modalNextFeature" type="button" aria-label="Next feature">Next →</button>
           </div>
-          <div class="modal__mediaBar">
-            <div class="modal__mediaBarTop">
-              <div class="modal__mediaBarTitle">Photos</div>
-              <div class="modal__mediaBarHint muted">
-                <span id="galleryCounter" aria-live="polite">—</span>
-                <span aria-hidden="true"> · </span>
-                Use arrows or click thumbnails.
+        </nav>
+        <article class="feature-sheet__layout">
+          <header class="feature-sheet__heading">
+            <p class="feature-sheet__label">Wilding feature</p>
+            <h1 id="modalTitle" tabindex="-1" autofocus></h1>
+            <div class="tag-editor" id="tagEditor">
+              <div class="tag-editor__chips" id="modalTags" aria-label="Feature tags"></div>
+              <div class="tag-editor__add" id="tagEditorAdd">
+                <input class="input tag-editor__input" id="tagInput" type="text" aria-label="New tag" placeholder="Add a tag" />
+                <button class="btn btn--small" id="tagAdd" type="button">Add</button>
               </div>
             </div>
-            <div class="gallery gallery--attached" id="modalGallery" aria-label="Photo gallery"></div>
-          </div>
-        </div>
+            <div class="feature-study-actions" id="featureStudyActions" hidden>
+              <button type="button" id="studyOpen" aria-haspopup="dialog">Look closer <span aria-hidden="true">↗</span></button>
+              <button type="button" id="studyCompare" aria-haspopup="dialog">Compare over time</button>
+            </div>
+          </header>
 
-        <div class="modal__section">
-          <div class="modal__sectionTitle">Tags</div>
-          <div class="tag-editor" id="tagEditor">
-            <div class="tag-editor__chips" id="modalTags" aria-label="Feature tags"></div>
-            <div class="tag-editor__add" id="tagEditorAdd">
-              <input
-                class="input tag-editor__input"
-                id="tagInput"
-                type="text"
-                placeholder="Add a tag (e.g. Pollinators, Jurassic, Night-life)…"
-              />
-              <button class="btn btn--small" id="tagAdd" type="button">Add</button>
+          <figure class="feature-sheet__gallery" aria-label="Feature gallery">
+            <button class="feature-sheet__stage" id="galleryStage" type="button" aria-label="Enlarge image">
+              <img id="modalBoardImg" alt="" />
+              <span class="feature-sheet__expand"><span class="feature-sheet__expand-icon" aria-hidden="true">⤢</span> Enlarge</span>
+            </button>
+            <figcaption class="feature-sheet__caption">
+              <span id="galleryCaption"></span>
+              <span class="feature-sheet__gallery-controls">
+                <button id="galleryPrev" type="button" aria-label="Previous image">←</button>
+                <span id="galleryCounter" aria-live="polite"></span>
+                <button id="galleryNext" type="button" aria-label="Next image">→</button>
+              </span>
+            </figcaption>
+            <div class="feature-sheet__thumbs" id="modalGallery" aria-label="Choose an image"></div>
+          </figure>
+
+          <div class="feature-sheet__reading">
+            <div class="feature-sheet__intro" id="modalDesc"></div>
+            <p class="feature-sheet__access" id="batEggAccess" hidden>The stonework has collapsed. Please view the Bat Egg from a distance.</p>
+            <section>
+              <h2>The story</h2>
+              <div id="modalNarrative"></div>
+            </section>
+            <section>
+              <h2>Seasonal notes</h2>
+              <dl class="feature-sheet__seasons" id="modalSeasonal"></dl>
+            </section>
+            <section id="featureSource" hidden>
+              <h2>Original field board</h2>
+              <button class="feature-sheet__board" id="featureBoard" type="button">
+                <img id="featureBoardThumb" alt="" loading="lazy" />
+                <span>Read the illustrated board <span aria-hidden="true">↗</span></span>
+              </button>
+              <details class="feature-sheet__transcript" id="featureTranscript">
+                <summary>Read the board text</summary>
+                <div id="featureBoardText"></div>
+              </details>
+            </section>
+          </div>
+        </article>
+      </div>
+    </dialog>
+
+    <dialog id="photoStudy" class="photo-study" aria-labelledby="studyName">
+      <div class="study-wrap">
+        <header class="study-head">
+          <div><p class="feature-sheet__label">Look closer</p><h2 id="studyName"></h2></div>
+          <button type="button" id="studyClose" autofocus aria-label="Close photo study">Close ×</button>
+        </header>
+        <div class="study-modes" role="group" aria-label="Viewing mode">
+          <button id="studyBrowseMode" type="button">Photographs</button>
+          <button id="studyCompareMode" type="button">Compare over time</button>
+        </div>
+        <section id="studyBrowse" aria-label="Photograph and field notes">
+          <div class="study-spread">
+            <button id="studyMagnify" class="study-image" type="button" aria-label="Enlarge current photograph">
+              <img id="studyImage" alt="" /><span class="study-expand">Enlarge ↗</span>
+            </button>
+            <div class="study-aside">
+              <div aria-live="polite" aria-atomic="true">
+                <p class="study-date" id="studyDate"></p>
+                <h3 id="studyTitle"></h3><p class="study-note" id="studyNote"></p>
+                <small id="studyDateSource"></small>
+              </div>
+              <div class="study-pager">
+                <button id="studyPrev" type="button" aria-label="Previous photograph">←</button>
+                <span id="studyCount"></span>
+                <button id="studyNext" type="button" aria-label="Next photograph">→</button>
+              </div>
             </div>
           </div>
-          <div class="caption">Tip: tags are saved locally in your browser for filtering.</div>
-        </div>
+          <div id="studyStrip" class="feature-sheet__thumbs" role="group" aria-label="Choose an archive photograph"></div>
+        </section>
+        <section id="studyPairs" aria-label="Compare photographs" hidden>
+          <label class="study-pair-picker">Compare <select id="studyPairSelect"></select></label>
+          <div aria-live="polite" aria-atomic="true">
+            <div class="study-pair" id="studyPairImages"></div>
+            <p class="study-pair-note" id="studyPairNote"></p>
+          </div>
+        </section>
+      </div>
+    </dialog>
 
-        <div class="modal__section">
-          <div class="modal__sectionTitle">About this feature</div>
-          <div class="prose" id="modalDesc"></div>
+    <dialog class="feature-zoom" id="featureZoom" aria-label="Enlarged feature image">
+      <div class="feature-zoom__inner">
+        <div class="feature-zoom__bar">
+          <span id="featureZoomCaption"></span>
+          <button id="featureZoomScale" type="button" aria-pressed="false">Zoom in ＋</button>
+          <button id="featureZoomClose" type="button" autofocus>Close ×</button>
         </div>
-
-        <div class="modal__section">
-          <div class="modal__sectionTitle">Story</div>
-          <div class="prose" id="modalNarrative"></div>
+        <div class="feature-zoom__viewport" id="featureZoomViewport" tabindex="0" aria-label="Image viewing area">
+          <img id="featureZoomImage" alt="" />
         </div>
-
-        <div class="modal__section">
-          <div class="modal__sectionTitle">Seasonal notes</div>
-          <div class="seasonal" id="modalSeasonal"></div>
-        </div>
-
       </div>
     </dialog>
 
@@ -473,9 +515,13 @@
       </div>
     </dialog>
 
-    <script src="./data/features-data.js?v=2025-12-31"></script>
-    <script src="./app.js"></script>
-    <script src="./nav.js"></script>
+    <script src="./data/features-data.js?v=stones-study"></script>
+    <script src="./data/bat-egg-study.js?v=stones-study"></script>
+    <script src="./data/standing-stones-study.js?v=stones-study"></script>
+    <script src="./data/our-sweet-track-study.js?v=paths-study"></script>
+    <script src="./data/public-bridleway-study.js?v=paths-study"></script>
+    <script src="./app.js?v=paths-study"></script>
+    <script src="./nav.js?v=atlas-20261121"></script>
   </body>
 </html>
 
