@@ -12,7 +12,7 @@
     <link rel="apple-touch-icon" href="./assets/sunflower.webp" />
     <link rel="stylesheet" href="./styles.css?v=atlas-20261121" />
     <link rel="stylesheet" href="./feature-view.css?v=photo-study" />
-    <link rel="stylesheet" href="./arrival.css?v=atlas-controls" />
+    <link rel="stylesheet" href="./arrival.css?v=feature-toolbar" />
     <script src="./arrival.js?v=atlas-controls"></script>
     <link rel="stylesheet" href="./wildlife.css?v=verge-2" />
     <script defer src="./wildlife.js?v=verge-2"></script>
@@ -114,16 +114,18 @@
         <div class="atlas-index-bar">
           <h2>Wilding features</h2>
           <div class="atlas-index-tools">
-            <label class="atlas-search"><span class="sr-only">Find a feature</span><input id="search" class="input" type="search" placeholder="Search features…" /></label>
+            <label class="atlas-search">
+              <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="10" cy="10" r="6.5"/><path d="m15 15 5 5"/></svg>
+              <input id="search" class="input" type="search" aria-label="Find a feature" placeholder="Search features…" />
+            </label>
             <button class="btn" id="tagToggle" type="button" aria-expanded="false" aria-controls="tagList">Filters</button>
-            <button class="atlas-link" id="btnRandom" type="button">Surprise me <span aria-hidden="true">↗</span></button>
+            <button class="btn atlas-surprise" id="btnRandom" type="button">Surprise me <span aria-hidden="true">↗</span></button>
           </div>
         </div>
         <div class="taglist" id="tagList" role="group" aria-label="Filter features by tag" hidden></div>
         <div class="atlas-index-status">
           <span id="resultMeta" aria-live="polite"></span>
           <button class="btn btn--small btn--ghost" id="clearFilters" type="button" hidden>Clear filters</button>
-          <button class="atlas-admin" id="btnAdmin" type="button">Admin</button>
         </div>
       </header>
       <section class="content" aria-label="Features">
@@ -139,7 +141,10 @@
           <a href="./field-guide.html">Field guide</a>
           <a href="./gallery.html">Gallery</a>
           <a href="./about.html">About</a></nav>
-        <a class="farm-footer__contact" href="mailto:julia@juliahailes.com">Contact the farm <span aria-hidden="true">↗</span></a>
+        <div class="farm-footer__utilities">
+          <a class="farm-footer__contact" href="mailto:julia@juliahailes.com">Contact the farm <span aria-hidden="true">↗</span></a>
+          <button class="atlas-admin" id="btnAdmin" type="button">Admin</button>
+        </div>
       </div>
     </footer>
 
