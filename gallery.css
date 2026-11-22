@@ -1,0 +1,101 @@
+/* Farm gallery: full photographs, arranged in rows at their own proportions. */
+.gallery-page { margin: auto; padding: 0 var(--gutter); max-width: 1720px; }
+.gallery-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; padding: 36px 0 24px; }
+.gallery-heading h1 { margin: 0; font: 400 clamp(48px, 5.5vw, 80px)/1 var(--display); letter-spacing: -.035em; }
+.gallery-heading h1 i { color: var(--accent2); }
+.gallery-heading p { margin: 0; color: var(--muted); }
+.gallery-tools { position: relative; margin-bottom: 22px; border-block: 1px solid var(--border); padding: 14px 0; }
+.gallery-tools__main { display: flex; align-items: center; gap: 18px; padding-right: 130px; }
+.gallery-tools .taglist { gap: 6px; }
+.gallery-tools .chip { min-height: 40px; padding: 7px 13px; font-size: 13px; }
+.gallery-search { margin-left: auto; width: min(260px, 26vw); }
+.gallery-search .input { margin: 0; min-height: 42px; border-radius: 4px; background: var(--paper2); }
+.gallery-count { font-size: 12px; white-space: nowrap; color: var(--muted); }
+.gallery-filters > summary { position: absolute; right: 0; top: 14px; padding: 10px 0 10px 12px; font-size: 13px; cursor: pointer; min-height: 42px; }
+.gallery-filters__body { display: grid; grid-template-columns: 1fr 1.5fr minmax(190px, .75fr); gap: 28px; padding: 24px 0 8px; }
+.gallery-filters h2 { margin: 0 0 10px; font-size: 12px; font-weight: 600; }
+.gallery-filters .input { background: var(--paper2); }
+#galClear { margin-top: 10px; }
+.page-gallery .gal-grid { display: block; position: relative; }
+.page-gallery .gal-card { position: absolute; display: block; border: 0; border-radius: 3px; overflow: hidden; background: var(--sage); box-shadow: none; transition: box-shadow .2s; }
+.page-gallery .gal-card:hover { transform: none; box-shadow: 0 0 0 3px var(--paper), 0 0 0 4px var(--ink); z-index: 1; }
+.page-gallery .gal-card__img { display: block; width: 100%; height: 100%; aspect-ratio: auto; object-fit: contain; background: transparent; }
+.page-gallery .gal-card__caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 34px 14px 12px; background: linear-gradient(transparent, #10271de6); color: white; font: 400 13px/1.4 var(--sans); opacity: 0; transition: opacity .18s; }
+.page-gallery .gal-card:hover .gal-card__caption, .page-gallery .gal-card:focus-visible .gal-card__caption { opacity: 1; }
+.gallery-empty { padding: 55px 20px; text-align: center; }
+.gallery-empty h2 { font: 400 36px/1.2 var(--display); margin: 0 0 12px; }
+.gallery-empty p { color: var(--muted); }
+.gallery-empty button { margin: 10px auto; }
+.gallery-viewer { position: fixed; inset: 0; transform: none; width: 100%; height: 100%; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: max(14px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) max(10px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left)); border: 0; border-radius: 0; color: var(--paper); background: #15271f; overflow: hidden; }
+.gallery-viewer[open] { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr) auto auto auto; gap: 12px; }
+.gallery-viewer::backdrop { background: #15271f; }
+.gallery-viewer button { cursor: pointer; color: inherit; border: 1px solid #f7f6ee40; background: #15271f; border-radius: 4px; min-height: 44px; }
+.gallery-viewer button:hover { background: #314b3d; }
+.gallery-viewer :focus-visible { outline-color: #e8c98c; outline-offset: 3px; }
+.gallery-viewer__bar { display: flex; align-items: center; gap: 24px; }
+.gallery-viewer__name { font: 400 26px/1 var(--display); margin-right: auto; }
+#galCounter { font-size: 13px; color: #d3dccf; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.gallery-viewer__actions { display: flex; gap: 8px; }
+.gallery-viewer__actions button { padding: 8px 13px; font-size: 13px; }
+.gallery-viewer__actions span { margin-left: 10px; font-size: 20px; line-height: 1; vertical-align: middle; }
+.gallery-viewer__picture { position: relative; min-height: 0; min-width: 0; }
+.gallery-viewer__stage { height: 100%; width: 100%; overflow: auto; display: flex; align-items: center; justify-content: center; touch-action: pan-y pinch-zoom; }
+#galStageImg { display: block; width: 100%; height: 100%; max-width: 100%; max-height: 100%; object-fit: contain; cursor: zoom-in; }
+.gallery-viewer__stage.is-zoomed { display: block; touch-action: pan-x pan-y pinch-zoom; }
+.gallery-viewer__stage.is-zoomed #galStageImg { width: var(--zoom-width); height: var(--zoom-height); max-width: none; max-height: none; margin: auto; cursor: zoom-out; }
+.gallery-viewer__nav { position: absolute; top: 50%; transform: translateY(-50%); width: 46px; height: 52px; font: 32px/1 var(--sans); background: #15271fdb !important; }
+.gallery-viewer__nav--prev { left: 0; }
+.gallery-viewer__nav--next { right: 0; }
+.gallery-viewer__caption { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding-inline: 4px; }
+.gallery-viewer__caption h2 { margin: 0; font: 400 clamp(22px, 2.2vw, 32px)/1.12 var(--display); }
+.gallery-viewer__caption p { margin: 5px 0 0; font-size: 12px; color: #c2d0bf; }
+.gallery-viewer__caption a { font-size: 12px; white-space: nowrap; text-underline-offset: 4px; padding: 10px 0; }
+.gallery-viewer__thumbs { display: flex; gap: 8px; overflow-x: auto; padding: 5px 4px; min-height: 0; scrollbar-width: thin; scrollbar-color: #7b9181 transparent; }
+.gallery-viewer__thumbs .thumb { flex: 0 0 72px; width: 72px; height: 56px; min-height: 0; padding: 2px; border: 1px solid transparent; opacity: .6; box-shadow: none; scroll-snap-align: none; }
+.gallery-viewer__thumbs .thumb img { width: 100%; height: 100%; object-fit: contain; background: none; }
+.gallery-viewer__thumbs .thumb.is-active { opacity: 1; border-color: #e8c98c; }
+.gallery-viewer__thumbs .thumb:hover, .gallery-viewer__thumbs .thumb:focus-visible { opacity: 1; }
+.gallery-viewer__help { margin: 0; color: #bdcbbd; text-align: center; font-size: 11px; }
+.gallery-viewer__status { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 12px 18px; background: #15271fe6; text-align: center; font-size: 14px; pointer-events: none; }
+.gallery-viewer__status:empty { display: none; }
+@media (max-width: 900px) {
+  .gallery-tools__main { flex-wrap: wrap; gap: 10px; padding-right: 0; }
+  .gallery-search { width: 100%; order: 3; margin: 0; }
+  .gallery-count { margin-left: auto; margin-right: 120px; }
+  .gallery-filters__body { grid-template-columns: 1fr; gap: 20px; }
+}
+@media (max-width: 600px) {
+  .gallery-heading { display: block; padding: 26px 0 20px; }
+  .gallery-heading p { font-size: 14px; margin-top: 10px; }
+  .gallery-tools { margin-bottom: 14px; padding-top: 10px; }
+  .gallery-tools .chip { padding: 6px 9px; min-height: 40px; }
+  .gallery-count { margin: 0; order: 4; }
+  .gallery-filters > summary { top: auto; bottom: 10px; padding: 7px 0 7px 12px; min-height: 40px; }
+  .gallery-filters[open] > summary { position: static; text-align: right; margin-top: -36px; }
+  .gallery-filters__body { padding-top: 18px; }
+  .gallery-viewer { padding-inline: 10px; }
+  .gallery-viewer[open] { gap: 10px; }
+  .gallery-viewer__bar { gap: 10px; }
+  .gallery-viewer__name { display: none; }
+  #galCounter { margin-right: auto; }
+  .gallery-viewer__actions button { padding: 7px 10px; }
+  .gallery-viewer__actions span { margin-left: 5px; }
+  .gallery-viewer__caption { align-items: start; }
+  .gallery-viewer__caption h2 { font-size: 24px; }
+  .gallery-viewer__caption a { max-width: 58px; white-space: normal; padding-top: 0; }
+  .gallery-viewer__help { font-size: 10px; }
+  .gallery-viewer__nav { top: auto; bottom: 8px; transform: none; width: 44px; height: 44px; }
+  .gallery-viewer__thumbs .thumb { height: 48px; flex-basis: 60px; }
+}
+@media (max-height: 520px) and (min-width: 601px) {
+  .gallery-viewer[open] { grid-template-columns: minmax(0, 1fr) 200px; grid-template-rows: auto minmax(0, 1fr) auto; }
+  .gallery-viewer__bar { grid-column: 1 / -1; }
+  .gallery-viewer__picture { grid-row: 2 / 4; }
+  .gallery-viewer__caption { display: block; align-self: center; }
+  .gallery-viewer__thumbs { grid-column: 2; }
+  .gallery-viewer__help { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-gallery .gal-card, .page-gallery .gal-card__caption { transition: none; }
+}
+.gallery-search .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }

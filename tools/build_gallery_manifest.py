@@ -104,7 +104,11 @@ def main() -> int:
         if p.suffix.lower() not in IMAGE_EXTS:
             continue
         rel = rel_posix(p, repo_root)
-        if rel.startswith("assets/field-guide/"):
+        # The public gallery contains the originals. The entrance artwork and
+        # small web copies serve the interface and would duplicate those images.
+        if rel.startswith(("assets/field-guide/", "assets/arrival/")) or rel in {
+            "assets/about/farm-summer.webp", "assets/about/farm-meadow.webp",
+        }:
             continue
         imgs.append(rel)
 
@@ -121,9 +125,11 @@ def main() -> int:
         "Other": 7,
     }
 
+    captions = json.loads((repo_root / "data/gallery-captions.json").read_text(encoding="utf-8"))
     entries = []
     for src in imgs:
         category, label, tags = categorize(src, feature_titles)
+        label = captions.get(src, label)
         try:
             # There's no reliable "created" time cross-platform; use mtime as a sensible proxy.
             st = (repo_root / src).stat()
