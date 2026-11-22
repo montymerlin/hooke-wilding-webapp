@@ -1,0 +1,28 @@
+/* Isolated layout experiment; the current homepage keeps its own composition. */
+.page-map-wide .farm-atlas {
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(28px, 3vw, 44px);
+  padding-top: clamp(24px, 3vw, 44px);
+}
+.page-map-wide .atlas-intro { text-align: center; }
+.page-map-wide .atlas-locale { justify-content: center; }
+.page-map-wide .atlas-intro h1 {
+  font-size: clamp(54px, 7vw, 100px);
+  line-height: .98;
+  margin: 17px 0 17px;
+}
+.page-map-wide .atlas-intro h1 br { display: none; }
+.page-map-wide .atlas-intro > p {
+  max-width: 65ch;
+  margin-inline: auto;
+  font-size: clamp(14px, 1.15vw, 17px);
+}
+.page-map-wide .atlas-links { justify-content: center; margin-top: 19px; gap: 12px 25px; }
+.page-map-wide .atlas-replay { margin: 0; font-size: 12px; }
+.page-map-wide .atlas-compare { font-size: 12px; color: #485b4e; text-underline-offset: 4px; }
+@media (max-width: 740px) {
+  .page-map-wide .farm-atlas { gap: 24px; }
+  .page-map-wide .atlas-intro h1 { font-size: clamp(48px, 9vw, 66px); }
+  .page-map-wide .atlas-intro > p { max-width: 48ch; }
+  .page-map-wide .atlas-links { gap: 13px 22px; }
+}

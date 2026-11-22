@@ -408,6 +408,108 @@ function main() {
   const $hudY = el("hudY");
   const $hudStatus = el("hudStatus");
   const $togglePins = el("togglePins");
+  const $mapPreview = el("mapPreview");
+  const $mapPreviewPhoto = el("mapPreviewPhoto");
+  let previewPin = null;
+  let previewHideTimer;
+
+  function hideMapPreview() {
+    clearTimeout(previewHideTimer);
+    previewPin?.removeAttribute("aria-describedby");
+    previewPin?.classList.remove("has-preview");
+    previewPin = null;
+    $mapPreview.hidden = true;
+  }
+
+  function positionMapPreview() {
+    if (!previewPin) return;
+    const pin = previewPin.getBoundingClientRect();
+    const map = el("atlasViewport").getBoundingClientRect();
+    if (pin.bottom < Math.max(0, map.top) || pin.top > Math.min(innerHeight, map.bottom) ||
+        pin.right < Math.max(0, map.left) || pin.left > Math.min(innerWidth, map.right)) {
+      hideMapPreview();
+      return;
+    }
+    const width = $mapPreview.offsetWidth;
+    const height = $mapPreview.offsetHeight;
+    const gap = 10, edge = 12;
+    let left = pin.right + gap;
+    let top = pin.top + pin.height / 2 - height / 2;
+    if (left + width > innerWidth - edge) left = pin.left - width - gap;
+    if (left < edge) {
+      left = pin.left + pin.width / 2 - width / 2;
+      top = pin.top - height - gap;
+      if (top < edge) top = pin.bottom + gap;
+    }
+    $mapPreview.style.left = `${Math.max(edge, Math.min(left, innerWidth - width - edge))}px`;
+    $mapPreview.style.top = `${Math.max(edge, Math.min(top, innerHeight - height - edge))}px`;
+  }
+
+  function showMapPreview(pin) {
+    if (pickMode || $mapPins.classList.contains("hide-pins") || $modal.open) return;
+    clearTimeout(previewHideTimer);
+    if (previewPin === pin) return;
+    const feature = features.find(f => f.id === pin.dataset.featureId);
+    if (!feature) return;
+    hideMapPreview();
+    previewPin = pin;
+    const title = getEffectiveTitle(feature);
+    const board = feature.pages?.[0]?.image;
+    const thumbPhoto = feature.thumb && !/\/page-\d+\./i.test(feature.thumb) ? feature.thumb : "";
+    const photo = getEffectiveImage(feature) || thumbPhoto || getEffectiveGallery(feature).find(item => item.url !== board)?.url;
+    const image = photo || board || feature.thumb;
+    let description = (getEffectiveStoryText(feature) || feature.pages?.[0]?.textPreview || feature.description || "")
+      .replace(/\s+/g, " ").trim();
+    if (description.toLowerCase().startsWith(title.toLowerCase() + " ")) description = description.slice(title.length).trim();
+    if (description.length > 185) description = description.slice(0, 182).replace(/\s+\S*$/, "").replace(/[.,;:]$/, "") + "…";
+    el("mapPreviewNumber").textContent = `On the farm · ${pin.dataset.mapNumber}${photo ? "" : " · Field board"}`;
+    el("mapPreviewTitle").textContent = title;
+    el("mapPreviewDescription").textContent = description;
+    $mapPreview.classList.toggle("is-board", !photo);
+    $mapPreviewPhoto.hidden = !image;
+    if (image) $mapPreviewPhoto.src = resolveImg(image);
+    else $mapPreviewPhoto.removeAttribute("src");
+    pin.classList.add("has-preview");
+    pin.setAttribute("aria-describedby", "mapPreviewDescription");
+    $mapPreview.hidden = false;
+    positionMapPreview();
+  }
+
+  function leaveMapPreview() {
+    clearTimeout(previewHideTimer);
+    previewHideTimer = setTimeout(() => {
+      if (previewPin?.matches(":hover") || $mapPreview.matches(":hover") ||
+          (document.activeElement === previewPin && previewPin?.matches(":focus-visible"))) return;
+      hideMapPreview();
+    }, 180);
+  }
+
+  $mapPins.addEventListener("pointerover", event => {
+    const pin = event.target.closest(".pin");
+    if (event.pointerType !== "touch" && pin && !pin.contains(event.relatedTarget)) showMapPreview(pin);
+  });
+  $mapPins.addEventListener("pointerout", leaveMapPreview);
+  $mapPins.addEventListener("focusin", event => {
+    if (event.target.matches(".pin:focus-visible")) showMapPreview(event.target);
+  });
+  $mapPins.addEventListener("focusout", leaveMapPreview);
+  $mapPreview.addEventListener("pointerenter", () => clearTimeout(previewHideTimer));
+  $mapPreview.addEventListener("pointerleave", leaveMapPreview);
+  $mapPreviewPhoto.addEventListener("error", () => { $mapPreviewPhoto.hidden = true; positionMapPreview(); });
+  $mapPins.addEventListener("click", hideMapPreview);
+  $togglePins.addEventListener("click", hideMapPreview);
+  el("atlasViewport").addEventListener("scroll", positionMapPreview, { passive: true });
+  el("atlasZoom").addEventListener("click", hideMapPreview);
+  el("atlasFullscreen").addEventListener("click", hideMapPreview);
+  document.addEventListener("fullscreenchange", hideMapPreview);
+  window.addEventListener("scroll", positionMapPreview, { passive: true });
+  window.addEventListener("resize", hideMapPreview);
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && !$mapPreview.hidden) {
+      event.preventDefault();
+      hideMapPreview();
+    }
+  });
 
   // Admin UI
   const $btnAdmin = el("btnAdmin");
@@ -514,6 +616,7 @@ function main() {
   }
 
   function renderMapPins() {
+    hideMapPreview();
     const pins = features
       .filter((f) => !isDeleted(f))
       .filter((f) => !isHidden(f))

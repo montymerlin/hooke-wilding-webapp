@@ -12,7 +12,7 @@
     <link rel="apple-touch-icon" href="./assets/sunflower.webp" />
     <link rel="stylesheet" href="./styles.css?v=garden-gift" />
     <link rel="stylesheet" href="./feature-view.css?v=photo-study" />
-    <link rel="stylesheet" href="./arrival.css?v=feature-toolbar" />
+    <link rel="stylesheet" href="./arrival.css?v=pin-previews" />
     <script src="./arrival.js?v=atlas-controls"></script>
     <link rel="stylesheet" href="./wildlife.css?v=verge-2" />
     <script defer src="./wildlife.js?v=verge-2"></script>
@@ -51,7 +51,7 @@
         <div class="atlas-intro">
           <div class="atlas-locale"><span class="atlas-cross" aria-hidden="true"></span> West Dorset, England <div class="wild-perch" data-wildlife="comma"></div></div>
           <h1 id="explore-title">Explore <br><em>Hooke Farm</em></h1>
-          <p>Walk the wildflower meadows, ponds and hedgerows of Hooke Farm. Choose a pin on the painted map to see what lives there.</p>
+          <p>Walk the wildflower meadows, ponds and hedgerows of Hooke Farm. Hover over a pin for a glimpse of the place, or choose one to explore.</p>
           <div class="atlas-links">
             <a class="atlas-cta" href="#features">Browse features <span aria-hidden="true">↓</span></a>
             <a class="atlas-link" href="./field-guide.html">Field guide <span aria-hidden="true">↗</span></a>
@@ -84,6 +84,15 @@
                   <div class="map-hud__hint" id="hudStatus">Click the map to copy x/y%.</div>
                 </div>
               </div>
+            </div>
+          </div>
+          <div class="map-preview" id="mapPreview" role="tooltip" hidden>
+            <img class="map-preview__photo" id="mapPreviewPhoto" alt="" />
+            <div class="map-preview__body">
+              <span class="map-preview__eyebrow" id="mapPreviewNumber"></span>
+              <strong class="map-preview__title" id="mapPreviewTitle"></strong>
+              <p class="map-preview__description" id="mapPreviewDescription"></p>
+              <span class="map-preview__hint">Choose the pin to explore <span aria-hidden="true">↗</span></span>
             </div>
           </div>
           <div class="atlas-caption">
@@ -523,7 +532,7 @@
     <script src="./data/standing-stones-study.js?v=stones-study"></script>
     <script src="./data/our-sweet-track-study.js?v=paths-study"></script>
     <script src="./data/public-bridleway-study.js?v=paths-study"></script>
-    <script src="./app.js?v=atlas-controls"></script>
+    <script src="./app.js?v=pin-previews"></script>
     <script src="./nav.js?v=atlas-20261121"></script>
   </body>
 </html>

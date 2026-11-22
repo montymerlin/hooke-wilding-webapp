@@ -1,0 +1,540 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hooke Farm Wilding — Wide map preview</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <meta
+      name="description"
+      content="An offline, interactive guide to Hooke Farm’s wilding features — built from the WW24 info boards."
+    />
+    <link rel="icon" type="image/webp" href="./assets/sunflower.webp" />
+    <link rel="apple-touch-icon" href="./assets/sunflower.webp" />
+    <link rel="stylesheet" href="./styles.css?v=atlas-20261121" />
+    <link rel="stylesheet" href="./feature-view.css?v=photo-study" />
+    <link rel="stylesheet" href="./arrival.css?v=pin-previews" />
+    <script src="./arrival.js?v=atlas-controls"></script>
+    <link rel="stylesheet" href="./wildlife.css?v=verge-2" />
+    <script defer src="./wildlife.js?v=verge-2"></script>
+    <link rel="stylesheet" href="./explore-wide.css?v=1" />
+  </head>
+  <body class="page-map page-map-wide">
+    <div class="atlas-arrival" id="meadowEntrance">
+      <div class="arrival-landscape" aria-hidden="true"></div>
+      <div class="arrival-sign" aria-hidden="true"><span>West Dorset</span>Hooke <i>Farm</i></div>
+      <div class="arrival-bank arrival-bank--far" aria-hidden="true"></div>
+      <div class="arrival-bank arrival-bank--left" aria-hidden="true"></div>
+      <div class="arrival-bank arrival-bank--right" aria-hidden="true"></div>
+      <div class="arrival-butterfly" aria-hidden="true"></div>
+      <button class="atlas-skip" id="arrivalSkip" type="button">Enter the portal <span aria-hidden="true">→</span></button>
+    </div>
+    <a class="skip-link" href="#page-content">Skip to content</a>
+    <header class="topbar">
+      <div class="topbar__inner">
+        <a class="farm-brand" href="./index.html" aria-label="Hooke Farm Wilding home">
+          <img src="./assets/sunflower.webp" width="40" height="40" alt="" />
+          <span>Hooke Farm <i>Wilding</i></span>
+        </a>
+        <button class="btn topbar__menuBtn" id="navToggle" type="button" aria-label="Open menu" aria-controls="topbarNav" aria-expanded="false"><span class="menu-icon" aria-hidden="true"></span> Menu</button>
+        <nav class="topbar__actions" id="topbarNav" aria-label="Main navigation">
+          <a href="./explore-wide.html" aria-current="page">Explore</a>
+          <a href="./content.html">Discover</a>
+          <a href="./field-guide.html">Field guide</a>
+          <a href="./gallery.html">Gallery</a>
+          <a href="./about.html">About</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="layout explore-layout" id="page-content">
+      <section class="hero farm-atlas" aria-labelledby="explore-title">
+        <div class="atlas-intro">
+          <div class="atlas-locale"><span class="atlas-cross" aria-hidden="true"></span> West Dorset, England <div class="wild-perch" data-wildlife="comma"></div></div>
+          <h1 id="explore-title">Explore <br><em>Hooke Farm</em></h1>
+          <p>Walk the wildflower meadows, ponds and hedgerows of Hooke Farm. Hover over a pin for a glimpse of the place, or choose one to explore.</p>
+          <div class="atlas-links">
+            <a class="atlas-cta" href="#features">Browse features <span aria-hidden="true">↓</span></a>
+            <a class="atlas-link" href="./field-guide.html">Field guide <span aria-hidden="true">↗</span></a>
+          <button class="atlas-replay" id="arrivalReplay" type="button" hidden><span aria-hidden="true">↻</span> Replay meadow entrance</button>
+            <a class="atlas-compare" href="./index.html">View current layout <span aria-hidden="true">↗</span></a>
+          </div>
+
+        </div>
+        <dialog class="atlas-map-dialog" id="atlasDialog" aria-label="Full-screen farm map"></dialog>
+        <div class="atlas-plate" id="farm-map">
+          <div class="atlas-mat">
+            <div class="atlas-viewport" id="atlasViewport">
+              <div class="hero__frame atlas-map" id="atlasMap">
+                <img class="hero__img" src="./assets/arrival/farm-watercolour.webp" width="1900" height="1400"
+                  alt="Watercolour of Hooke Farm, with meadows to the north, ponds to the east and farm buildings in the centre."
+                  fetchpriority="high" />
+                <div class="tour-layer" id="tourLayer" aria-hidden="true">
+                  <svg class="tour-layer__svg" id="tourSvg" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <path id="tourPath" d="" />
+                  </svg>
+                </div>
+                <div class="map-pins" id="mapPins" role="group" aria-label="Farm features"></div>
+                <div class="map-hud admin-only" id="mapHud" aria-live="polite" hidden>
+                  <div class="map-hud__title">Map coordinates</div>
+                  <div class="map-hud__row">
+                    <span class="map-hud__label">x</span>
+                    <code class="map-hud__value" id="hudX">—</code>
+                    <span class="map-hud__label">y</span>
+                    <code class="map-hud__value" id="hudY">—</code>
+                  </div>
+                  <div class="map-hud__hint" id="hudStatus">Click the map to copy x/y%.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="map-preview" id="mapPreview" role="tooltip" hidden>
+            <img class="map-preview__photo" id="mapPreviewPhoto" alt="" />
+            <div class="map-preview__body">
+              <span class="map-preview__eyebrow" id="mapPreviewNumber"></span>
+              <strong class="map-preview__title" id="mapPreviewTitle"></strong>
+              <p class="map-preview__description" id="mapPreviewDescription"></p>
+              <span class="map-preview__hint">Choose the pin to explore <span aria-hidden="true">↗</span></span>
+            </div>
+          </div>
+          <div class="atlas-caption">
+            <div class="atlas-map-name"><span class="atlas-map-symbol" aria-hidden="true"></span> Farm map</div>
+            <div class="atlas-tools" role="group" aria-label="Map controls">
+              <button type="button" id="atlasFullscreen" aria-pressed="false">Full screen</button>
+              <button type="button" id="atlasZoom" aria-pressed="false">Zoom in</button>
+              <button type="button" id="btnTour">Tour</button>
+              <button type="button" id="togglePins">Hide pins</button>
+            </div>
+          </div>
+          <aside class="tour-panel" id="tourPanel" aria-label="Tour" hidden>
+            <div class="tour-panel__header">
+              <div class="tour-panel__kicker">Map mini-tour</div>
+              <button class="btn btn--small btn--ghost" id="tourPanelEnd" type="button">End</button>
+            </div>
+            <div class="tour-panel__title" id="tourPanelTitle"></div>
+            <div class="tour-panel__meta" id="tourPanelMeta"></div>
+            <div class="tour-panel__text" id="tourPanelText"></div>
+            <div class="tour-panel__actions">
+              <button class="btn btn--small btn--ghost" id="tourPanelPrev" type="button">Previous</button>
+              <button class="btn btn--small btn--ghost" id="tourPanelNext" type="button">Next</button>
+              <button class="btn btn--small" id="tourPanelOpen" type="button">Open details</button>
+            </div>
+          </aside>
+        </div>
+      </section>
+      <header class="atlas-index-head" id="features">
+        <div class="atlas-index-bar">
+          <h2>Wilding features</h2>
+          <div class="atlas-index-tools">
+            <label class="atlas-search">
+              <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="10" cy="10" r="6.5"/><path d="m15 15 5 5"/></svg>
+              <input id="search" class="input" type="search" aria-label="Find a feature" placeholder="Search features…" />
+            </label>
+            <button class="btn" id="tagToggle" type="button" aria-expanded="false" aria-controls="tagList">Filters</button>
+            <button class="btn atlas-surprise" id="btnRandom" type="button">Surprise me <span aria-hidden="true">↗</span></button>
+          </div>
+        </div>
+        <div class="taglist" id="tagList" role="group" aria-label="Filter features by tag" hidden></div>
+        <div class="atlas-index-status">
+          <span id="resultMeta" aria-live="polite"></span>
+          <button class="btn btn--small btn--ghost" id="clearFilters" type="button" hidden>Clear filters</button>
+        </div>
+      </header>
+      <section class="content" aria-label="Features">
+        <div class="grid" id="grid" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <footer class="farm-footer" id="meadow-verge">
+      <div class="farm-footer__inner">
+        <a class="farm-brand" href="./index.html"><img src="./assets/sunflower.webp" width="34" height="34" alt="" /><span>Hooke Farm <i>Wilding</i></span></a>
+        <nav aria-label="Footer navigation"><a href="./explore-wide.html" aria-current="page">Explore</a>
+          <a href="./content.html">Discover</a>
+          <a href="./field-guide.html">Field guide</a>
+          <a href="./gallery.html">Gallery</a>
+          <a href="./about.html">About</a></nav>
+        <div class="farm-footer__utilities">
+          <a class="farm-footer__contact" href="mailto:julia@juliahailes.com">Contact the farm <span aria-hidden="true">↗</span></a>
+          <button class="atlas-admin" id="btnAdmin" type="button">Admin</button>
+        </div>
+      </div>
+    </footer>
+
+    <dialog class="feature-sheet" id="modal" aria-labelledby="modalTitle">
+      <div class="feature-sheet__wrap">
+        <nav class="feature-sheet__bar" aria-label="Feature navigation">
+          <button class="feature-sheet__back" id="modalClose" type="button">
+            <span aria-hidden="true">←</span> <span id="featureBackLabel">Back to explore</span>
+          </button>
+          <div class="feature-sheet__pager">
+            <button id="modalPrevFeature" type="button" aria-label="Previous feature">← Previous</button>
+            <button id="modalNextFeature" type="button" aria-label="Next feature">Next →</button>
+          </div>
+        </nav>
+        <article class="feature-sheet__layout">
+          <header class="feature-sheet__heading">
+            <p class="feature-sheet__label">Wilding feature</p>
+            <h1 id="modalTitle" tabindex="-1" autofocus></h1>
+            <div class="tag-editor" id="tagEditor">
+              <div class="tag-editor__chips" id="modalTags" aria-label="Feature tags"></div>
+              <div class="tag-editor__add" id="tagEditorAdd">
+                <input class="input tag-editor__input" id="tagInput" type="text" aria-label="New tag" placeholder="Add a tag" />
+                <button class="btn btn--small" id="tagAdd" type="button">Add</button>
+              </div>
+            </div>
+            <div class="feature-study-actions" id="featureStudyActions" hidden>
+              <button type="button" id="studyOpen" aria-haspopup="dialog">Look closer <span aria-hidden="true">↗</span></button>
+              <button type="button" id="studyCompare" aria-haspopup="dialog">Compare over time</button>
+            </div>
+          </header>
+
+          <figure class="feature-sheet__gallery" aria-label="Feature gallery">
+            <button class="feature-sheet__stage" id="galleryStage" type="button" aria-label="Enlarge image">
+              <img id="modalBoardImg" alt="" />
+              <span class="feature-sheet__expand"><span class="feature-sheet__expand-icon" aria-hidden="true">⤢</span> Enlarge</span>
+            </button>
+            <figcaption class="feature-sheet__caption">
+              <span id="galleryCaption"></span>
+              <span class="feature-sheet__gallery-controls">
+                <button id="galleryPrev" type="button" aria-label="Previous image">←</button>
+                <span id="galleryCounter" aria-live="polite"></span>
+                <button id="galleryNext" type="button" aria-label="Next image">→</button>
+              </span>
+            </figcaption>
+            <div class="feature-sheet__thumbs" id="modalGallery" aria-label="Choose an image"></div>
+          </figure>
+
+          <div class="feature-sheet__reading">
+            <div class="feature-sheet__intro" id="modalDesc"></div>
+            <p class="feature-sheet__access" id="batEggAccess" hidden>The stonework has collapsed. Please view the Bat Egg from a distance.</p>
+            <section>
+              <h2>The story</h2>
+              <div id="modalNarrative"></div>
+              <a id="featureStorySource" hidden target="_blank" rel="noopener noreferrer"></a>
+            </section>
+            <section>
+              <h2>Seasonal notes</h2>
+              <dl class="feature-sheet__seasons" id="modalSeasonal"></dl>
+            </section>
+            <section id="featureSource" hidden>
+              <h2>Original field board</h2>
+              <button class="feature-sheet__board" id="featureBoard" type="button">
+                <img id="featureBoardThumb" alt="" loading="lazy" />
+                <span>Read the illustrated board <span aria-hidden="true">↗</span></span>
+              </button>
+              <details class="feature-sheet__transcript" id="featureTranscript">
+                <summary>Read the board text</summary>
+                <div id="featureBoardText"></div>
+              </details>
+            </section>
+          </div>
+        </article>
+      </div>
+    </dialog>
+
+    <dialog id="photoStudy" class="photo-study" aria-labelledby="studyName">
+      <div class="study-wrap">
+        <header class="study-head">
+          <div><p class="feature-sheet__label">Look closer</p><h2 id="studyName"></h2></div>
+          <button type="button" id="studyClose" autofocus aria-label="Close photo study">Close ×</button>
+        </header>
+        <div class="study-modes" role="group" aria-label="Viewing mode">
+          <button id="studyBrowseMode" type="button">Photographs</button>
+          <button id="studyCompareMode" type="button">Compare over time</button>
+        </div>
+        <section id="studyBrowse" aria-label="Photograph and field notes">
+          <div class="study-spread">
+            <button id="studyMagnify" class="study-image" type="button" aria-label="Enlarge current photograph">
+              <img id="studyImage" alt="" /><span class="study-expand">Enlarge ↗</span>
+            </button>
+            <div class="study-aside">
+              <div aria-live="polite" aria-atomic="true">
+                <p class="study-date" id="studyDate"></p>
+                <h3 id="studyTitle"></h3><p class="study-note" id="studyNote"></p>
+                <small id="studyDateSource"></small>
+              </div>
+              <div class="study-pager">
+                <button id="studyPrev" type="button" aria-label="Previous photograph">←</button>
+                <span id="studyCount"></span>
+                <button id="studyNext" type="button" aria-label="Next photograph">→</button>
+              </div>
+            </div>
+          </div>
+          <div id="studyStrip" class="feature-sheet__thumbs" role="group" aria-label="Choose an archive photograph"></div>
+        </section>
+        <section id="studyPairs" aria-label="Compare photographs" hidden>
+          <label class="study-pair-picker">Compare <select id="studyPairSelect"></select></label>
+          <div aria-live="polite" aria-atomic="true">
+            <div class="study-pair" id="studyPairImages"></div>
+            <p class="study-pair-note" id="studyPairNote"></p>
+          </div>
+        </section>
+      </div>
+    </dialog>
+
+    <dialog class="feature-zoom" id="featureZoom" aria-label="Enlarged feature image">
+      <div class="feature-zoom__inner">
+        <div class="feature-zoom__bar">
+          <span id="featureZoomCaption"></span>
+          <button id="featureZoomScale" type="button" aria-pressed="false">Zoom in ＋</button>
+          <button id="featureZoomClose" type="button" autofocus>Close ×</button>
+        </div>
+        <div class="feature-zoom__viewport" id="featureZoomViewport" tabindex="0" aria-label="Image viewing area">
+          <img id="featureZoomImage" alt="" />
+        </div>
+      </div>
+    </dialog>
+
+
+
+    <dialog class="modal" id="adminDialog">
+      <div class="modal__header">
+        <div class="modal__title">Admin</div>
+        <button class="btn btn--ghost" id="adminClose" type="button">Close</button>
+      </div>
+      <div class="modal__body">
+        <div class="admin" id="adminLoginView">
+          <div class="prose">
+            <p>Enter the admin password to unlock editing tools (tags, map coordinates, titles, stories, and adding features).</p>
+          </div>
+          <div class="admin__row">
+            <input class="input admin__input" id="adminPassword" type="password" placeholder="Password" />
+            <button class="btn" id="adminUnlock" type="button">Unlock</button>
+          </div>
+          <div class="admin__status muted" id="adminStatus"></div>
+          <div class="caption muted">
+            Note: this is client-side protection for an offline site. It prevents casual edits but is not “secure” against someone reading the source.
+          </div>
+        </div>
+
+        <div class="admin" id="adminPanelView" hidden>
+          <div class="admin__bar">
+            <div class="admin__status" id="adminModeStatus">Admin mode is ON</div>
+            <button class="btn btn--ghost btn--small" id="adminLock" type="button">Lock</button>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="admin-tabs" role="tablist" aria-label="Admin sections">
+            <button
+              class="admin-tab is-active"
+              id="adminTabEdit"
+              type="button"
+              role="tab"
+              aria-selected="true"
+              aria-controls="adminEditView"
+            >
+              Edit features
+            </button>
+            <button
+              class="admin-tab"
+              id="adminTabAdd"
+              type="button"
+              role="tab"
+              aria-selected="false"
+              aria-controls="adminAddView"
+            >
+              Add new feature
+            </button>
+          </div>
+
+          <div class="admin-layout" id="adminEditView" role="tabpanel" aria-label="Edit features" aria-labelledby="adminTabEdit">
+            <div class="admin-form">
+              <div class="admin-card">
+                <div class="admin-card__title">Select a feature</div>
+                <label class="field">
+                  <span class="field__label">Search</span>
+                  <input class="input" id="adminFeatureSearch" type="search" placeholder="Type to filter… (e.g. bees, stones, bat)" />
+                </label>
+                <label class="field">
+                  <span class="field__label">Choose feature</span>
+                  <select class="input" id="adminFeatureSelect"></select>
+                </label>
+                <div class="admin-actionsRow">
+                  <button class="btn btn--ghost btn--small" id="adminOpenFeature" type="button">Open feature</button>
+                  <button class="btn btn--small" id="adminEditToggle" type="button">Edit</button>
+                </div>
+              </div>
+
+              <div class="admin-card admin-edit-only" id="adminContentCard" hidden>
+                <div class="admin-card__title">Content</div>
+                <label class="field">
+                  <span class="field__label">Title</span>
+                  <input class="input" id="adminTitle" type="text" placeholder="Feature title" />
+                </label>
+
+                <label class="field">
+                  <span class="field__label">Story</span>
+                  <textarea class="input admin__textarea" id="adminStory" rows="10" placeholder="Edit the story for this feature…"></textarea>
+                </label>
+
+                <label class="field">
+                  <span class="field__label">Tags (comma-separated)</span>
+                  <input class="input" id="adminTags" type="text" placeholder="e.g. Insects, Pollinators, Ecology" />
+                </label>
+
+                <label class="field">
+                  <span class="field__label">Headline image (optional)</span>
+                  <input class="input" id="adminImage" type="file" accept="image/*" />
+                </label>
+
+                <label class="field">
+                  <span class="field__label">Additional photos (gallery)</span>
+                  <input class="input" id="adminGalleryAdd" type="file" accept="image/*" multiple />
+                </label>
+                <div class="admin-gallery" id="adminGalleryList" aria-label="Existing gallery images"></div>
+              </div>
+
+              <div class="admin-card admin-edit-only" id="adminMapCard" hidden>
+                <div class="admin-card__title">Map</div>
+                <label class="field">
+                  <span class="field__label">Pin label (on map)</span>
+                  <input class="input" id="adminPinLabel" type="text" placeholder="Label shown on the map pin" />
+                </label>
+                <div class="admin__row">
+                  <label class="field admin__half">
+                    <span class="field__label">Pin xPct</span>
+                    <input class="input" id="adminPinX" type="number" min="0" max="100" step="0.1" />
+                  </label>
+                  <label class="field admin__half">
+                    <span class="field__label">Pin yPct</span>
+                    <input class="input" id="adminPinY" type="number" min="0" max="100" step="0.1" />
+                  </label>
+                </div>
+                <div class="admin-actionsRow">
+                  <button class="btn btn--ghost btn--small" id="adminPickPin" type="button">Pick pin from map</button>
+                </div>
+                <div class="caption muted">Click the button, then click the map to fill x/y.</div>
+              </div>
+
+              <div class="admin__actions admin-edit-only" id="adminEditActions" hidden>
+                <button class="btn" id="adminSaveFeature" type="button">Save changes</button>
+                <button class="btn btn--ghost" id="adminResetFeature" type="button">Reset edits</button>
+                <button class="btn btn--ghost" id="adminToggleHidden" type="button">Hide feature</button>
+                <button class="btn btn--danger" id="adminDeleteFeature" type="button">Delete permanently</button>
+                <span class="admin__status muted" id="adminSaveStatus"></span>
+              </div>
+              <div class="caption muted">
+                Everything is stored locally in your browser for offline use. Very large images may exceed storage limits.
+              </div>
+            </div>
+
+            <div class="admin-preview">
+              <div class="admin-card">
+                <div class="admin-card__title">Preview</div>
+                <img class="admin-preview__img" id="adminPreviewImg" alt="" />
+                <div class="admin-preview__meta">
+                  <div class="admin-preview__row">
+                    <span class="admin-preview__label">Pin</span>
+                    <code class="admin-preview__code" id="adminPreviewPin">—</code>
+                  </div>
+                  <div class="admin-preview__row">
+                    <span class="admin-preview__label">Mode</span>
+                    <span class="admin-preview__pill" id="adminPickStatus">Normal</span>
+                  </div>
+                </div>
+              </div>
+              <div class="admin-card">
+                <div class="admin-card__title">Quick help</div>
+                <div class="prose">
+                  <p><strong>How this works:</strong> everything you change in Admin is saved locally in your browser (offline).</p>
+                  <p><strong>Edit an existing feature:</strong> select it, click <strong>Edit</strong>, then update title/story/tags, image, and map pin.</p>
+                  <p><strong>Pick pin from map:</strong> in Edit mode, click the button, then click the map to fill x/y automatically.</p>
+                  <p><strong>Remove / restore:</strong> “Remove feature” hides it from the map + list; you can restore it later.</p>
+                  <p><strong>Add new feature:</strong> use the Add tab to upload an image, set a pin, and write a story.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="admin-layout" id="adminAddView" role="tabpanel" aria-label="Add feature" aria-labelledby="adminTabAdd" hidden>
+            <div class="admin-form">
+              <div class="admin-card">
+                <div class="admin-card__title">New feature</div>
+                <label class="field">
+                  <span class="field__label">Title</span>
+                  <input class="input" id="newTitle" type="text" placeholder="New feature title" />
+                </label>
+                <label class="field">
+                  <span class="field__label">Story</span>
+                  <textarea class="input admin__textarea" id="newStory" rows="8" placeholder="Write the story for this new feature…"></textarea>
+                </label>
+                <label class="field">
+                  <span class="field__label">Tags (comma-separated)</span>
+                  <input class="input" id="newTags" type="text" placeholder="e.g. Amphibians, Pond, Shelter" />
+                </label>
+              </div>
+
+              <div class="admin-card">
+                <div class="admin-card__title">Map + image</div>
+                <label class="field">
+                  <span class="field__label">Pin label (on map)</span>
+                  <input class="input" id="newPinLabel" type="text" placeholder="Label shown on the map pin" />
+                </label>
+                <div class="admin__row">
+                  <label class="field admin__half">
+                    <span class="field__label">Pin xPct</span>
+                    <input class="input" id="newPinX" type="number" min="0" max="100" step="0.1" />
+                  </label>
+                  <label class="field admin__half">
+                    <span class="field__label">Pin yPct</span>
+                    <input class="input" id="newPinY" type="number" min="0" max="100" step="0.1" />
+                  </label>
+                </div>
+                <div class="admin-actionsRow">
+                  <button class="btn btn--ghost btn--small" id="newPickPin" type="button">Pick pin from map</button>
+                </div>
+                <label class="field">
+                  <span class="field__label">Headline image (required)</span>
+                  <input class="input" id="newImage" type="file" accept="image/*" />
+                </label>
+
+                <label class="field">
+                  <span class="field__label">Additional photos (optional)</span>
+                  <input class="input" id="newGallery" type="file" accept="image/*" multiple />
+                </label>
+              </div>
+
+              <div class="admin__actions">
+                <button class="btn" id="adminCreateFeature" type="button">Create feature</button>
+                <span class="admin__status muted" id="adminCreateStatus"></span>
+              </div>
+            </div>
+
+            <div class="admin-preview">
+              <div class="admin-card">
+                <div class="admin-card__title">New feature preview</div>
+                <img class="admin-preview__img" id="newPreviewImg" alt="" />
+                <div class="admin-preview__meta">
+                  <div class="admin-preview__row">
+                    <span class="admin-preview__label">Pin</span>
+                    <code class="admin-preview__code" id="newPreviewPin">—</code>
+                  </div>
+                  <div class="admin-preview__row">
+                    <span class="admin-preview__label">Mode</span>
+                    <span class="admin-preview__pill" id="newPickStatus">Normal</span>
+                  </div>
+                </div>
+              </div>
+              <div class="admin-card">
+                <div class="admin-card__title">Quick help</div>
+                <div class="prose">
+                  <p><strong>Pin</strong>: set x/y or use “Pick pin from map”.</p>
+                  <p><strong>Image</strong>: keep it reasonably small for best offline storage reliability.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </dialog>
+
+    <script src="./data/features-data.js?v=farm-accounts"></script>
+    <script src="./data/bat-egg-study.js?v=stones-study"></script>
+    <script src="./data/standing-stones-study.js?v=stones-study"></script>
+    <script src="./data/our-sweet-track-study.js?v=paths-study"></script>
+    <script src="./data/public-bridleway-study.js?v=paths-study"></script>
+    <script src="./app.js?v=pin-previews"></script>
+    <script src="./nav.js?v=atlas-20261121"></script>
+  </body>
+</html>

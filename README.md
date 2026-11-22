@@ -19,6 +19,7 @@ Domain HTTPS, the `www` redirect and automatic deployment from `main` were verif
 ## What’s in here
 
 - **Explore map + feature boards**: `index.html` + `app.js`
+  - Hover or keyboard-focus a map pin for a photograph and short introduction. Previews remain readable under the pointer, follow the map while scrolling and dismiss with Escape. Features without a separate photograph use their original field board.
   - Click map pins or cards to open a feature.
   - Search and tag filters sit in the Wilding features header above the full-width card grid.
   - The farm map opens full screen with pins, zoom and tour controls. Portrait screens open on a pannable view, with Fit map available to show the whole painting.
@@ -37,6 +38,10 @@ Domain HTTPS, the `www` redirect and automatic deployment from `main` were verif
 - **About the farm**: `about.html` and `about.css` tell the history of the wilding project using Julia Hailes’s published accounts, the original field boards and farm photographs.
 
 The five public pages share a continuous flowering meadow footer photographed at Hooke. The planting rises once as it comes into view, with a comma butterfly and bumblebee in front. Visitors come from Hooke Farm photographs in `assets/hookewildingmisc/`, `assets/features/wildflower-meadow/` and `assets/features/toad-pond/`. The cutout details are served locally from `assets/wildlife/` and `assets/arrival/`. Tapping a visitor or activating it with the keyboard reveals its name. Reduced motion keeps the animals still.
+
+## Parked homepage experiment
+
+`explore-wide.html` and `explore-wide.css` retain the alternative with a centred introduction above a full-width map. Monty preferred the original layout on 22 November 2026: `index.html` remains the homepage. The alternative is unused, excluded from search indexing and not linked from the active site's navigation; keep it for future comparison.
 
 ## Run locally
 
