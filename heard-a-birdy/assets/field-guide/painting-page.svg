@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 140">
+    <g stroke="#263e48" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <!-- A slightly wonky frame and a sheet that refuses to lie quite flat. -->
+      <path d="M47 15L152 21L147 124L42 119Z" fill="#d7aa58"/>
+      <path d="M53 22L145 27L140 117L49 112Z" fill="#f5efdf"/>
+      <path d="M47 15L53 22M152 21L145 27M147 124L140 117M42 119L49 112" stroke-width="1" fill="none"/>
+      <path d="M48 32L45 83M44 96L44 109M150 34L146 89M59 120L85 121" stroke="#b78339" stroke-width="1.1" fill="none"/>
+      <path d="M58 30L138 34L134 109L56 106Z" fill="#f5efdf" stroke="#b8ad91" stroke-width=".7"/>
+      <!-- A single broad colour shape and a new, informal ink-and-paint bird. -->
+      <path d="M78 44C91 37 110 40 117 52C124 65 117 79 104 83C90 86 76 79 72 66C70 58 73 48 78 44Z" fill="#b7c8b1" stroke="none"/>
+      <path d="M73 54C70 46 76 41 82 44C87 45 89 51 88 56C102 53 114 66 112 77L127 81L114 87C98 94 80 83 78 70Z" fill="#d9836c"/>
+      <path d="M82 61C85 74 94 84 107 84C103 74 93 63 82 61Z" fill="#f5efdf" stroke="none"/>
+      <path d="M92 60C103 60 111 70 106 77C97 77 90 71 92 60Z" fill="#3e7878" stroke-width="1.2"/>
+      <path d="M96 64L103 72M95 68L98 72M99 63L106 69" stroke="#d7aa58" stroke-width=".9" fill="none"/>
+      <path d="M75 50L67 53L76 56" fill="#d7aa58" stroke-width="1.2"/>
+      <circle cx="80" cy="50" r="1.8" fill="#263e48" stroke="none"/>
+      <path d="M91 86L90 95L85 96M100 88L103 96L107 97M66 98C85 94 108 97 124 100" fill="none" stroke-width="1.3"/>
+      <path d="M81 44L82 40M88 72L90 76M90 79L93 82M112 82L119 83" fill="none" stroke-width=".8"/>
+      <!-- The paper curl catches a tiny coral edge. -->
+      <path d="M121 33C126 37 127 44 126 49C132 45 137 46 141 48C139 42 139 37 138 34Z" fill="#eee5d2" stroke-width="1.1"/>
+      <path d="M126 49C131 45 136 45 141 48L136 51Z" fill="#d9836c" stroke-width=".8"/>
+      <path d="M59 33L59 44M61 34L61 38M124 104L130 104" stroke="#dfd5bb" stroke-width=".8" fill="none"/>
+      <!-- A well-used brush, set down with its paint still on the tip. -->
+      <path d="M159 119L171 67L175 68L164 120Z" fill="#d9836c" stroke-width="1.3"/>
+      <path d="M171 67L173 58L177 59L175 68Z" fill="#eee5d2" stroke-width="1.1"/>
+      <path d="M173 58C171 51 178 47 178 40C183 48 182 54 177 59Z" fill="#3e7878" stroke-width="1.3"/>
+      <path d="M176 53L178 47" stroke="#a4bfaf" stroke-width=".8" fill="none"/>
+      <path d="M159 126C165 124 170 126 176 124" stroke="#d7aa58" stroke-width="1.1" fill="none"/>
+    </g>
+  </svg>

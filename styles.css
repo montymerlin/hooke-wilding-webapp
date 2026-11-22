@@ -97,6 +97,16 @@ body:not(.is-admin) .tag-pill__x{ display: none; }
   font-weight: 550;
 }
 .topbar__actions a:hover, .topbar__actions a[aria-current] { background: var(--sage); }
+.topbar__actions .nav-gift {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 8px 10px;
+  font-size: 22px;
+  line-height: 1;
+}
 .topbar__menuBtn { display: none; margin-left: auto; }
 .menu-icon { display: inline-block; width: 15px; height: 8px; border-block: 1.5px solid; margin-right: 5px; }
 .btn, .chip {
@@ -1108,6 +1118,7 @@ mark{
     align-items: stretch;
     gap: 10px;
   }
+  .topbar__actions .nav-gift { align-self: flex-start; }
   body.is-nav-open .topbar__actions .btn{
     width: 100%;
     justify-content: flex-start;

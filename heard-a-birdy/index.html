@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Heard a Birdy · A little gift for Julia</title>
+  <meta name="description" content="A listening garden for Julia at Hooke Farm. A gift from Monty and Kat.">
+  <link rel="icon" href="../assets/sunflower.webp">
+  <link rel="preload" as="font" type="font/woff2" href="../assets/type/instrument-serif.woff2" crossorigin>
+  <link rel="preload" as="image" href="../assets/about/mill-pond.webp">
+  <link rel="stylesheet" href="gift-wrap.css?v=cf03c017f0"><link rel="stylesheet" href="gift-hooke.css?v=1a7ab31b47">
+  <script defer src="example-data.js?v=958a6581cc"></script><script defer src="garden-dashboard.js?v=1e2eae0f36"></script>
+  <script defer src="gift-hooke.js?v=16201a45a0"></script><script defer src="gift-wrap.js?v=ab455f0cce"></script>
+</head>
+<body>
+<header class="farm-header">
+  <a class="farm-brand" href="../" aria-label="Return to Hooke Farm"><img src="../assets/sunflower.webp" width="36" height="36" alt=""><span>Hooke Farm <i>Wilding</i></span></a>
+  <span class="gift-location">A little gift from the garden</span>
+  <a class="farm-return" href="../about.html">Back to the farm</a>
+</header>
+<main id="intro" inert>
+  <section class="chapter invitation" data-chapter="0" aria-labelledby="welcome-title">
+    <img class="invitation-photo" src="../assets/about/mill-pond.webp" width="1600" height="1200" alt="The mill pond at Hooke, with reeds along the banks and the farm buildings beyond." fetchpriority="high">
+    <div class="invitation-shade"></div>
+    <div class="reveal-portraits" role="group" aria-label="Birds illustrated by Kat">
+      <figure><img src="assets/kat/goldfinch.webp" alt="" decoding="async"><figcaption>Goldfinch</figcaption></figure>
+      <figure><img src="assets/kat/jay.webp" alt="" decoding="async"><figcaption>Jay</figcaption></figure>
+      <figure><img src="assets/kat/wren.webp" alt="" decoding="async"><figcaption>Wren</figcaption></figure>
+      <figure><img src="assets/kat/barn-owl.webp" alt="" decoding="async"><figcaption>Barn owl</figcaption></figure>
+    </div>
+    <div class="invitation-copy">
+      <p class="eyebrow">For Julia · with love, from Monty &amp; Kat</p>
+      <h1 id="welcome-title" tabindex="-1">Heard a <i>Birdy</i></h1>
+      <p>A listening garden for you, Mum.<br>When a bird sings outside, its portrait takes shape indoors.</p>
+      <button class="button light" id="entrance">Step into the garden</button>
+    </div>
+    <p class="photo-caption">The mill pond, Hooke Farm <span>West Dorset</span></p>
+  </section>
+
+  <section class="chapter farm-story" data-chapter="1" hidden aria-labelledby="farm-title">
+    <div class="story-copy">
+      <p class="eyebrow">A place you’ve made for wildlife</p>
+      <h2 id="farm-title" tabindex="-1">You made room.<br><i>Life moved in.</i></h2>
+      <p>Paths through long grass. Springs feeding the ponds. A meadow left to flower.</p>
+      <p>In your account of wilding at Hooke, you described flocks of linnets and goldfinches swooping over the meadow.</p>
+      <p class="closing-line">This is a little way to get to know<br>the voices among them.</p>
+      <a class="source-link" href="https://juliahailes.com/wild-about-wilding-jan23/" target="_blank" rel="noopener">Julia’s farm account · January 2023</a>
+    </div>
+    <figure class="farm-portrait">
+      <img src="../assets/about/farm-summer.webp" width="1400" height="1050" alt="A mown path curves through long grass and yellow flowers beside the farmhouse at Hooke.">
+      <figcaption>The meadow path beside the farmhouse · Hooke Farm</figcaption>
+      <img class="portrait-bird" src="assets/birds/goldfinch.webp" alt="Kat’s illustrated goldfinch">
+    </figure>
+  </section>
+
+  <section class="chapter listening-story" data-chapter="2" hidden aria-labelledby="listen-title">
+    <div class="story-copy">
+      <p class="eyebrow">A song becomes a familiar face</p>
+      <h2 id="listen-title" tabindex="-1">Who’s that<br><i>in the garden?</i></h2>
+      <p>A small microphone will listen from a sheltered spot in your garden. When a bird calls, it picks up the sound and passes it to a little computer called a Raspberry Pi.</p>
+      <p>BirdNET listens for patterns in the call and suggests which bird sang. Indoors, you’ll see Kat’s portrait of a familiar visitor take shape.</p>
+      <p class="example-note">Imagine a goldfinch calling. This is an example of what your garden could hear.</p>
+      <a class="source-link gallery-link" href="#gallery-title">Browse Kat’s 45 bird portraits ↓</a>
+    </div>
+    <figure class="bird-study">
+      <span class="study-label">A possible voice in the garden</span>
+      <img class="study-perch" src="assets/hawthorn-perch.webp" alt="">
+      <img class="study-bird" src="assets/birds/goldfinch.webp" alt="Kat’s watercolour goldfinch, with a red face and bright yellow wing markings">
+      <svg class="song-lines" viewBox="0 0 120 100" aria-hidden="true"><path d="M20 38q18 12 0 24M45 22q40 28 0 56M75 9q55 41 0 82"/></svg>
+      <figcaption><span>Goldfinch</span><i>Carduelis carduelis</i></figcaption>
+      <div class="listening-path" aria-label="How the gift works"><span><img src="assets/field-guide/kit-mic.svg" alt="">Garden microphone</span><span><img src="assets/field-guide/garden-pi.svg" alt="">BirdNET on the Pi</span><span><img src="assets/field-guide/painting-page.svg" alt="">A portrait indoors</span></div>
+    </figure>
+    <section class="bird-gallery" aria-labelledby="gallery-title">
+      <h3 id="gallery-title" tabindex="-1">Kat’s bird portraits</h3>
+      <p>Kat painted these 45 birds for your listening garden.</p>
+      <div class="portrait-grid">
+        <figure>
+          <img src="assets/kat/barn-owl.webp" alt="" loading="lazy" decoding="async">
+          <figcaption>Barn owl<i>Tyto alba</i></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/kat/black-headed-gull.webp" alt="" loading="lazy" decoding="async">
+          <figcaption>Black-headed gull<i>Chroicocephalus ridibundus</i></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/kat/blackbird.webp" alt="" loading="lazy" decoding="async">
+          <figcaption>Blackbird<i>Turdus merula</i></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/kat/blackcap.webp" alt="" loading="lazy" decoding="async">
+          <figcaption>Blackcap<i>Sylvia atricapilla</i></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/kat/blue-tit.webp" alt="" loading="lazy" decoding="async">
+          <figcaption>Blue tit<i>Cyanistes caeruleus</i></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/kat/bullfinch.webp" alt="" loading="lazy" decoding="async">
+          <figcaption>Bullfinch<i>Pyrrhula pyrrhula</i></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/kat/buzzard.webp" alt="" loading="lazy" decoding="async">
+          <figcaption>Buzzard<i>Buteo buteo</i></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/kat/carrion-crow.webp" alt="" loading="lazy" decoding="async">
+          <figcaption>Carrion crow<i>Corvus corone</i></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/kat/chaffinch.webp" alt="" loading="lazy" decoding="async">
+          <figcaption>Chaffinch<i>Fringilla coelebs</i></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/kat/coal-tit.webp" alt="" loading="lazy" decoding="async">
+          <figcaption>Coal tit<i>Periparus ater</i></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/kat/collared-dove.webp" alt="" loading="lazy" decoding="async">
+          <figcaption>Collared dove<i>Streptopelia decaocto</i></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/kat/common-gull.webp" alt="" loading="lazy" decoding="async">
+          <figcaption>Common gull<i>Larus canus</i></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/kat/dunnock.webp" alt="" loading="lazy" decoding="async">
+          <figcaption>Dunnock<i>Prunella modularis</i></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/kat/feral-pigeon.webp" alt="" loading="lazy" decoding="async">
+          <figcaption>Feral pigeon<i>Columba livia</i></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/kat/fieldfare.webp" alt="" loading="lazy" decoding="async">
+          <figcaption>Fieldfare<i>Turdus pilaris</i></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/kat/goldcrest.webp" alt="" loading="lazy" decoding="async">
+          <figcaption>Goldcrest<i>Regulus regulus</i></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/kat/goldfinch.webp" alt="" loading="lazy" decoding="async">
+          <figcaption>Goldfinch<i>Carduelis carduelis</i></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/kat/great-spotted-woodpecker.webp" alt="" loading="lazy" decoding="async">
+          <figcaption>Great spotted woodpecker<i>Dendrocopos major</i></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/kat/great-tit.webp" alt="" loading="lazy" decoding="async">
+          <figcaption>Great tit<i>Parus major</i></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/kat/green-woodpecker.webp" alt="" loading="lazy" decoding="async">
+          <figcaption>Green woodpecker<i>Picus viridis</i></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/kat/greenfinch.webp" alt="" loading="lazy" decoding="async">
+          <figcaption>Greenfinch<i>Chloris chloris</i></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/kat/herring-gull.webp" alt="" loading="lazy" decoding="async">
+          <figcaption>Herring gull<i>Larus argentatus</i></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/kat/house-sparrow.webp" alt="" loading="lazy" decoding="async">
+          <figcaption>House sparrow<i>Passer domesticus</i></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/kat/jackdaw.webp" alt="" loading="lazy" decoding="async">
+          <figcaption>Jackdaw<i>Corvus monedula</i></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/kat/jay.webp" alt="" loading="lazy" decoding="async">
+          <figcaption>Jay<i>Garrulus glandarius</i></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/kat/little-owl.webp" alt="" loading="lazy" decoding="async">
+          <figcaption>Little owl<i>Athene noctua</i></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/kat/long-eared-owl.webp" alt="" loading="lazy" decoding="async">
+          <figcaption>Long-eared owl<i>Asio otus</i></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/kat/long-tailed-tit.webp" alt="" loading="lazy" decoding="async">
+          <figcaption>Long-tailed tit<i>Aegithalos caudatus</i></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/kat/magpie.webp" alt="" loading="lazy" decoding="async">
+          <figcaption>Magpie<i>Pica pica</i></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/kat/mallard.webp" alt="" loading="lazy" decoding="async">
+          <figcaption>Mallard<i>Anas platyrhynchos</i></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/kat/nuthatch.webp" alt="" loading="lazy" decoding="async">
+          <figcaption>Nuthatch<i>Sitta europaea</i></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/kat/pheasant.webp" alt="" loading="lazy" decoding="async">
+          <figcaption>Pheasant<i>Phasianus colchicus</i></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/kat/pied-wagtail.webp" alt="" loading="lazy" decoding="async">
+          <figcaption>Pied wagtail<i>Motacilla alba</i></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/kat/redwing.webp" alt="" loading="lazy" decoding="async">
+          <figcaption>Redwing<i>Turdus iliacus</i></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/kat/robin.webp" alt="" loading="lazy" decoding="async">
+          <figcaption>Robin<i>Erithacus rubecula</i></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/kat/rook.webp" alt="" loading="lazy" decoding="async">
+          <figcaption>Rook<i>Corvus frugilegus</i></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/kat/short-eared-owl.webp" alt="" loading="lazy" decoding="async">
+          <figcaption>Short-eared owl<i>Asio flammeus</i></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/kat/siskin.webp" alt="" loading="lazy" decoding="async">
+          <figcaption>Siskin<i>Spinus spinus</i></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/kat/song-thrush.webp" alt="" loading="lazy" decoding="async">
+          <figcaption>Song thrush<i>Turdus philomelos</i></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/kat/sparrowhawk.webp" alt="" loading="lazy" decoding="async">
+          <figcaption>Sparrowhawk<i>Accipiter nisus</i></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/kat/starling.webp" alt="" loading="lazy" decoding="async">
+          <figcaption>Starling<i>Sturnus vulgaris</i></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/kat/tawny-owl.webp" alt="" loading="lazy" decoding="async">
+          <figcaption>Tawny owl<i>Strix aluco</i></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/kat/treecreeper.webp" alt="" loading="lazy" decoding="async">
+          <figcaption>Treecreeper<i>Certhia familiaris</i></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/kat/woodpigeon.webp" alt="" loading="lazy" decoding="async">
+          <figcaption>Woodpigeon<i>Columba palumbus</i></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/kat/wren.webp" alt="" loading="lazy" decoding="async">
+          <figcaption>Wren<i>Troglodytes troglodytes</i></figcaption>
+        </figure>
+      </div>
+    </section>
+  </section>
+
+  <section class="chapter painting-story" data-chapter="3" hidden aria-labelledby="painting-title">
+    <div class="story-copy">
+      <p class="eyebrow">The pleasure of a closer look</p>
+      <h2 id="painting-title" tabindex="-1">Birdsong,<br><i>in watercolour.</i></h2>
+      <p>A sketch, a wash of colour, the small details. Each portrait takes a moment to appear.</p>
+      <p>Something to pause with while the real garden carries on outside.</p>
+      <p class="art-credit">Bird illustrations &amp; the listening garden<br><strong>Made by Kat</strong></p>
+    </div>
+    <figure class="art-study">
+      <div class="art-mount">
+        <video id="gift-painting" preload="auto" muted playsinline poster="assets/birds/goldfinch.webp" aria-label="A goldfinch painting appears from sketch to watercolour"><source src="assets/video/wall-portrait.mp4" type="video/mp4"></video>
+        <p id="video-error" hidden>The film couldn’t load. You can still explore the finished paintings on the next pages.</p>
+      </div>
+      <figcaption><span>One bird, slowly revealed</span><span class="media-controls"><button id="painting-toggle" aria-label="Play painting">Play painting</button><button id="painting-restart">Start again</button></span></figcaption>
+    </figure>
+  </section>
+
+  <section class="chapter layout-story" data-chapter="4" hidden aria-labelledby="branch-title">
+    <div class="layout-heading"><div><p class="eyebrow">A picture that grows with the day</p><h2 id="branch-title" tabindex="-1">A gathering <i>on the branch.</i></h2></div><p>Birds appear in the order they’re heard.<br>The sky colours follow the time of day.</p></div>
+    <figure class="wide-art"><div class="art-mount"><img src="assets/gift-view-branch-v2.jpg" width="1600" height="900" alt="Example left-to-right layout: Kat’s painted birds gathered along a branch under a changing sky"></div><figcaption><span>Along the branch</span><span>Example composition · not Hooke listening data</span></figcaption></figure>
+    <div class="layout-choice" aria-label="Painting layouts"><button class="selected" aria-pressed="true" data-go="4">Along the branch</button><button aria-pressed="false" data-go="5">In the painted tree</button></div>
+  </section>
+
+  <section class="chapter layout-story" data-chapter="5" hidden aria-labelledby="tree-title">
+    <div class="layout-heading"><div><p class="eyebrow">Another way to see who’s been by</p><h2 id="tree-title" tabindex="-1">A tree full <i>of familiar faces.</i></h2></div><p>Different voices find a place together.<br>A growing picture of the garden’s variety.</p></div>
+    <figure class="wide-art"><div class="art-mount"><img src="assets/gift-view-tree-v2.jpg" width="1600" height="900" alt="Example painted-tree layout: Kat’s illustrated birds arranged across the branches of a watercolour tree"></div><figcaption><span>In the painted tree</span><span>Example composition · not Hooke listening data</span></figcaption></figure>
+    <div class="layout-choice" aria-label="Painting layouts"><button aria-pressed="false" data-go="4">Along the branch</button><button class="selected" aria-pressed="true" data-go="5">In the painted tree</button></div>
+  </section>
+
+  <section class="chapter record-story" data-chapter="6" hidden aria-labelledby="record-title">
+    <header class="survey-head">
+      <div><p class="eyebrow">Ecological intelligence at Hooke Farm</p>
+        <h2 id="record-title" tabindex="-1">Your garden, <i>in numbers.</i></h2>
+        <p>Mum, when the listener recognises a call, it adds the bird’s name and the time to your diary. Look across those entries and you can see when the chorus starts, which voices return and how the garden changes through the seasons.</p>
+      </div>
+      <img src="assets/kat/robin.webp" width="160" height="140" alt="Kat’s painted robin">
+    </header>
+    <section class="survey" aria-labelledby="survey-title">
+      <header class="survey-bar">
+        <div><p class="survey-label">Illustrative data · Example garden</p><h3 id="survey-title">Listening dashboard</h3></div>
+        <label>Explore a species <select id="survey-species"><option value="">All birds</option></select></label>
+      </header>
+      <div class="survey-charts">
+        <figure class="survey-plot"><figcaption><h4>A year of birdsong</h4><p>Detections per listening hour · Nov 2025 – Oct 2026</p></figcaption>
+          <div id="survey-year"></div><p class="survey-reading" id="survey-year-note"></p>
+        </figure>
+        <figure class="survey-plot"><figcaption><h4>When the garden sings</h4><p>Average detections per listening hour · UK local time</p></figcaption>
+          <div id="survey-clock"></div><p class="survey-reading" id="survey-clock-note"></p>
+        </figure>
+      </div>
+      <div class="survey-charts survey-lower">
+        <section class="survey-plot" aria-labelledby="week-title"><h4 id="week-title">What changed this week?</h4>
+          <div id="survey-week" aria-live="polite"></div>
+        </section>
+        <section class="survey-plot" aria-labelledby="species-title"><h4 id="species-title">The voices in the diary</h4>
+          <p class="survey-period">All birds · 1–18 November 2026</p>
+          <p id="survey-totals"></p><ol id="survey-ranks" class="survey-ranks"></ol><p class="survey-reading" id="survey-history" hidden></p>
+        </section>
+      </div>
+      <details class="survey-values"><summary>See the chart values</summary><div id="survey-tables"></div></details>
+    </section>
+    <aside class="survey-context" aria-label="Reading the garden over time">
+      <div><h3>Is the wilding making a difference?</h3><p>Try comparing the same weeks in successive springs. If goldfinches turn up more regularly, look back at when the meadow went to seed and what you saw on your walks. Wind, rain and how often a bird calls can all change what the microphone hears. One bird can call many times.</p></div>
+      <div><h3>From Goa to your garden</h3><p>In my work with Ostara and ActforGoa, we bring ecological measurements together with what people know about the places they care for. Here, Mum, that means reading the birdsong alongside your own notes on the meadow.</p><a href="https://ecological-superintelligence-goa.vercel.app/" target="_blank" rel="noopener">Explore my ecological intelligence work in Goa ↗</a></div>
+    </aside>
+  </section>
+
+  <section class="chapter tech-story" data-chapter="7" hidden aria-labelledby="tech-title">
+    <header>
+      <p class="eyebrow">From Kat’s workbench to Hooke Farm</p>
+      <h2 id="tech-title" tabindex="-1">The tech behind<br><i>the listening garden.</i></h2>
+      <p>Kat designed the system and gave me the microphone, sound converter and Raspberry Pi. I’ll set them up here at Hooke, Mum, so you can see who’s singing outside.</p>
+    </header>
+    <figure class="farmhouse-scene">
+      <div class="farmhouse-illustration">
+        <img src="assets/field-guide/garden-to-farmhouse.webp" width="1859" height="846" loading="lazy" alt="A goldfinch calls above a sheltered garden microphone. Its cable leads to a Raspberry Pi beside the farmhouse. Inside, Kat’s goldfinch appears on a framed screen.">
+        <img class="farmhouse-screen-bird" src="assets/kat/goldfinch.webp" alt="" loading="lazy">
+      </div>
+      <figcaption>When the microphone picks up a call, the sound converter passes it to the Pi. BirdNET suggests the species, the server adds it to your diary, and the screen indoors can show Kat’s painting.</figcaption>
+    </figure>
+    <ol class="kit-steps">
+      <li>
+        <div class="kit-pair"><img src="assets/field-guide/kit-mic.svg" alt=""><img src="assets/field-guide/kit-converter.svg" alt=""></div>
+        <h3>The garden microphone</h3>
+        <p>Under shelter, the microphone picks up the birds. A USB sound converter turns their calls into a signal the Pi can read.</p>
+      </li>
+      <li>
+        <img src="assets/field-guide/garden-pi.svg" alt="">
+        <h3>The little computer</h3>
+        <p>BirdNET runs on the Raspberry Pi 4. It suggests a species and sends the name, time and confidence of the match to the garden’s server.</p>
+      </li>
+      <li>
+        <img src="assets/field-guide/painting-page.svg" alt="">
+        <h3>Your screen indoors</h3>
+        <p>The server keeps your listening diary. Open the garden on your screen and a browser brings Kat’s paintings to life.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="chapter closing-story" data-chapter="8" hidden aria-labelledby="closing-title">
+    <div class="closing-photo"><img src="../assets/about/mill-pond.webp" alt="The mill pond and farmhouse at Hooke, framed by the wilding meadow."><span>The mill pond · Hooke Farm</span></div>
+    <div class="closing-copy"><p class="eyebrow">For Mum, with love</p><h2 id="closing-title" tabindex="-1">For all the life<br>you’ve made<br><i>room for.</i></h2><p>A little gift to bring your garden<br>closer to you.</p><p class="signature">Love, Monty &amp; Kat</p><a class="button" href="https://gift.heardabirdy.157-180-70-10.sslip.io/">Explore the example garden</a><p class="destination-note">A demonstration to explore while your<br>listening garden is getting ready.</p><button class="text-button" id="gift-replay">Unwrap it again</button></div>
+  </section>
+
+  <nav id="story-navigation" aria-label="Gift story" hidden><button id="previous" aria-label="Previous chapter">Back</button><div class="story-progress"><span id="chapter-name"></span><span id="position"></span><div id="progress-track" aria-hidden="true"><i></i></div></div><button id="continue" class="button">Continue</button></nav>
+  <p id="story-announcement" class="sr-only" role="status" aria-live="polite"></p>
+</main>
+<noscript><div class="no-script"><p>Heard a Birdy is a listening garden for Julia, with love from Monty and Kat. Enable JavaScript to unwrap the illustrated story.</p><a href="../">Return to Hooke Farm</a></div></noscript>
+</body>
+</html>
