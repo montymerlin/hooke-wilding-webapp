@@ -245,16 +245,18 @@ function main() {
     month: "long", year: "numeric", timeZone: "UTC",
   });
 
-  function storyLink(item, compact) {
+  function storyLink(item, pick) {
     const article = item.type === "blog";
     const date = parseIsoDate(item.date);
     const credit = [item.author || item.publisher, date && monthYear.format(date)].filter(Boolean).join(" · ");
     const format = article ? "Article" : "Film";
     const action = article ? "Read" : "Watch";
     return `<li><a href="${escapeHtml(item.url)}" class="story-link" target="_blank" rel="noopener noreferrer" data-story-id="${escapeHtml(item.id)}">
-      ${compact ? "" : `<span class="story-link__format">${format}</span>`}
+      <span class="story-link__cover"><img src="${escapeHtml(item.cover || "./assets/about/farm-meadow.webp")}" loading="lazy" decoding="async" alt="" /></span>
+      ${pick ? "" : `<span class="story-link__format">${format}</span>`}
       <span class="story-link__text"><span class="story-link__title">${escapeHtml(storyTitle(item))}</span>
-      ${compact || !credit ? "" : `<span class="story-link__credit">${escapeHtml(credit)}</span>`}</span>
+      ${pick && item.summary ? `<span class="story-link__summary">${escapeHtml(item.summary)}</span>` : ""}
+      ${pick || !credit ? "" : `<span class="story-link__credit">${escapeHtml(credit)}</span>`}</span>
       <span class="story-link__action">${action} <span aria-hidden="true">${article ? "↗" : "▷"}</span></span>
     </a></li>`;
   }
@@ -297,7 +299,8 @@ function main() {
 
   function renderGrid() {
     const filtered = all.filter(matches).sort(compareItems);
-    $meta.textContent = filtered.length === 1 ? "1 story" : `${filtered.length} stories`;
+    const count = filtered.length === 1 ? "1 story" : `${filtered.length} stories`;
+    $meta.textContent = filtered.length ? `${count} · ${$sort.selectedOptions[0].textContent}` : count;
     $grid.innerHTML = filtered.length
       ? filtered.map(item => storyLink(item, false)).join("")
       : "<li class='archive-empty'>No stories found. Try another word or clear the filters.</li>";

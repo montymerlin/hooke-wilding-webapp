@@ -16,7 +16,7 @@ An **offline, interactive guide** to Hooke Farm’s wilding features — built f
   - Filter by group/habitat/season and search.
   - The selected species shares a spread with its photograph, identification notes, seasonality, credits and sources. “Look closer” opens annotated views of that photograph. Each detail in the species dataset specifies a label, note and crop as percentages of the original image.
 - **Discover (videos + blogs)**: `content.html` + `content.js`
-  - Curated library with search, filters, and sorting.
+  - A featured film and two editorial selections lead into a searchable archive. Films and articles share a newest-first publication order, with locally stored cover photographs.
   - YouTube videos play in a modal; blog links open in a new tab.
 - **Farm gallery**: `gallery.html` + `gallery.js`, with before-wilding photographs, artwork, search and a keyboard-operated viewer.
 - **About the farm**: `about.html` and `about.css` tell the history of the wilding project using Julia Hailes’s published accounts, the original field boards and farm photographs.
