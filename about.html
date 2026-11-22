@@ -3,172 +3,125 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>About — Hooke Farm Wilding Portal</title>
-    <meta name="description" content="About Hooke Farm Wilding and the Wilding Portal webapp." />
+    <title>How Hooke Farm went wild — About Hooke Farm</title>
+    <meta name="description" content="How Julia Hailes, Jamie Macdonald and the team at Hooke Farm made room for wildlife on nine acres in West Dorset, from the old mill pond to the wildflower meadows." />
     <link rel="icon" type="image/webp" href="./assets/sunflower.webp" />
     <link rel="apple-touch-icon" href="./assets/sunflower.webp" />
-    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./styles.css?v=atlas-20261121" />
+    <link rel="stylesheet" href="./about.css?v=farm-story" />
+    <link rel="stylesheet" href="./wildlife.css?v=verge-2" />
+    <script defer src="./wildlife.js?v=verge-2"></script>
   </head>
-  <body>
+  <body class="page-about">
+    <a class="skip-link" href="#page-content">Skip to content</a>
     <header class="topbar">
       <div class="topbar__inner">
-        <img class="topbar__icon" src="./assets/sunflower.webp" alt="" aria-hidden="true" />
-        <div class="brand">
-          <div class="brand__text">
-            <div class="brand__kicker">Hooke Farm</div>
-            <div class="brand__title">Wilding Portal</div>
-          </div>
-        </div>
-        <button
-          class="btn btn--ghost topbar__menuBtn"
-          id="navToggle"
-          type="button"
-          aria-label="Open menu"
-          aria-controls="topbarNav"
-          aria-expanded="false"
-        >
-          Menu
-        </button>
-        <nav class="topbar__actions" id="topbarNav" aria-label="Site">
-          <a class="btn btn--ghost" href="./index.html">Back to map</a>
-          <a class="btn btn--ghost" href="./field-guide.html">Living Dorset Field Guide</a>
-          <a class="btn btn--ghost" href="./gallery.html">Gallery</a>
-          <a class="btn btn--ghost" href="./content.html">Watch &amp; Read</a>
+        <a class="farm-brand" href="./index.html" aria-label="Hooke Farm Wilding home">
+          <img src="./assets/sunflower.webp" width="40" height="40" alt="" />
+          <span>Hooke Farm <i>Wilding</i></span>
+        </a>
+        <button class="btn topbar__menuBtn" id="navToggle" type="button" aria-label="Open menu" aria-controls="topbarNav" aria-expanded="false"><span class="menu-icon" aria-hidden="true"></span> Menu</button>
+        <nav class="topbar__actions" id="topbarNav" aria-label="Main navigation">
+          <a href="./index.html">Explore</a>
+          <a href="./content.html">Discover</a>
+          <a href="./field-guide.html">Field guide</a>
+          <a href="./gallery.html">Gallery</a>
+          <a href="./about.html" aria-current="page">About</a>
         </nav>
       </div>
     </header>
 
-    <main class="layout layout--single">
-      <section class="content" aria-label="About">
-        <div class="about">
-          <section class="about__section">
-            <div class="about__title">About Hooke Farm Wilding</div>
-            <div class="prose">
-              <p>
-                Hooke Farm is a place where the “tidy” line gets softened on purpose—so insects, birds, mammals, fungi,
-                and wildflowers can get on with the real work of making a landscape sing.
-              </p>
-              <p>
-                Wilding here isn’t about abandonment—it’s about <strong>attention</strong>. Making space for shelter,
-                food, and complexity, then letting the land do what it does best: knit together life in layers.
-              </p>
-              <p class="muted">
-                This page is a living draft. Add your own stories, observations, and photographs over time.
-              </p>
-            </div>
-
-            <div class="about__gallery" aria-label="Hooke Farm photos">
-              <figure class="about__figure">
-                <img
-                  class="about__img"
-                  src="./assets/about/hooke-farm-1.jpg"
-                  alt="Hooke Farm view"
-                  loading="lazy"
-                  onerror="this.closest('figure').style.display='none'"
-                />
-                <figcaption class="about__cap">A glimpse of Hooke Farm in summer.</figcaption>
-              </figure>
-              <figure class="about__figure">
-                <img
-                  class="about__img"
-                  src="./assets/about/hooke-farm-2.jpg"
-                  alt="Hooke Farm buildings and meadow"
-                  loading="lazy"
-                  onerror="this.closest('figure').style.display='none'"
-                />
-                <figcaption class="about__cap">Wildflower edges, big skies, and the working heart of the place.</figcaption>
-              </figure>
-            </div>
-
-            <div class="caption muted">
-              To show your two photos here, place them in <code>assets/about/</code> as
-              <code>hooke-farm-1.jpg</code> and <code>hooke-farm-2.jpg</code>.
-            </div>
-          </section>
-
-          <section class="about__section">
-            <div class="about__title">About this app</div>
-            <div class="prose">
-              <p>
-                The Wilding Portal is an offline webapp that turns info boards into an interactive guide:
-                a clickable map, searchable cards, readable text, seasonal notes, and photo galleries.
-              </p>
-              <p>
-                Admin mode lets you curate locally: edit titles and stories, add and remove photos, move pins,
-                hide features, or delete them permanently. Everything is saved in your browser storage.
-              </p>
-            </div>
-          </section>
-
-          <section class="about__section">
-            <div class="about__title">How to use the portal (quick guide)</div>
-            <div class="prose">
-              <p><strong>Explore</strong>: click a pin or a card to open a feature.</p>
-              <p><strong>Filter</strong>: click tags to filter both the map pins and the list.</p>
-              <p><strong>Tour</strong>: use the Tour panel to step through pinned features with an animated path.</p>
-              <p class="muted"><em>Placeholder:</em> add a short suggested “first-time route” here.</p>
-            </div>
-          </section>
-
-          <section class="about__section">
-            <div class="about__title">Site etiquette & care</div>
-            <div class="prose">
-              <p class="muted"><em>Placeholder:</em> add simple guidelines (stay on paths, don’t disturb shelters, respect wildlife).</p>
-            </div>
-          </section>
-
-          <section class="about__section">
-            <div class="about__title">Credits & contributors</div>
-            <div class="prose">
-              <p class="muted"><em>Placeholder:</em> list artists/board authors, photographers, and helpers.</p>
-            </div>
-          </section>
-
-          <section class="about__section">
-            <div class="about__title">Changelog</div>
-            <div class="prose">
-              <p class="muted"><em>Placeholder:</em> track what changed and when (new features, new photos, new boards).</p>
-            </div>
-          </section>
-
-          <section class="about__section">
-            <div class="about__title">Contact</div>
-            <div class="prose">
-              <p class="muted"><em>Placeholder:</em> add a contact email, QR code destination, or visitor info link.</p>
-            </div>
-          </section>
+    <main class="farm-account" id="page-content">
+      <header class="account-cover">
+        <img src="./assets/about/mill-pond.webp" width="1600" height="1200" alt="The mill pond in June, with reeds along its banks and the farm buildings beyond." fetchpriority="high" />
+        <div class="account-cover-copy">
+          <p>Hooke, West Dorset</p>
+          <h1>How Hooke Farm<br><i>went wild</i></h1>
         </div>
-      </section>
+      </header>
+
+      <div class="account-width">
+        <p class="account-intro">When environmentalist Julia Hailes and her husband Jamie Macdonald bought Hooke Farm, Julia still paid a mole catcher and put down slug pellets. A walk across their nine acres now takes you past spring-fed pools, a meadow alive with insects and the remains of a rather ambitious home for bats.</p>
+
+        <section class="account-origin" aria-labelledby="beginnings">
+          <div class="account-quote">
+            <blockquote>“The most exciting thing is discovering parts of our land where we’ve never been.”</blockquote>
+            <a href="https://juliahailes.com/wilding-has-started-jul20/">Julia Hailes, July 2020</a>
+          </div>
+          <div>
+            <div class="wild-heading"><h2 id="beginnings">It started with a pond</h2><div class="wild-perch" data-wildlife="toad"></div></div>
+            <p>In 2019, Julia began planning the wilding with help from Operation Future Hope’s Lesley Malpas and from Andrew George. Some corners of the farm were hard to reach through the nettles. The old mill pond had filled with so much silt that little open water remained.</p>
+            <p>When the diggers arrived in July 2020, the team found several springs. Working with the existing flow, they shaped a series of pools. A timber path now crosses the wet meadow. Andrew suggested the design and Joe Wood led the team that laid the oak planks on sweet chestnut stakes.</p>
+            <a class="account-link" href="./index.html?feature=our-sweet-track">Follow the Sweet Track <span aria-hidden="true">→</span></a>
+          </div>
+        </section>
+
+        <section class="account-grass" aria-labelledby="meadow">
+          <figure><img src="./assets/about/farm-summer.webp" width="1400" height="1050" alt="A mown path curves past the farmhouse through long grass and yellow flowers." loading="lazy" /><figcaption>A path cut through the meadow beside the farmhouse.</figcaption></figure>
+          <div>
+            <h2 id="meadow">Where the mower stops</h2>
+            <p>One of the biggest changes was deciding which grass to cut. A large lawn had needed regular mowing. The team began cutting paths through it, mowing much of the remaining grass only a couple of times a year and leaving some patches long through winter.</p>
+            <p>Julia noticed different grasses and a wildflower called corky-fruited water-dropwort. On warm evenings in 2022 she could hear insects humming over the grass. Linnets and goldfinches came through in flocks. Small cairns made from waste stone dug out of the yard mark the route used to count butterflies.</p>
+            <a class="account-link" href="./index.html?feature=insect-homes">Find the butterfly markers <span aria-hidden="true">→</span></a>
+          </div>
+        </section>
+
+        <section class="account-encounters" aria-labelledby="occupants">
+          <h2 id="occupants">Who moved in?</h2>
+          <div class="account-pair">
+            <article>
+              <img src="./assets/about/swift-box.webp" width="800" height="600" alt="Honey bees at the oval entrance of a wooden bird box." loading="lazy" />
+              <h3>Bees in the bird boxes</h3>
+              <p>The boxes were built for swifts. Starlings found them first, then a colony of honey bees took over. At times the farm team could see honey seeping through the wood.</p>
+              <a class="account-link" href="./index.html?feature=wild-bees-birds">Read the farm’s field board <span aria-hidden="true">→</span></a>
+            </article>
+            <article>
+              <img src="./assets/about/bat-egg-in-frost.webp" width="850" height="567" alt="The Bat Egg in a frosty clearing, with fallen stones below its exposed face." loading="lazy" />
+              <h3>A second life for the Bat Egg</h3>
+              <p>Stone carver Tom Clark finished the egg in December 2021. Droppings showed that bats had visited the chamber. They never settled, and the stonework later collapsed. The farm decided to leave the ruin for wildflowers.</p>
+              <a class="account-link" href="./index.html?feature=the-bat-egg">See the egg before and after <span aria-hidden="true">→</span></a>
+            </article>
+          </div>
+        </section>
+
+        <section class="account-weekends" aria-labelledby="weekends">
+          <img src="./assets/about/farmyard-bunting.webp" width="620" height="827" alt="Strings of bunting cross the yard between the farm buildings." loading="lazy" />
+          <div>
+            <h2 id="weekends">Opening the farm gate</h2>
+            <p>In June 2022, Julia and Jamie opened Hooke through the National Garden Scheme for the first Wilding Weekend. Visitors could go out with the Bumblebee Conservation Trust to identify bees, then see the moths Butterfly Conservation had collected the night before.</p>
+            <p>The following summer, Jamie led tours starting in the water meadow. Adam Gale helped lead the wilding work and gardener Rachael Moss tended a vegetable garden full of flowers. Their work gave visitors something they could try at home, even in a single bed or a strip of lawn.</p>
+            <p>The third and final Wilding Weekend took place in June 2024. The films, field boards and photographs on this portal let you follow those walks in your own time.</p>
+            <div class="account-actions"><a class="account-button" href="./index.html">Explore the farm map <span aria-hidden="true">→</span></a><a class="account-link" href="./content.html">Watch the weekend films <span aria-hidden="true">→</span></a></div>
+          </div>
+        </section>
+
+        <aside class="account-reading" aria-label="Original accounts">
+          <details><summary>Sources and further reading</summary>
+            <ul>
+              <li><a href="https://juliahailes.com/going-wild-in-dorset-sep19/">Going wild in Dorset</a> · Julia’s first plans, September 2019</li>
+              <li><a href="https://juliahailes.com/wilding-has-started-jul20/">Wilding has started</a> · The mill pond and springs, July 2020</li>
+              <li><a href="https://juliahailes.com/wild-about-wilding-jan23/">Wild about Wilding</a> · Julia on changing habits, mowing and wildlife, January 2023</li>
+              <li><a href="https://ngs.org.uk/three-go-wild-in-dorset/">Three go wild in Dorset</a> · The National Garden Scheme on Hooke’s first opening</li>
+              <li><a href="https://juliahailes.com/our-wilding-weekend-was-wonderful-jun23/">Our Wilding Weekend Was Wonderful!</a> · The people behind the 2023 weekend</li>
+              <li><a href="https://juliahailes.com/wilding-weekend/">Julia’s Wilding Weekend archive</a> · Films and reflections from the three weekends</li>
+            </ul>
+          </details>
+        </aside>
+      </div>
     </main>
 
-    <footer class="site-footer" role="contentinfo">
-      <div class="site-footer__inner">
-        <div class="site-footer__brand">
-          <div class="site-footer__sigil" aria-hidden="true"></div>
-          <div class="site-footer__brandText">
-            <div class="site-footer__title">Hooke Farm Wilding Portal</div>
-            <div class="site-footer__tagline">Wander slowly. Notice more. Let the edges bloom.</div>
-          </div>
-        </div>
-
-        <nav class="site-footer__nav" aria-label="Site">
-          <a class="site-footer__link" href="./index.html">Explore map</a>
-          <a class="site-footer__link" href="./field-guide.html">Field guide</a>
-          <a class="site-footer__link" href="./gallery.html">Gallery</a>
-          <a class="site-footer__link" href="./content.html">Watch &amp; Read</a>
-          <a class="site-footer__link" href="./about.html">About</a>
-        </nav>
-
-        <div class="site-footer__meta">
-          <div class="site-footer__note">
-            Contact us:
-            <a class="site-footer__contact" href="mailto:julia@juliahailes.com">julia@juliahailes.com</a>
-          </div>
-          <div class="site-footer__note muted">Made for slow walks, bright wings, and the occasional nettle.</div>
-        </div>
+    <footer class="farm-footer" id="meadow-verge">
+      <div class="farm-footer__inner">
+        <a class="farm-brand" href="./index.html"><img src="./assets/sunflower.webp" width="34" height="34" alt="" /><span>Hooke Farm <i>Wilding</i></span></a>
+        <nav aria-label="Footer navigation"><a href="./index.html">Explore</a>
+          <a href="./content.html">Discover</a>
+          <a href="./field-guide.html">Field guide</a>
+          <a href="./gallery.html">Gallery</a>
+          <a href="./about.html" aria-current="page">About</a></nav>
+        <a class="farm-footer__contact" href="mailto:julia@juliahailes.com">Contact the farm <span aria-hidden="true">↗</span></a>
       </div>
     </footer>
-    <script src="./nav.js"></script>
+    <script src="./nav.js?v=atlas-20261121"></script>
   </body>
 </html>
 
