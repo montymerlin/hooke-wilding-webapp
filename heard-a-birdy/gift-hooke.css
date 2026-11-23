@@ -88,7 +88,6 @@ body:has(.gift-wrap:not([hidden])) .reveal-portraits { visibility: hidden; }
   line-height: 1.05;
   scroll-margin-top: 24px;
 }
-.bird-gallery > p { margin-top: 12px; color: var(--muted); }
 .gallery-link { font-size: 14px; color: var(--ink); }
 .portrait-grid {
   display: grid;
@@ -157,7 +156,6 @@ body:has(.gift-wrap:not([hidden])) .reveal-portraits { visibility: hidden; }
   gap: 0 clamp(24px, 5vw, 72px);
   align-items: end;
 }
-.tech-story:has(.farmhouse-scene:not([hidden])) .eyebrow { grid-column: 1 / -1; margin-bottom: 12px; }
 .tech-story:has(.farmhouse-scene:not([hidden])) h2 { font-size: clamp(40px, 4vw, 64px); }
 .farmhouse-scene { max-width: 1060px; margin: clamp(20px, 3vh, 36px) auto 0; }
 .farmhouse-illustration { position: relative; isolation: isolate; }
@@ -190,6 +188,25 @@ body:has(.gift-wrap:not([hidden])) .reveal-portraits { visibility: hidden; }
   .tech-story:has(.farmhouse-scene:not([hidden])) header { display: block; }
   .farmhouse-scene { margin-inline: calc(12px - var(--gutter)); }
   .farmhouse-scene figcaption { padding-inline: calc(var(--gutter) - 12px); }
+}
+
+.listener-future {
+  margin-top: clamp(40px, 6vw, 88px);
+  padding-top: clamp(24px, 3vw, 42px);
+  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  column-gap: clamp(24px, 4vw, 64px);
+  align-items: center;
+}
+.listener-future h3 { grid-column: 1 / -1; margin-bottom: 24px; font-size: clamp(36px, 4vw, 60px); line-height: 1.05; }
+.listener-future img { width: 100%; height: auto; }
+.listener-future figcaption { margin-top: 8px; font-size: 13px; color: var(--muted); }
+.listener-future-copy { max-width: 56ch; }
+.listener-future-copy p + p { margin-top: 16px; }
+@media (max-width: 800px) {
+  .listener-future { grid-template-columns: 1fr; }
+  .listener-future-copy { margin-top: 20px; }
 }
 
 /* Julia's listening dashboard */
